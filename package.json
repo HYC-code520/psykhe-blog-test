@@ -1,0 +1,21 @@
+{
+  "name": "psykhe-website",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint": "biome lint --write .",
+    "lint:fix": "biome check --write .",
+    "prepare": "lefthook install"
+  },
+  "dependencies": {
+    "astro": "^5.13.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.2",
+    "lefthook": "^1.12.3"
+  }
+}
