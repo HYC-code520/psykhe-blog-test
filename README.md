@@ -50,3 +50,6 @@ npx lefthook install    # Install git hooks
 npx lefthook run pre-commit  # Test pre-commit hook manually
 ```
 
+### Building Astro sites with AI tools 
+
+https://docs.astro.build/en/guides/build-with-ai/ 
