@@ -1,3 +1,13 @@
+---
+import Footer from '../components/Footer.astro';
+
+export interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -9,6 +19,7 @@
 	</head>
 	<body>
 		<slot />
+		<Footer />
 	</body>
 </html>
 

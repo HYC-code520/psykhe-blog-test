@@ -13,20 +13,47 @@ const { entry } = Astro.props;
 ---
 
 <Layout title={`${entry.title} | Glossary | PSYKHE`}>
-  <div class="container">
-    <div class="entry-page">
-      <div class="entry-content">
-        <h1 class="entry-title">{entry.title}</h1>
-        {entry.paragraphs.map(paragraph => (
-          <p class="entry-paragraph">{paragraph}</p>
-        ))}
+  <div class="glossary-container">
+    <!-- Keep this brand header - it's in the original -->
+    <div class="brand">
+      <a href="/">PSYKHE AI</a>
+    </div>
+    
+    <div class="container">
+      <div class="entry-page">
+        <div class="entry-content">
+          <h1 class="entry-title">{entry.title}</h1>
+          {entry.paragraphs.map(paragraph => (
+            <p class="entry-paragraph">{paragraph}</p>
+          ))}
+        </div>
+        <a class="btn-black" href="/glossary/">BACK TO GLOSSARY</a>
       </div>
-      <a class="btn-black" href="/glossary">BACK TO GLOSSARY</a>
+    </div>
+
+    <!-- ADD: Find Out More button section -->
+    <div class="take-test-row">
+      <a class="btn-home-tan" href="/">FIND OUT MORE</a>
     </div>
   </div>
 </Layout>
 
 <style>
+  /* BASIC styling for now - replace with SCSS later */
+  .glossary-container {
+    min-height: 100vh;
+    background: white;
+  }
+  
+  .brand {
+    background: #000;
+    padding: 1rem 2rem;
+  }
+  .brand a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
   .container {
     max-width: 800px;
     margin: 0 auto;
@@ -39,15 +66,36 @@ const { entry } = Astro.props;
   .entry-paragraph {
     margin-bottom: 1.5rem;
     line-height: 1.6;
-    font-size: 1.1rem;
   }
   .btn-black {
-    display: inline-block;
     background: #333;
     color: white;
     padding: 0.75rem 1.5rem;
     text-decoration: none;
     border-radius: 4px;
     margin-top: 2rem;
+    display: inline-block;
+  }
+  
+  /* ADD: Styles for the Find Out More button */
+  .take-test-row {
+    text-align: center;
+    padding: 3rem 0;
+    background: #f8f9fa;
+  }
+  
+  .btn-home-tan {
+    display: inline-block;
+    background: #d2b48c;
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .btn-home-tan:hover {
+    background: #c19a6b;
   }
 </style>

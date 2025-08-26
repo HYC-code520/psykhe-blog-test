@@ -1,6 +1,8 @@
+
 ---
 import { glossaryEntries } from '../../data/glossary';
 import Layout from '../../layouts/Layout.astro';
+
 
 // Group entries by first letter
 const groupedEntries = glossaryEntries.reduce((acc, entry) => {
@@ -20,32 +22,46 @@ sortedLetters.forEach(letter => {
 ---
 
 <Layout title="Personalization Glossary | PSYKHE">
-  <div class="container">
-    <div class="header">
-      <h1>Personalization Glossary</h1>
-      <p>
-        At PSYKHE, we're obsessed with the why: Why do we like the things we like? 
-        Understanding all the factors that drive individual taste enables us to create 
-        the world's most sophisticated recommendation engine.
-      </p>
+  <div class="glossary-container">
+    <div class="brand">
+      <a href="/">PSYKHE AI</a>
     </div>
     
-    <div class="sections">
-      {sortedLetters.map(letter => (
-        <div class="section">
-          <h2 class="letter">{letter}</h2>
-          {groupedEntries[letter].map(entry => (
-            <div class="entry" id={entry.slug}>
-              <a href={`/glossary/${entry.slug}/`}>
-                <h3 class="entry-title">{entry.title}</h3>
-              </a>
-              {entry.paragraphs.map(paragraph => (
-                <p class="entry-paragraph">{paragraph}</p>
-              ))}
-            </div>
-          ))}
+    <div class="header-container">
+      <div class="container header">
+        <div class="message">
+          <p class="header-title">Personalization Glossary</p>
+          <p class="header-message">
+            At PSYKHE, we're obsessed with the why: Why do we like the things we like? Why does one person like a pair
+            of shoes, a sofa, a travel destination, or a song, while someone else does not? Understanding all the
+            factors that drive individual taste, including personality and psychographic data, enables us to create
+            the world's most sophisticated recommendation engine. After all, you can't personalize without
+            personality. Shaping a stellar recommendation strategy is a big job, so to help you grasp what a complete
+            AI personalization blueprint for your business entails, we've collated definitions related to
+            personalization here.
+          </p>
         </div>
-      ))}
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="sections">
+        {sortedLetters.map(letter => (
+          <div class="section">
+            <p class="letter">{letter}</p>
+            {groupedEntries[letter].map(entry => (
+              <div class="entry" id={entry.slug}>
+                <a href={`/glossary/${entry.slug}/`}>
+                  <h1 class="entry-title">{entry.title}</h1>
+                </a>
+                {entry.paragraphs.map(paragraph => (
+                  <p class="entry-paragraph">{paragraph}</p>
+                ))}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
     
     <div class="take-test-row">
@@ -55,48 +71,102 @@ sortedLetters.forEach(letter => {
 </Layout>
 
 <style>
+  .glossary-container {
+    min-height: 100vh;
+    background: white;
+  }
+  
+  .brand {
+    padding: 1rem 2rem;
+    background: #000;
+  }
+  
+  .brand a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  .header-container {
+    background: #f8f9fa;
+    padding: 3rem 0;
+  }
+  
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 0 2rem;
   }
-  .header {
-    text-align: center;
-    margin-bottom: 3rem;
+  
+  .header-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
   }
+  
+  .header-message {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666;
+    max-width: 800px;
+  }
+  
+  .sections {
+    padding: 2rem 0;
+  }
+  
   .letter {
     font-size: 2rem;
     font-weight: bold;
-    margin: 2rem 0 1rem 0;
+    margin: 3rem 0 1rem 0;
+    padding-bottom: 0.5rem;
     border-bottom: 2px solid #ddd;
+    color: #333;
   }
+  
   .entry {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    padding: 1rem 0;
   }
+  
   .entry-title {
     color: #0066cc;
     text-decoration: none;
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
   }
+  
   .entry-title:hover {
     text-decoration: underline;
   }
+  
   .entry-paragraph {
     margin-bottom: 1rem;
-    line-height: 1.6;
+    line-height: 1.7;
+    color: #444;
+    font-size: 1rem;
   }
+  
+  .take-test-row {
+    text-align: center;
+    padding: 3rem 0;
+    background: #f8f9fa;
+  }
+  
   .btn-home-tan {
     display: inline-block;
-    background: #tan;
+    background: #d2b48c;
     color: white;
     padding: 1rem 2rem;
     text-decoration: none;
     border-radius: 4px;
-    margin: 2rem auto;
+    font-weight: bold;
+    text-transform: uppercase;
   }
-  .take-test-row {
-    text-align: center;
-    margin-top: 3rem;
+  
+  .btn-home-tan:hover {
+    background: #c19a6b;
   }
 </style>
