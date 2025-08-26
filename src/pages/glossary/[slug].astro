@@ -1,0 +1,53 @@
+---
+import { glossaryEntries } from '../../data/glossary';
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  return glossaryEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<Layout title={`${entry.title} | Glossary | PSYKHE`}>
+  <div class="container">
+    <div class="entry-page">
+      <div class="entry-content">
+        <h1 class="entry-title">{entry.title}</h1>
+        {entry.paragraphs.map(paragraph => (
+          <p class="entry-paragraph">{paragraph}</p>
+        ))}
+      </div>
+      <a class="btn-black" href="/glossary">BACK TO GLOSSARY</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  .entry-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .entry-paragraph {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    font-size: 1.1rem;
+  }
+  .btn-black {
+    display: inline-block;
+    background: #333;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 2rem;
+  }
+</style>
