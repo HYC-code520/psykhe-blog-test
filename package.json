@@ -2,14 +2,22 @@
   "name": "psykhe-website",
   "type": "module",
   "version": "0.0.1",
-  "dependencies": {},
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint": "biome lint --write .",
+    "lint:fix": "biome check --write .",
+    "prepare": "lefthook install"
+  },
+  "dependencies": {
+    "astro": "^5.13.3",
+    "bootstrap": "^4.6.2"
+  },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@tailwindcss/typography": "^0.5.16",
-    "@tailwindcss/vite": "^4.1.12",
-    "astro": "^5.14.1",
-    "sass": "^1.91.0",
-    "tailwindcss": "^4.1.13",
-    "typescript": "^5.9.3"
+    "@biomejs/biome": "2.2.2",
+    "lefthook": "^1.12.3",
+    "sass": "^1.91.0"
   }
 }

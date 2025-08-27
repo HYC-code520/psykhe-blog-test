@@ -1,0 +1,72 @@
+---
+// Navbar component with exact styling from about page
+---
+
+<div class="navbar-wrapper">
+  <div class="brand">
+    <a href="/">PSYKHE AI</a>
+  </div>
+</div>
+
+<style lang="scss">
+// Import the mixins first
+@import '../styles/_variables.scss';
+
+// Add the media-breakpoint-up mixin since it's not available
+@mixin media-breakpoint-up($breakpoint) {
+  @if $breakpoint == md {
+    @media (min-width: 768px) {
+      @content;
+    }
+  }
+  @if $breakpoint == lg {
+    @media (min-width: 992px) {
+      @content;
+    }
+  }
+}
+
+.navbar-wrapper {
+  background: white;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.brand {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: left;
+
+  a {
+    font-size: 2rem;
+    background-image: url(/media/brand/logoword-dark-ai.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 0 5px;
+    color: rgba(0, 0, 0, 0);
+    text-decoration: none;
+
+    &:active,
+    &:focus,
+    &:hover,
+    &:visited {
+      color: rgba(0, 0, 0, 0);
+    }
+
+    padding: 0;
+    display: inline-block;
+    width: 185px;
+
+    margin-left: 1rem;
+    margin-top: 1rem;
+
+    @include media-breakpoint-up(md) {
+      width: 240px;
+      top: -15px !important;
+      background-position: top center;
+    }
+  }
+}
+</style>

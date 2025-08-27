@@ -1,0 +1,56 @@
+.psykhe-landing {
+  background: white;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  .psykhe-landing-scope-links-outer {
+    background: linear-gradient(89.21deg, #c0f771 4.79%, #3773f2 50.14%, #ca43d7 99.46%);
+  }
+
+  ul.psykhe-landing-scope-links {
+    max-width: 1500px;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+
+    li {
+      text-transform: uppercase;
+      font-weight: bold;
+      margin-left: 1em;
+      line-height: 0.5rem;
+      border-bottom: 2px solid transparent;
+
+      &:first-child {
+        margin-left: 1.75rem;
+      }
+
+      a:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  ul.psykhe-landing-scope-links li.active,
+  ul.psykhe-landing-scope-links:hover li.active:hover,
+  ul.psykhe-landing-scope-links:hover li:hover {
+    border-bottom: 2px solid black;
+    cursor: pointer;
+  }
+
+  ul.psykhe-landing-scope-links:hover li.active {
+    border-bottom: none;
+  }
+
+  .logo {
+    width: 100%;
+    height: 10rem;
+    align-items: flex-end;
+    text-align: center;
+    padding-bottom: 5rem;
+
+    display: flex;
+    justify-content: center;
+  }
+}
