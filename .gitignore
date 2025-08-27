@@ -28,11 +28,10 @@ lerna-debug.log*
 # IDEs
 .idea/
 .vscode-test
-.cursor/
-.claude/
 
-# Local Claude files
+# Local files
 **/*.local.md
+**/*.local.json
 
 # Cache directories
 .cache/
