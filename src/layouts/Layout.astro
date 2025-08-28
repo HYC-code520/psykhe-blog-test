@@ -1,6 +1,4 @@
 ---
-import Footer from '../components/Footer.astro';
-
 export interface Props {
 	title: string;
 }
@@ -19,15 +17,14 @@ const { title } = Astro.props;
 	</head>
 	<body>
 		<slot />
-		<Footer />
+		<!-- NO FOOTER HERE ANYMORE -->
 	</body>
 </html>
 
-<style lang="scss">
+<style lang="scss" is:global>
 	@import '../styles/app.scss';
 	
-	html,
-	body {
+	html, body {
 		margin: 0;
 		width: 100%;
 		height: 100%;

@@ -1,296 +1,309 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="Psychological Personalization | PSYKHE">
-  <div class="psykhe-landing">
-    <div class="psykhe-b2b">
-      <div class="outer">
-        <div class="circuit"></div>
-        <div class="inner">
-          <div class="gradient">
-            <div class="row top">
-              <div class="col-md-3">
-                <img src="/media/b2b/ww/logoword.svg" alt="PSYKHE AI logo" />
+  <div class="home-wrapper">
+    <div class="psykhe-landing">
+      <div class="psykhe-b2b">
+        <div class="outer">
+          <div class="circuit"></div>
+          <div class="inner">
+            <div class="gradient">
+              <div class="row top">
+                <div class="col-md-3">
+                  <img src="/media/b2b/ww/logoword2.svg" alt="PSYKHE AI logo" style="width: 100%; height: auto;" />
+                </div>
+                <div class="nav-case-studies">
+                  <a href="#case-studies">Case&nbsp;Studies </a>
+                </div>
+                <div class="nav-book-demo">
+                  <a href="#signup">Book&nbsp;a&nbsp;Demo</a>
+                </div>
               </div>
-              <div class="nav-case-studies">
-                <a href="#case-studies">Case&nbsp;Studies </a>
-              </div>
-              <div class="nav-book-demo">
-                <a href="#signup">Book&nbsp;a&nbsp;Demo</a>
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="col-12 col-md-6 lead">
-                <h2>The world’s smartest AI-merchandising engine, powered by patented psychographic intelligence.</h2>
-                <div class="lead-content">
-                  <p>The right products. The right order. For every shopper, every time.</p>
+              <div class="row">
+                <div class="col-12 col-md-6 lead">
+                  <h2>The world’s smartest AI-merchandising engine, powered by patented psychographic intelligence.</h2>
+                  <div class="lead-content">
+                    <p>The right products. The right order. For every shopper, every time.</p>
+                  </div>
+                  <div class="lead-button"><a class="learn-more" href="#signup">Learn More</a></div>
+                  <div class="lead-button case-study-button">
+                    <a class="learn-more" href="#case-studies">Case Studies</a>
+                  </div>
                 </div>
-                <div class="lead-button"><a class="learn-more" href="#signup">Learn More</a></div>
-                <div class="lead-button case-study-button">
-                  <a class="learn-more" href="#case-studies">Case Studies</a>
+                <div class="d-none d-md-block col-md-6 callouts">
+                  <button class="callout-personalized btn-b2b btn-gradient">PERSONALIZED MERCHANDISING</button>
                 </div>
-              </div>
-              <div class="d-none d-md-block col-md-6 callouts">
-                <button class="callout-personalized btn-b2b btn-gradient">PERSONALIZED MERCHANDISING</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="psykhe-b2b-content">
-      <div class="row">
-        <div class="col circular">
-          <span class="circle">&nbsp;6X</span>
-          <span class="circle-label">INCREASE IN CONVERSION RATE THROUGH PSYKHE AI's MODELS</span>
-        </div>
-        <div class="col circular">
-          <span class="circle">65%</span>
-          <span class="circle-label">missed sales opportunities due to static PLPs (category pages)</span>
-        </div>
-        <div class="col circular">
-          <span class="circle">11X</span>
-          <span class="circle-label">AOV increase due to surfacing relevant adjacencies</span>
+      <div class="psykhe-b2b-content">
+        <div class="row">
+          <div class="col circular">
+            <span class="circle">&nbsp;6X</span>
+            <span class="circle-label">INCREASE IN CONVERSION RATE THROUGH PSYKHE AI's MODELS</span>
+          </div>
+          <div class="col circular">
+            <span class="circle">65%</span>
+            <span class="circle-label">missed sales opportunities due to static PLPs (category pages)</span>
+          </div>
+          <div class="col circular">
+            <span class="circle">11X</span>
+            <span class="circle-label">AOV increase due to surfacing relevant adjacencies</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="psykhe-b2b-compare-screens">
-      <div class="cs-inner">
-        <div class="cs-text-block">
-          <div class="row">
-            <div class="col col-md cs-lead">
-              <h2>Turn Data Into Dollars</h2>
-              <div class="cs-lead-content">
+      <div class="psykhe-b2b-compare-screens">
+        <div class="cs-inner">
+          <div class="cs-text-block">
+            <div class="row">
+              <div class="col col-md cs-lead">
+                <h2>Turn Data Into Dollars</h2>
+                <div class="cs-lead-content">
+                  <p>
+                    People can't buy what they can't see, and it's impossible to manually curate for millions of online
+                    customers. PSYKHE AI is the brain of a super personal-shopper at scale, who instantly gets everyone.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <img src="/media/b2b/ww/compare_screen.png" class="img-fluid d" alt="Compare Screens" />
+            <img src="/media/b2b/ww/compare_screen_mobile.png" class="img-fluid m" alt="Compare Screens" />
+          </div>
+        </div>
+      </div>
+      <div class="compare-screen-labels-outer">
+        <!--      <div class="compare-screen-labels">
+          <div class="compare-screen-label-column a">
+            <img src="/media/b2b/ww/the_status_quo.svg" class="img-fluid" />
+          </div>
+          <div class="compare-screen-label-column b">
+            <img src="/media/b2b/ww/psykhe.svg" class="img-fluid" />
+          </div>
+        </div>-->
+      </div>
+
+      <div class="psykhe-ai-case-studies">
+        <div class="psykhe-ai-case-studies-in">
+          <div class="psykhe-ai-case-studies-in-text">
+            <h2 id="case-studies">Case Studies</h2>
+          </div>
+
+          <!-- Carousel Container - Requires a library (e.g., vue-slick-carousel, swiper) or custom JS for functionality -->
+          <div class="case-studies-carousel">
+            <!-- MY -->
+            <div class="case-studies-slide">
+              <div class="case-studies-content">
+                <h3>
+                  Mine & Yours achieved a +15.6% increase in sustained Conversion Rate thanks to PSYKHE AI’s real-time
+                  per-user AI-merchandising
+                </h3>
                 <p>
-                  People can't buy what they can't see, and it's impossible to manually curate for millions of online
-                  customers. PSYKHE AI is the brain of a super personal-shopper at scale, who instantly gets everyone.
+                  "As a resale platform, our inventory is one-of-a-kind - literally. PSYKHE AI somehow just gets taste.
+                  It’s like having the most intuitive shop-floor stylist built into the site, always pulling the perfect
+                  pieces for each customer.”
+                </p>
+                <cite>— Courtney Watkins, Owner, Mine & Yours</cite>
+                <p class="methodology-text">
+                  <b>Methodology:</b> We ran a clean A/B test over three months on category pages (PLPs). One group used
+                  PSYKHE AI’s psychographic-powered, real-time PLP ranking; the other relied on the site’s existing sort
+                  logic.
                 </p>
               </div>
+              <div class="case-studies-image">
+                <img
+                  src="/media/b2b/ww/case-studies/my_courtney_watkins.png"
+                  alt="Courtney Watkins, Owner, Mine & Yours"
+                />
+              </div>
+            </div>
+
+            <!-- KZ -->
+            <div class="case-studies-slide">
+              <div class="case-studies-content">
+                <h3>
+                  Kirna Zabête achieved an +18% increase in Revenue-Per-Visitor thanks to PSYKHE AI’s real-time per-user
+                  AI-merchandising
+                </h3>
+                <p>
+                  “PSYKHE AI delivered an +18% lift in RPV - but beyond the numbers, they captured the emotional core of
+                  how our customers shop. The experience feels more curated, more intuitive, and their system respects the
+                  individuality required of our multibrand assortment. It’s like giving each visitor their own personal
+                  stylist, but smarter and scalable.”
+                </p>
+                <cite>— Beth Buccini, Founder & Owner, Kirna Zabête</cite>
+                <p class="methodology-text">
+                  <b>Methodology:</b> We ran a clean A/B test over six months on category pages (PLPs). One group used
+                  PSYKHE AI’s psychographic-powered, real-time PLP ranking; the other relied on the site’s existing sort
+                  logic. RPV encompasses lift in both average basket value and conversion rate.
+                </p>
+              </div>
+              <div class="case-studies-image">
+                <img
+                  src="/media/b2b/ww/case-studies/kirna_zabete.png"
+                  alt="Beth Buccini, Founder & Owner, Kirna Zabête"
+                />
+              </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="text-center">
-          <img src="/media/b2b/ww/compare_screen.png" class="img-fluid d" alt="Compare Screens" />
-          <img src="/media/b2b/ww/compare_screen_mobile.png" class="img-fluid m" alt="Compare Screens" />
+      <div class="psykhe-ai-video-container">
+        <div class="psykhe-ai-video-container-in">
+          <div class="psykhe-ai-video-container-in-text">
+            <h2>Why we're different:</h2>
+          </div>
+        </div>
+
+        <div>
+          <video controls>
+            <source
+              src="https://s3.eu-west-1.amazonaws.com/media.psykhefashion.com/x/psykhe_ai_compressed.mp4"
+              type="video/mp4"
+            />
+          </video>
         </div>
       </div>
-    </div>
-    <div class="compare-screen-labels-outer">
-      <!--      <div class="compare-screen-labels">
-        <div class="compare-screen-label-column a">
-          <img src="/media/b2b/ww/the_status_quo.svg" class="img-fluid" />
-        </div>
-        <div class="compare-screen-label-column b">
-          <img src="/media/b2b/ww/psykhe.svg" class="img-fluid" />
-        </div>
-      </div>-->
-    </div>
 
-    <div class="psykhe-ai-case-studies">
-      <div class="psykhe-ai-case-studies-in">
-        <div class="psykhe-ai-case-studies-in-text">
-          <h2 id="case-studies">Case Studies</h2>
+      <div class="as-seen-in-outer">
+        <div class="as-seen-in">
+          <div class="as-seen-in-text">
+            <h2>As seen in:</h2>
+          </div>
+          <div class="as-seen-in-components">
+            <div class="desktop">
+              <img src="/media/b2b/ww/logo/logos-desktop.png" alt="Logos" />
+            </div>
+            <div class="mobile">
+              <img src="/media/b2b/ww/logo/logos-mobile.png" alt="Logos" />
+            </div>
+          </div>
         </div>
+      </div>
 
-        <!-- Carousel Container - Requires a library (e.g., vue-slick-carousel, swiper) or custom JS for functionality -->
-        <div class="case-studies-carousel">
-          <!-- MY -->
-          <div class="case-studies-slide">
-            <div class="case-studies-content">
-              <h3>
-                Mine & Yours achieved a +15.6% increase in sustained Conversion Rate thanks to PSYKHE AI’s real-time
-                per-user AI-merchandising
-              </h3>
-              <p>
-                "As a resale platform, our inventory is one-of-a-kind - literally. PSYKHE AI somehow just gets taste.
-                It’s like having the most intuitive shop-floor stylist built into the site, always pulling the perfect
-                pieces for each customer.”
+      <div class="boost-discovery-outer">
+        <div class="boost-discovery">
+          <div class="boost-discovery-text">
+            <h2>Lazy “Personalization” is Losing You Sales</h2>
+            <p>
+              Mechanical, repetitive, and impersonal: showing best-sellers to all, endlessly surfacing lookalikes, and
+              even recommending purchases back to you. Your customers deserve better. Our AI-merchandising is fully
+              per-user, delivering true personalization instead of generic optimization.
+            </p>
+          </div>
+          <div class="boost-discovery-components">
+            <div class="boost-discovery-component a">
+              <div class="boost-discovery-component-icon">
+                <img src="/media/b2b/ww/bd/intuitive-recomendation-ai.svg" />
+              </div>
+              <h3 class="boost-discovery-component-heading">Per-User Psychographic Personalization</h3>
+              <p class="boost-discovery-component-text">
+                We merchandise the entire product category for every user, ensuring to surface the right product and
+                quicken the time to discovery and purchase, not just mass A/B testing.
               </p>
-              <cite>— Courtney Watkins, Owner, Mine & Yours</cite>
-              <p class="methodology-text">
-                <b>Methodology:</b> We ran a clean A/B test over three months on category pages (PLPs). One group used
-                PSYKHE AI’s psychographic-powered, real-time PLP ranking; the other relied on the site’s existing sort
-                logic.
+            </div>
+
+            <div class="boost-discovery-component b">
+              <div class="boost-discovery-component-icon">
+                <img src="/media/b2b/ww/bd/early-access-program.svg" />
+              </div>
+              <h3 class="boost-discovery-component-heading">Built for Fashion & Interiors</h3>
+              <p class="boost-discovery-component-text">
+                PSYKHE AI's unrivaled team of fashion, psychology, and machine&#8209;learning experts have developed our
+                psychographic AI to cater to the specific needs of fashion retailers.
               </p>
             </div>
-            <div class="case-studies-image">
-              <img
-                src="/media/b2b/ww/case-studies/my_courtney_watkins.png"
-                alt="Courtney Watkins, Owner, Mine & Yours"
-              />
-            </div>
-          </div>
 
-          <!-- KZ -->
-          <div class="case-studies-slide">
-            <div class="case-studies-content">
-              <h3>
-                Kirna Zabête achieved an +18% increase in Revenue-Per-Visitor thanks to PSYKHE AI’s real-time per-user
-                AI-merchandising
-              </h3>
-              <p>
-                “PSYKHE AI delivered an +18% lift in RPV - but beyond the numbers, they captured the emotional core of
-                how our customers shop. The experience feels more curated, more intuitive, and their system respects the
-                individuality required of our multibrand assortment. It’s like giving each visitor their own personal
-                stylist, but smarter and scalable.”
-              </p>
-              <cite>— Beth Buccini, Founder & Owner, Kirna Zabête</cite>
-              <p class="methodology-text">
-                <b>Methodology:</b> We ran a clean A/B test over six months on category pages (PLPs). One group used
-                PSYKHE AI’s psychographic-powered, real-time PLP ranking; the other relied on the site’s existing sort
-                logic. RPV encompasses lift in both average basket value and conversion rate.
+            <div class="boost-discovery-component c">
+              <div class="boost-discovery-component-icon">
+                <img src="/media/b2b/ww/bd/gain-competitive-advantage.svg" />
+              </div>
+              <h3 class="boost-discovery-component-heading">Instant Personalization for Guest Users</h3>
+              <p class="boost-discovery-component-text">
+                PSYKHE AI personalizes the experience for every single user in real&#8209;time, understanding the context
+                of the session, and updating the consumer's merchandising every 10 seconds.
               </p>
             </div>
-            <div class="case-studies-image">
-              <img
-                src="/media/b2b/ww/case-studies/kirna_zabete.png"
-                alt="Beth Buccini, Founder & Owner, Kirna Zabête"
-              />
-            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="psykhe-ai-video-container">
-      <div class="psykhe-ai-video-container-in">
-        <div class="psykhe-ai-video-container-in-text">
-          <h2>Why we're different:</h2>
-        </div>
-      </div>
+      <div class="signup-outer">
+        <div class="signup">
+          <p id="signup" class="signup-heading">Get PSYKHE AI For Your Business</p>
 
-      <div>
-        <video controls>
-          <source
-            src="https://s3.eu-west-1.amazonaws.com/media.psykhefashion.com/x/psykhe_ai_compressed.mp4"
-            type="video/mp4"
-          />
-        </video>
-      </div>
-    </div>
-
-    <div class="as-seen-in-outer">
-      <div class="as-seen-in">
-        <div class="as-seen-in-text">
-          <h2>As seen in:</h2>
-        </div>
-        <div class="as-seen-in-components">
-          <div class="desktop">
-            <img src="/media/b2b/ww/logo/logos-desktop.png" alt="Logos" />
-          </div>
-          <div class="mobile">
-            <img src="/media/b2b/ww/logo/logos-mobile.png" alt="Logos" />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="boost-discovery-outer">
-      <div class="boost-discovery">
-        <div class="boost-discovery-text">
-          <h2>Lazy “Personalization” is Losing You Sales</h2>
-          <p>
-            Mechanical, repetitive, and impersonal: showing best-sellers to all, endlessly surfacing lookalikes, and
-            even recommending purchases back to you. Your customers deserve better. Our AI-merchandising is fully
-            per-user, delivering true personalization instead of generic optimization.
+          <p class="signup-content">
+            Get in touch to discuss your Enterprise’s specific needs and get an in‑depth understanding of how psych-based
+            AI models deliver the experience of a personal shopper at scale.
           </p>
-        </div>
-        <div class="boost-discovery-components">
-          <div class="boost-discovery-component a">
-            <div class="boost-discovery-component-icon">
-              <img src="/media/b2b/ww/bd/intuitive-recomendation-ai.svg" />
-            </div>
-            <h3 class="boost-discovery-component-heading">Per-User Psychographic Personalization</h3>
-            <p class="boost-discovery-component-text">
-              We merchandise the entire product category for every user, ensuring to surface the right product and
-              quicken the time to discovery and purchase, not just mass A/B testing.
-            </p>
-          </div>
 
-          <div class="boost-discovery-component b">
-            <div class="boost-discovery-component-icon">
-              <img src="/media/b2b/ww/bd/early-access-program.svg" />
-            </div>
-            <h3 class="boost-discovery-component-heading">Built for Fashion & Interiors</h3>
-            <p class="boost-discovery-component-text">
-              PSYKHE AI's unrivaled team of fashion, psychology, and machine&#8209;learning experts have developed our
-              psychographic AI to cater to the specific needs of fashion retailers.
-            </p>
-          </div>
+          <p v-if="isSuccess" class="subscription-message is-success">We'll be in touch.</p>
+          <p v-if="isFailure" class="subscription-message is-failure">
+            Sorry, there has been an error during the registration process.
+          </p>
 
-          <div class="boost-discovery-component c">
-            <div class="boost-discovery-component-icon">
-              <img src="/media/b2b/ww/bd/gain-competitive-advantage.svg" />
+          <form class="subscription-form" @submit.prevent="subscribe">
+            <div class="fields">
+              <input
+                id="firstName"
+                v-model="firstName"
+                class="mr-md-5"
+                name="first_name"
+                type="text"
+                placeholder="First Name"
+                required
+              />
+              <input id="lastName" v-model="lastName" name="last_name" type="text" placeholder="Last Name" required />
             </div>
-            <h3 class="boost-discovery-component-heading">Instant Personalization for Guest Users</h3>
-            <p class="boost-discovery-component-text">
-              PSYKHE AI personalizes the experience for every single user in real&#8209;time, understanding the context
-              of the session, and updating the consumer's merchandising every 10 seconds.
-            </p>
-          </div>
+
+            <div class="fields">
+              <input
+                id="business_type"
+                v-model="businessType"
+                class="mr-md-5"
+                name="business_type"
+                type="text"
+                placeholder="Business Type"
+                required
+              />
+              <input id="email" v-model="email" name="email" type="email" placeholder="Email" />
+            </div>
+
+            <button type="submit" :class="{ processing: isProcessing }" class="d-block">
+              <img v-if="isProcessing" src="/media/spinner-b.svg" />
+              <span v-else>SUBMIT</span>
+            </button>
+          </form>
         </div>
       </div>
+
+
+
     </div>
-
-    <div class="signup-outer">
-      <div class="signup">
-        <p id="signup" class="signup-heading">Get PSYKHE AI For Your Business</p>
-
-        <p class="signup-content">
-          Get in touch to discuss your Enterprise’s specific needs and get an in‑depth understanding of how psych-based
-          AI models deliver the experience of a personal shopper at scale.
-        </p>
-
-        <p v-if="isSuccess" class="subscription-message is-success">We'll be in touch.</p>
-        <p v-if="isFailure" class="subscription-message is-failure">
-          Sorry, there has been an error during the registration process.
-        </p>
-
-        <form class="subscription-form" @submit.prevent="subscribe">
-          <div class="fields">
-            <input
-              id="firstName"
-              v-model="firstName"
-              class="mr-md-5"
-              name="first_name"
-              type="text"
-              placeholder="First Name"
-              required
-            />
-            <input id="lastName" v-model="lastName" name="last_name" type="text" placeholder="Last Name" required />
-          </div>
-
-          <div class="fields">
-            <input
-              id="business_type"
-              v-model="businessType"
-              class="mr-md-5"
-              name="business_type"
-              type="text"
-              placeholder="Business Type"
-              required
-            />
-            <input id="email" v-model="email" name="email" type="email" placeholder="Email" />
-          </div>
-
-          <button type="submit" :class="{ processing: isProcessing }" class="d-block">
-            <img v-if="isProcessing" src="/media/spinner-b.svg" />
-            <span v-else>SUBMIT</span>
-          </button>
-        </form>
-      </div>
-    </div>
-
-
-
+    <Footer />
   </div>
 </Layout>
 
 <style lang="scss">
 @import '../styles/app.scss';
+
+.home-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.psykhe-landing {
+  flex: 1; /* Takes up available space, pushes footer down */
+}
 </style>

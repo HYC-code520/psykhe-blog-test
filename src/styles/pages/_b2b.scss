@@ -1,6 +1,10 @@
 @import 'landing';
 
 .psykhe-landing {
+  main {
+    padding: 0 !important;
+    max-width: none !important;
+  }
   @extend .psykhe-font-b2b;
   background-color: white;
 
