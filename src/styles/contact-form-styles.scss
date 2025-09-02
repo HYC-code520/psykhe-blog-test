@@ -1,0 +1,136 @@
+// Contact Form Styles for Astro Project
+// Add this to your src/styles/_b2b.scss file
+
+.signup-outer {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(89.21deg, #ca43d7 0.54%, #3773f2 49.86%, #c0f771 95.21%);
+
+  .signup {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 1.85rem;
+
+    .signup-heading {
+      padding-top: 3em;
+      font-size: 40px;
+      font-weight: 500;
+      line-height: 42.5px;
+      color: #fff;
+      margin-bottom: 0.75rem !important;
+    }
+
+    .signup-content {
+      font-size: 16px;
+      line-height: 1.6em;
+      letter-spacing: 0.05em;
+      max-width: 500px;
+      color: white;
+      font-weight: 400;
+    }
+
+    // Hide messages by default (mimic Vue conditional rendering)
+    .subscription-message {
+      display: none;
+      padding: 1rem 0;
+      font-weight: 500;
+      
+      &.is-success {
+        color: #baee70;
+      }
+      
+      &.is-failure {
+        color: #ff6b6b;
+      }
+      
+      // Show when active
+      &.show {
+        display: block;
+      }
+    }
+
+    .subscription-form {
+      .fields {
+        display: flex;
+        align-content: space-between;
+
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
+      }
+
+      input {
+        color: #fff;
+        caret-color: #fff;
+        padding: 0.15rem 0;
+        margin-top: 23px;
+        padding: 0rem;
+        border: none;
+        border-bottom: 1px solid #fff;
+        font-weight: 400;
+        font-size: 17px;
+        line-height: 50px;
+        background-color: transparent;
+        width: 100%;
+        margin-right: 1rem;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      input:focus-visible {
+        outline: none;
+      }
+
+      input::placeholder {
+        color: white;
+        opacity: 1;
+      }
+
+      button {
+        background-color: #fff;
+        color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1rem;
+        font-size: 0.7rem;
+        padding: 0.5rem 3.5rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        border: none;
+        cursor: pointer;
+        min-height: 30px;
+
+        @media (max-width: 768px) {
+          margin-left: auto;
+          margin-right: auto;
+        }
+        
+        img {
+          width: 16px;
+          height: 16px;
+        }
+        
+        // Hide spinner by default
+        .spinner {
+          display: none;
+        }
+        
+        // Show spinner when processing
+        &.processing {
+          .spinner {
+            display: inline-block;
+          }
+          
+          .submit-text {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

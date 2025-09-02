@@ -17,44 +17,44 @@ const { entry } = Astro.props;
 <Layout title={`${entry.title} | Glossary | PSYKHE`}>
   <div class="glossary-wrapper">
     <div class="glossary-content">
-      <Navbar />
-      
-      <div class="page-b2b-glossary">
-        <div class="header-container">
-          <div class="container header">
-            <div class="message">
-              <p class="header-title">Personalization Glossary</p>
-              <p class="header-message">
-                At PSYKHE, we're obsessed with the why: Why do we like the things we like? Why does one person like a pair
-                of shoes, a sofa, a travel destination, or a song, while someone else does not? Understanding all the
-                factors that drive individual taste, including personality and psychographic data, enables us to create
-                the world's most sophisticated recommendation engine. After all, you can't personalize without
-                personality. Shaping a stellar recommendation strategy is a big job, so to help you grasp what a complete
-                AI personalization blueprint for your business entails, we've collated definitions related to
-                personalization here.
-              </p>
-            </div>
-            <figure>
-              <img src="/media/b2b/ww/hero_banner.png" alt="" style="opacity: 0; visibility: hidden;" />
-            </figure>
-          </div>
+  <Navbar />
+  
+  <div class="page-b2b-glossary">
+    <div class="header-container">
+      <div class="container header">
+        <div class="message">
+          <p class="header-title">Personalization Glossary</p>
+          <p class="header-message">
+            At PSYKHE, we're obsessed with the why: Why do we like the things we like? Why does one person like a pair
+            of shoes, a sofa, a travel destination, or a song, while someone else does not? Understanding all the
+            factors that drive individual taste, including personality and psychographic data, enables us to create
+            the world's most sophisticated recommendation engine. After all, you can't personalize without
+            personality. Shaping a stellar recommendation strategy is a big job, so to help you grasp what a complete
+            AI personalization blueprint for your business entails, we've collated definitions related to
+            personalization here.
+          </p>
         </div>
-        
-        <div class="container">
-          <div class="entry-page">
-            <div class="entry-content">
-              <h1 class="entry-title">{entry.title}</h1>
-              {entry.paragraphs.map(paragraph => (
-                <p class="entry-paragraph">{paragraph}</p>
-              ))}
-            </div>
-            <a class="btn-black" href="/glossary/">BACK TO GLOSSARY</a>
-          </div>
+        <figure>
+          <img src="/media/b2b/ww/hero_banner.png" alt="" style="opacity: 0; visibility: hidden;" />
+        </figure>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="entry-page">
+        <div class="entry-content">
+          <h1 class="entry-title">{entry.title}</h1>
+          {entry.paragraphs.map(paragraph => (
+            <p class="entry-paragraph">{paragraph}</p>
+          ))}
         </div>
+        <a class="btn-black" href="/glossary/">BACK TO GLOSSARY</a>
+      </div>
+    </div>
 
-        <div class="take-test-row">
-          <a class="btn-home-tan" href="/">FIND OUT MORE</a>
-        </div>
+    <div class="take-test-row">
+      <a class="btn-home-tan" href="/">FIND OUT MORE</a>
+    </div>
       </div>
     </div>
     <Footer />

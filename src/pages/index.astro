@@ -247,41 +247,37 @@ import Footer from '../components/Footer.astro';
             AI models deliver the experience of a personal shopper at scale.
           </p>
 
-          <p v-if="isSuccess" class="subscription-message is-success">We'll be in touch.</p>
-          <p v-if="isFailure" class="subscription-message is-failure">
+          <div id="success-message" class="subscription-message is-success">We'll be in touch.</div>
+          <div id="error-message" class="subscription-message is-failure">
             Sorry, there has been an error during the registration process.
-          </p>
+          </div>
 
-          <form class="subscription-form" @submit.prevent="subscribe">
+          <form class="subscription-form" id="contact-form">
             <div class="fields">
               <input
                 id="firstName"
-                v-model="firstName"
-                class="mr-md-5"
                 name="first_name"
                 type="text"
                 placeholder="First Name"
                 required
               />
-              <input id="lastName" v-model="lastName" name="last_name" type="text" placeholder="Last Name" required />
+              <input id="lastName" name="last_name" type="text" placeholder="Last Name" required />
             </div>
 
             <div class="fields">
               <input
                 id="business_type"
-                v-model="businessType"
-                class="mr-md-5"
                 name="business_type"
                 type="text"
                 placeholder="Business Type"
                 required
               />
-              <input id="email" v-model="email" name="email" type="email" placeholder="Email" />
+              <input id="email" name="email" type="email" placeholder="Email" required />
             </div>
 
-            <button type="submit" :class="{ processing: isProcessing }" class="d-block">
-              <img v-if="isProcessing" src="/media/spinner-b.svg" />
-              <span v-else>SUBMIT</span>
+            <button type="submit" id="submit-btn">
+              <img class="spinner" src="/media/spinner-b.svg" />
+              <span class="submit-text">SUBMIT</span>
             </button>
           </form>
         </div>
@@ -307,3 +303,44 @@ import Footer from '../components/Footer.astro';
   flex: 1; /* Takes up available space, pushes footer down */
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const successMessage = document.getElementById('success-message');
+  const errorMessage = document.getElementById('error-message');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Show loading state (mimic Vue reactive button)
+    submitBtn.classList.add('processing');
+    submitBtn.disabled = true;
+    
+    // Hide any existing messages (mimic Vue conditional rendering)
+    successMessage.classList.remove('show');
+    errorMessage.classList.remove('show');
+    
+    // Get form data
+    const formData = new FormData(form);
+    
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Show success (mimic Vue conditional rendering)
+      successMessage.classList.add('show');
+      form.reset();
+      
+    } catch (error) {
+      // Show error (mimic Vue conditional rendering)
+      errorMessage.classList.add('show');
+    } finally {
+      // Reset button state (mimic Vue reactivity)
+      submitBtn.classList.remove('processing');
+      submitBtn.disabled = false;
+    }
+  });
+});
+</script>
