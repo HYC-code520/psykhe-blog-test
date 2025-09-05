@@ -1,5 +1,4 @@
 @import 'variables';
-@import 'bootstrap/scss/bootstrap';
 @import 'page';
 @import 'pages/about';
 
@@ -43,11 +42,13 @@ h6,
 }
 
 main {
-  @extend .py-4;
-  @extend .container;
-  padding: 0 15px;
+  padding: 1.5rem 15px;
   padding-top: 0 !important;
   flex: 1;
+  
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 
   .page {
     padding-top: 1.5rem;
@@ -55,7 +56,10 @@ main {
   }
 
   .main-quote {
-    @extend .row;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 0;
+    margin-right: 0;
 
     .col {
       padding: 0;

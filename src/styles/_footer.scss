@@ -45,7 +45,11 @@
   }
 
   .navbar-always {
-    @extend .d-md-none;
+    display: none;
+    
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
 
     flex-direction: row;
     .nav-item {
@@ -97,15 +101,19 @@
       &.nav-link-login {
         &::before,
         &::after {
-          @extend .d-none;
-          @extend .d-md-inline-block;
+          display: none;
+          
+          @include media-breakpoint-up(md) {
+            display: inline-block;
+          }
+          
           content: ' ';
 
-          @extend .nav-link-saved;
+          // @extend .nav-link-saved;
         }
 
         &::after {
-          @extend .nav-link-profile;
+          // @extend .nav-link-profile;
         }
       }
     }

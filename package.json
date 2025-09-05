@@ -12,8 +12,9 @@
     "prepare": "lefthook install"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.12",
     "astro": "^5.13.3",
-    "bootstrap": "^4.6.2"
+    "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.2",

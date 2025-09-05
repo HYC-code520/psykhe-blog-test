@@ -1,4 +1,4 @@
-import { SurveyAnswer, SurveyQuestion } from '~/types/personality-test/survey-question';
+import type { SurveyAnswer, SurveyQuestion } from '~/types/personality-test/survey-question';
 
 const agreeOne: SurveyAnswer[] = [
   {
