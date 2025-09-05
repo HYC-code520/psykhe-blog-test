@@ -1,10 +1,8 @@
-
 ---
 import { glossaryEntries } from '../../data/glossary';
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
-
 
 // Group entries by first letter
 const groupedEntries = glossaryEntries.reduce((acc, entry) => {
@@ -30,7 +28,7 @@ sortedLetters.forEach(letter => {
   
   <div class="page-b2b-glossary">
     <div class="header-container">
-      <div class="container header">
+      <div class="max-w-7xl mx-auto px-4 header">
         <div class="message">
           <p class="header-title">Personalization Glossary</p>
           <p class="header-message">
@@ -49,8 +47,8 @@ sortedLetters.forEach(letter => {
         </figure>
       </div>
     </div>
-    
-    <div class="container">
+
+    <div class="max-w-7xl mx-auto px-4">
       <div class="sections">
         {sortedLetters.map(letter => (
           <div class="section">

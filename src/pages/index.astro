@@ -11,8 +11,8 @@ import Footer from '../components/Footer.astro';
           <div class="circuit"></div>
           <div class="inner">
             <div class="gradient">
-              <div class="row top">
-                <div class="col-md-3">
+              <div class="flex flex-wrap top">
+                <div class="w-full md:w-1/4">
                   <img src="/media/b2b/ww/logoword2.svg" alt="PSYKHE AI logo" style="width: 100%; height: auto;" />
                 </div>
                 <div class="nav-case-studies">
@@ -23,9 +23,9 @@ import Footer from '../components/Footer.astro';
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col-12 col-md-6 lead">
-                  <h2>The world’s smartest AI-merchandising engine, powered by patented psychographic intelligence.</h2>
+              <div class="flex flex-wrap">
+                <div class="w-full md:w-1/2 lead">
+                  <h2>The world's smartest AI-merchandising engine, powered by patented psychographic intelligence.</h2>
                   <div class="lead-content">
                     <p>The right products. The right order. For every shopper, every time.</p>
                   </div>
@@ -34,7 +34,7 @@ import Footer from '../components/Footer.astro';
                     <a class="learn-more" href="#case-studies">Case Studies</a>
                   </div>
                 </div>
-                <div class="d-none d-md-block col-md-6 callouts">
+                <div class="hidden md:block md:w-1/2 callouts">
                   <button class="callout-personalized btn-b2b btn-gradient">PERSONALIZED MERCHANDISING</button>
                 </div>
               </div>
@@ -43,16 +43,16 @@ import Footer from '../components/Footer.astro';
         </div>
       </div>
       <div class="psykhe-b2b-content">
-        <div class="row">
-          <div class="col circular">
+        <div class="flex flex-wrap">
+          <div class="flex-1 circular">
             <span class="circle">&nbsp;6X</span>
             <span class="circle-label">INCREASE IN CONVERSION RATE THROUGH PSYKHE AI's MODELS</span>
           </div>
-          <div class="col circular">
+          <div class="flex-1 circular">
             <span class="circle">65%</span>
             <span class="circle-label">missed sales opportunities due to static PLPs (category pages)</span>
           </div>
-          <div class="col circular">
+          <div class="flex-1 circular">
             <span class="circle">11X</span>
             <span class="circle-label">AOV increase due to surfacing relevant adjacencies</span>
           </div>
@@ -62,8 +62,8 @@ import Footer from '../components/Footer.astro';
       <div class="psykhe-b2b-compare-screens">
         <div class="cs-inner">
           <div class="cs-text-block">
-            <div class="row">
-              <div class="col col-md cs-lead">
+            <div class="flex flex-wrap">
+              <div class="w-full md:flex-1 cs-lead">
                 <h2>Turn Data Into Dollars</h2>
                 <div class="cs-lead-content">
                   <p>
@@ -76,20 +76,20 @@ import Footer from '../components/Footer.astro';
           </div>
 
           <div class="text-center">
-            <img src="/media/b2b/ww/compare_screen.png" class="img-fluid d" alt="Compare Screens" />
-            <img src="/media/b2b/ww/compare_screen_mobile.png" class="img-fluid m" alt="Compare Screens" />
+            <img src="/media/b2b/ww/compare_screen.png" class="max-w-full h-auto d" alt="Compare Screens" />
+            <img src="/media/b2b/ww/compare_screen_mobile.png" class="max-w-full h-auto m" alt="Compare Screens" />
           </div>
         </div>
       </div>
       <div class="compare-screen-labels-outer">
         <!--      <div class="compare-screen-labels">
           <div class="compare-screen-label-column a">
-            <img src="/media/b2b/ww/the_status_quo.svg" class="img-fluid" />
+            <img src="/media/b2b/ww/the_status_quo.svg" class="max-w-full h-auto" />
           </div>
           <div class="compare-screen-label-column b">
-            <img src="/media/b2b/ww/psykhe.svg" class="img-fluid" />
+            <img src="/media/b2b/ww/psykhe.svg" class="max-w-full h-auto" />
           </div>
-        </div>-->
+        </div>--> 
       </div>
 
       <div class="psykhe-ai-case-studies">
@@ -104,18 +104,18 @@ import Footer from '../components/Footer.astro';
             <div class="case-studies-slide">
               <div class="case-studies-content">
                 <h3>
-                  Mine & Yours achieved a +15.6% increase in sustained Conversion Rate thanks to PSYKHE AI’s real-time
+                  Mine & Yours achieved a +15.6% increase in sustained Conversion Rate thanks to PSYKHE AI's real-time
                   per-user AI-merchandising
                 </h3>
                 <p>
                   "As a resale platform, our inventory is one-of-a-kind - literally. PSYKHE AI somehow just gets taste.
-                  It’s like having the most intuitive shop-floor stylist built into the site, always pulling the perfect
-                  pieces for each customer.”
+                  It's like having the most intuitive shop-floor stylist built into the site, always pulling the perfect
+                  pieces for each customer."
                 </p>
                 <cite>— Courtney Watkins, Owner, Mine & Yours</cite>
                 <p class="methodology-text">
                   <b>Methodology:</b> We ran a clean A/B test over three months on category pages (PLPs). One group used
-                  PSYKHE AI’s psychographic-powered, real-time PLP ranking; the other relied on the site’s existing sort
+                  PSYKHE AI's psychographic-powered, real-time PLP ranking; the other relied on the site's existing sort
                   logic.
                 </p>
               </div>
@@ -131,19 +131,19 @@ import Footer from '../components/Footer.astro';
             <div class="case-studies-slide">
               <div class="case-studies-content">
                 <h3>
-                  Kirna Zabête achieved an +18% increase in Revenue-Per-Visitor thanks to PSYKHE AI’s real-time per-user
+                  Kirna Zabête achieved an +18% increase in Revenue-Per-Visitor thanks to PSYKHE AI's real-time per-user
                   AI-merchandising
                 </h3>
                 <p>
-                  “PSYKHE AI delivered an +18% lift in RPV - but beyond the numbers, they captured the emotional core of
+                  "PSYKHE AI delivered an +18% lift in RPV - but beyond the numbers, they captured the emotional core of
                   how our customers shop. The experience feels more curated, more intuitive, and their system respects the
-                  individuality required of our multibrand assortment. It’s like giving each visitor their own personal
-                  stylist, but smarter and scalable.”
+                  individuality required of our multibrand assortment. It's like giving each visitor their own personal
+                  stylist, but smarter and scalable."
                 </p>
                 <cite>— Beth Buccini, Founder & Owner, Kirna Zabête</cite>
                 <p class="methodology-text">
                   <b>Methodology:</b> We ran a clean A/B test over six months on category pages (PLPs). One group used
-                  PSYKHE AI’s psychographic-powered, real-time PLP ranking; the other relied on the site’s existing sort
+                  PSYKHE AI's psychographic-powered, real-time PLP ranking; the other relied on the site's existing sort
                   logic. RPV encompasses lift in both average basket value and conversion rate.
                 </p>
               </div>
@@ -194,7 +194,7 @@ import Footer from '../components/Footer.astro';
       <div class="boost-discovery-outer">
         <div class="boost-discovery">
           <div class="boost-discovery-text">
-            <h2>Lazy “Personalization” is Losing You Sales</h2>
+            <h2>Lazy "Personalization" is Losing You Sales</h2>
             <p>
               Mechanical, repetitive, and impersonal: showing best-sellers to all, endlessly surfacing lookalikes, and
               even recommending purchases back to you. Your customers deserve better. Our AI-merchandising is fully
@@ -243,7 +243,7 @@ import Footer from '../components/Footer.astro';
           <p id="signup" class="signup-heading">Get PSYKHE AI For Your Business</p>
 
           <p class="signup-content">
-            Get in touch to discuss your Enterprise’s specific needs and get an in‑depth understanding of how psych-based
+            Get in touch to discuss your Enterprise's specific needs and get an in‑depth understanding of how psych-based
             AI models deliver the experience of a personal shopper at scale.
           </p>
 
@@ -283,8 +283,6 @@ import Footer from '../components/Footer.astro';
         </div>
       </div>
 
-
-
     </div>
     <Footer />
   </div>
@@ -300,7 +298,7 @@ import Footer from '../components/Footer.astro';
 }
 
 .psykhe-landing {
-  flex: 1; /* Takes up available space, pushes footer down */
+  flex: 1; 
 }
 </style>
 
@@ -344,3 +342,4 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+
