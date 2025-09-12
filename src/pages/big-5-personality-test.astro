@@ -133,7 +133,7 @@ const visualQuestionSets = [
             Click the right arrow to proceed to the next question.
           </p>
 
-          <form id="survey-form" class="flex flex-wrap">
+          <form id="survey-form" class="survey-form">
             <!-- Survey answers will be inserted here -->
           </form>
 
@@ -572,7 +572,7 @@ const visualQuestionSets = [
       moderate: {
         paragraphs: [
           "Lucky you: you're a good team player, but can also work independently. You're easy to get along with, but know how to stand up for yourself. You know when to lead, but are always happy to let others shine. You can argue your point when necessary, but also know which battles are worth picking. You're liked and respected.",
-          "Your style and preferences in this regard tend to be balanced - you don't like music that is super aggressive, nor too saccharine. Your style is pretty middle-of-the road in the best way.",
+          "Your style and preferences in this regard tend to be balanced - you don't like music that is super aggressive, nor too saccharine. Your style is pretty middle-of-the-road in the best way.",
           "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate agreeableness alone - creating an identity that's uniquely yours."
         ]
       },
@@ -720,19 +720,16 @@ const visualQuestionSets = [
 
     const form = document.getElementById('survey-form');
     form.innerHTML = question.answers.map(answer => `
-      <div class="flex-1 min-w-0 sm:flex-none sm:w-auto survey-question-answer ${state.surveyResponses[state.currentSurveyIndex] === answer.id ? 'survey-question-answer-selected' : ''}">
-        <div class="form-group" onclick="selectSurveyAnswer(${answer.id})">
-          <input
-            id="survey-${question.id}-${answer.id}"
-            type="radio"
-            value="${answer.id}"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            ${state.surveyResponses[state.currentSurveyIndex] === answer.id ? 'checked' : ''}
-          />
-          <label for="survey-${question.id}-${answer.id}" class="pt-answer-1">
-            <span>${answer.text}</span>
-          </label>
-        </div>
+      <div class="survey-question-answer ${state.surveyResponses[state.currentSurveyIndex] === answer.id ? 'survey-question-answer-selected' : ''}">
+        <input
+          id="survey-${question.id}-${answer.id}"
+          type="radio"
+          value="${answer.id}"
+          ${state.surveyResponses[state.currentSurveyIndex] === answer.id ? 'checked' : ''}
+        />
+        <label for="survey-${question.id}-${answer.id}" class="pt-answer-1" onclick="selectSurveyAnswer(${answer.id})">
+          <span>${answer.text}</span>
+        </label>
       </div>
     `).join('');
 
@@ -940,6 +937,15 @@ const visualQuestionSets = [
 
   // Results functions
   function showResults() {
+    // Hide navigation controls on results page
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const surveyControls = document.querySelector('.survey-controls');
+    
+    if (prevBtn) prevBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
+    if (surveyControls) surveyControls.style.display = 'none';
+    
     updateProfileTitle();
     updateTraitBars();
     updateDesktopTabs();
@@ -992,7 +998,8 @@ const visualQuestionSets = [
         ${traits.map((trait, index) => `
           <div class="nav-item">
             <a class="nav-link ${index === state.activeTabIndex ? 'active' : ''}" onclick="changeTab(${index})">
-              <span>${trait.label}: <strong>${state.ocean[trait.key]}</strong></span>
+              <span class="block md:hidden">${trait.label}: <strong>${state.ocean[trait.key]}</strong></span>
+              <span class="hidden md:block">${trait.label}: <strong>${state.ocean[trait.key]}</strong></span>
             </a>
           </div>
         `).join('')}
