@@ -3,6 +3,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import FlipCounter from '../components/FlipCounter.astro';
 import { SurveyQuestions } from '../data/personality-questions';
 
 // Define visual questions (from Vue component)
@@ -71,7 +72,7 @@ const visualQuestionSets = [
     <!-- Disclaimer Screen -->
     <div id="disclaimer-screen" class="survey-disclaimer">
       <div class="survey-disclaimer-content">
-        <p>
+        <p class="smaller">
           In under 3 minutes, you'll complete the Big Five Inventory-2 (BFI-2) with questions supplemented by PSYKHE
           AI, giving you the results of your unique personality profile in terms of the Big Five traits: the most
           important measure identified by psychologists for understanding people, their outcomes, and preferences.
@@ -85,15 +86,26 @@ const visualQuestionSets = [
           <button onclick="startTest()">Start</button>
         </div>
 
-        <div id="flip-counter" class="flip-counter">
-          <span id="counter-value">230000</span>
-          <div class="counter-label">TESTS TAKEN</div>
-        </div>
 
-        <p class="smaller survey-disclaimer-content-footer">
+        <FlipCounter baseValue={230000} incrementRate={1} updateInterval={10000} label="TESTS TAKEN" />
+
+
+        <p class="smaller disclaimer-copyright" style="font-size: 0.7rem; margin-top: auto; flex-shrink: 0;">
           Big Five Inventory-2 Items Copyright 2015 By Drs. Oliver P. John and Christopher J. Soto. Reprinted with
           permission. Test results developed independently by PSYKHE AI, and not endorsed by Drs. John and Soto.
         </p>
+
+        <style>
+          .disclaimer-copyright {
+            display: none;
+          }
+          
+          @media (min-width: 1097px) {
+            .disclaimer-copyright {
+              display: block;
+            }
+          }
+        </style>
       </div>
     </div>
 
