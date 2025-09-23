@@ -1,17 +1,24 @@
+// 1. VARIABLES & MIXINS (must be first)
 @import 'variables';
+
+// 2. BASE/FOUNDATION STYLES
 @import 'layout';
+@import 'grid';
 @import 'page';
-@import 'pages/about';
-@import 'pages/b2b';
-@import 'pages/glossary';
-@import 'pages/landing';
-@import 'pages/privacy-policy';
+
+// 3. COMPONENT STYLES
 @import 'brand';
 @import 'btn';
-@import 'grid';
 @import 'footer';
 @import 'contact-form-styles';
 @import 'survey';
 @import 'personality_test';
 @import 'profile';
-@import 'paticipants_counter';
+@import 'participants_counter';
+
+// 4. PAGE-SPECIFIC STYLES (last)
+@import 'pages/landing';
+@import 'pages/about';
+@import 'pages/b2b';
+@import 'pages/glossary';
+@import 'pages/privacy-policy';
