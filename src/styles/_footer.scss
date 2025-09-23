@@ -82,7 +82,6 @@
 
       &.nav-link-saved,
       &.nav-link-profile {
-        display: inline-block;
         float: left;
         width: 1.5rem;
         height: 1.5rem;
@@ -99,8 +98,7 @@
       }
 
       &.nav-link-login {
-        &::before,
-        &::after {
+        &::before {
           display: none;
           
           @include media-breakpoint-up(md) {
@@ -110,10 +108,6 @@
           content: ' ';
 
           // @extend .nav-link-saved;
-        }
-
-        &::after {
-          // @extend .nav-link-profile;
         }
       }
     }

@@ -304,10 +304,13 @@ import Footer from '../components/Footer.astro';
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('contact-form');
-  const submitBtn = document.getElementById('submit-btn');
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
   const successMessage = document.getElementById('success-message');
   const errorMessage = document.getElementById('error-message');
+
+  // Add null checks
+  if (!form || !submitBtn || !successMessage || !errorMessage) return;
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
