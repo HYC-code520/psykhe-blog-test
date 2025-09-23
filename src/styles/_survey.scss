@@ -48,19 +48,17 @@
   }
 
   .survey-controls {
-    @media (max-width: 576px) {
-      position: sticky;
-      width: 120%;
-      top: 44%;
-      height: 60px;
-      z-index: 0;
-      margin-left: -30px;
-      margin-right: -30px;
-      margin-bottom: 12px;
-
+    // Fixed positioning for small screens to properly place arrows
+    @media (max-width: 767px) {
+      position: relative;
+      width: 100%;
+      height: auto;
+      z-index: 100;
+      margin: 0;
+      
       & + .survey-question,
       & + .visual-question {
-        margin-top: -72px;
+        margin-top: 0;
       }
     }
   }
@@ -71,25 +69,29 @@
     text-align: center;
     background: none;
     border: none;
+    z-index: 1000;
 
     &:disabled {
       opacity: 0.2;
     }
 
-    @media (max-width: 576px) {
-      position: absolute;
-      top: 0%;
-      padding: 20px 15px;
+    // Updated mobile positioning - use fixed positioning for better control
+    @media (max-width: 767px) {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 15px 10px;
 
       &.survey-control-prev {
-        left: 0px;
+        left: 5px;
       }
       &.survey-control-next {
-        right: 0px;
+        right: 5px;
       }
     }
 
-    @media (min-width: 576px) {
+    // Keep existing positioning for larger screens (≥768px)
+    @media (min-width: 768px) {
       position: absolute;
       top: 50%; 
       transform: translateY(-50%); 
@@ -349,6 +351,15 @@
       
       @media (min-width: 768px) and (max-width: 991px) {
         font-size: 1.5rem; 
+      }
+
+      // Apply Playfair Display to the question text itself
+      .question-circle {
+        span {
+          font-family: 'Playfair Display', serif !important;
+          font-weight: 300;
+          line-height: 1.3;
+        }
       }
 
       .question-number-indicator {
@@ -868,6 +879,23 @@
       }
     }
   }
+}
+
+// Ensure all survey question text uses Playfair Display
+// Ensure all survey question text uses Playfair Display - Match old repo styling
+#question-text,
+#visual-question-text {
+  font-family: 'Playfair Display', serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  line-height: 1.3 !important;
+}
+
+.question-circle span {
+  font-family: 'Playfair Display', serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  line-height: 1.3 !important;
 }
 
 

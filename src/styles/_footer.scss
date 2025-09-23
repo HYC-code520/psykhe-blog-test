@@ -184,6 +184,22 @@
 
     a {
       margin-top: 1.1rem;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      white-space: nowrap !important;
+      flex-wrap: nowrap !important;
+      height: auto !important;
+      line-height: normal !important;
+      
+      img {
+        margin-right: 0.5rem !important;
+        margin-bottom: 0 !important;
+        flex-shrink: 0 !important;
+        display: inline-block !important;
+        width: 16px !important;
+        height: 16px !important;
+      }
     }
   }
 
@@ -191,3 +207,131 @@
     font-size: 14px;
   }
 }
+
+@include media-breakpoint-down(sm) {
+  .main-footer {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    min-height: 500px !important;
+    padding: 3rem 1rem !important;
+    
+    // Target the Tailwind container
+    .max-w-7xl {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    // Target Tailwind flex classes
+    .flex {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      
+      &.flex-wrap {
+        flex-wrap: nowrap !important;
+      }
+    }
+    
+    // Target Tailwind flex-1 classes
+    .flex-1 {
+      flex: none !important;
+      width: auto !important;
+      text-align: center !important;
+      margin-bottom: 2rem !important;
+      
+      &:last-child {
+        margin-bottom: 1rem !important;
+      }
+    }
+    
+    // Style the navigation links
+    .flex-1:first-child {
+      order: 1;
+      
+      .footer-heading {
+        font-size: 16px !important;
+        font-weight: bold !important;
+        margin-bottom: 1rem !important;
+        text-align: center !important;
+      }
+      
+      a {
+        display: block !important;
+        margin: 0.5rem auto !important;
+        text-align: center !important;
+        width: fit-content !important;
+        height: auto !important;
+        line-height: 1.2 !important;
+      }
+    }
+    
+    // Empty middle div
+    .flex-1:nth-child(2) {
+      display: none !important;
+    }
+    
+    // Social footer
+    .social-footer {
+      order: 2;
+      text-align: center !important;
+      margin: 2rem 0 !important;
+      display: block !important;
+      
+      .soc-icon {
+        display: inline-block !important;
+        margin: 0 auto !important;
+        width: 32px !important;
+        height: 32px !important;
+        background-size: 32px !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        
+        &.icon-instagram {
+          background-image: url(/media/icon/icon-instagram.svg) !important;
+        }
+      }
+    }
+    
+    // Back to top section - mobile specific positioning
+    .ft-back-to-top {
+      order: 3;
+      text-align: center !important;
+      border-top: white 1px solid !important;
+      margin: 2rem 0 0 0 !important;
+      padding-top: 1.5rem !important;
+      width: 100% !important;
+      
+      a {
+        // Inherit the desktop inline-flex styles, just center it
+        text-align: center !important;
+        justify-content: center !important;
+        margin: 0 !important;
+      }
+    }
+    
+    // Override global footer anchor styles for mobile
+    a {
+      height: auto !important;
+      line-height: normal !important;
+    }
+    
+    // But keep navigation links as blocks
+    .flex-1:first-child a {
+      display: block !important;
+      height: auto !important;
+      line-height: 1.2 !important;
+    }
+  }
+}
+
+
