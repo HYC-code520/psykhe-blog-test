@@ -1,22 +1,28 @@
-// 1. VARIABLES & MIXINS (must be first)
-@import 'variables';
+// =============================================================================
+// PSYKHE WEBSITE STYLES
+// =============================================================================
 
-// 2. BASE/FOUNDATION STYLES
-@import 'layout';
-@import 'grid';
-@import 'page';
+// 1. BASE STYLES (Variables, mixins, typography, reset)
+@import 'base/variables';
+@import 'base/typography';
+@import 'base/base';
 
-// 3. COMPONENT STYLES
-@import 'brand';
-@import 'btn';
-@import 'footer';
-@import 'contact-form-styles';
-@import 'survey';
-@import 'personality_test';
-@import 'profile';
-@import 'participants_counter';
+// 2. LAYOUT STYLES (Page structure, grid system)
+@import 'layouts/layout';
+@import 'layouts/page';
+@import 'components/grid';
 
-// 4. PAGE-SPECIFIC STYLES (last)
+// 3. COMPONENT STYLES (Reusable UI components)
+@import 'components/brand';
+@import 'components/buttons';
+@import 'components/footer';
+@import 'components/forms';
+@import 'components/survey';
+@import 'components/personality-test';
+@import 'components/profile';
+@import 'components/participants-counter';
+
+// 4. PAGE-SPECIFIC STYLES (Last, most specific)
 @import 'pages/landing';
 @import 'pages/about';
 @import 'pages/b2b';

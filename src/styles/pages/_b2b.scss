@@ -1,6 +1,10 @@
 @import 'landing';
 
 .psykhe-landing {
+  h2, h3 {
+    font-family: 'Roboto', Arial, sans-serif !important;
+  }
+
   main {
     padding: 0 !important;
     max-width: none !important;
@@ -206,10 +210,28 @@
       padding: 0.66rem;
       font-weight: 500;
 
+      // For screens 992px - 1199px, give much more space and don't center
+      @include media-breakpoint-only(lg) {
+        max-width: none !important;  // Remove width constraint completely
+        width: auto;
+        text-align: left;  // Keep natural text alignment
+        margin: 0;
+        line-height: 1.4;
+        white-space: normal;  // Allow natural text flow
+      }
+
+      // For screens under 991px (mobile/tablet) - keep existing mobile styles
       @include media-breakpoint-down(md) {
         text-align: center;
-        max-width: 45%;
+        max-width: 280px;
         margin: 0 auto;
+        line-height: 1.3;
+      }
+
+      // For very small screens
+      @include media-breakpoint-down(sm) {
+        max-width: 320px;
+        padding: 0.5rem 1rem;
       }
     }
   }
@@ -375,7 +397,6 @@
         padding-right: 1.85rem;
 
         h2 {
-          font-weight: 500;
           line-height: 52px;
           font-size: 50px;
           margin-bottom: 1.5rem;
@@ -534,7 +555,6 @@
         padding-right: 1.85rem;
 
         h2 {
-          font-weight: 500;
           line-height: 52px;
           font-size: 50px;
           margin-bottom: 1.5rem;
@@ -1025,19 +1045,34 @@
 }
 
 @include media-breakpoint-down(md) {
-  // position: relative;
+  // Override Tailwind's flex classes
+  .psykhe-landing .psykhe-b2b-content .flex {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
 
-  .psykhe-landing .psykhe-b2b .gradient .lead {
-    top: 2rem;
-    text-align: left;
+  .psykhe-landing .psykhe-b2b-content .flex-1.circular {
+    flex: none !important;
+    width: 100% !important;
+    max-width: 300px !important;
+    margin: 1rem auto !important;
+    text-align: center !important;
   }
 
   .psykhe-landing .psykhe-b2b-content .circular {
+    flex-direction: column !important;
+    align-items: center !important;
     margin: 1rem auto;
   }
 
   .psykhe-landing .psykhe-b2b-content .circular .circle-label {
     padding-top: 0;
+  }
+
+  // Existing lead styles
+  .psykhe-landing .psykhe-b2b .gradient .lead {
+    top: 2rem;
+    text-align: left;
   }
 }
 
@@ -1092,9 +1127,11 @@
   }
 
   h2 {
+    font-weight: 400 !important;
     font-size: 2.25rem;
     letter-spacing: 0;
     max-width: 90%;
+    font-style: normal;
 
     @include media-breakpoint-down(sm) {
       max-width: 100%;

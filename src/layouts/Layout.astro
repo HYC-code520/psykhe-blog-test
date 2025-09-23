@@ -1,4 +1,7 @@
 ---
+// Remove this import
+// import { ViewTransitions } from 'astro:transitions';
+
 export interface Props {
 	title: string;
 }
@@ -13,11 +16,13 @@ const { title } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/png" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Psychological Personalization | PSYKHE AI</title>
+		<title>{title}</title>
+		<!-- Remove ViewTransitions -->
+		<!-- <ViewTransitions /> -->
 	</head>
 	<body>
+		<!-- Remove the main wrapper entirely -->
 		<slot />
-		<!-- NO FOOTER HERE ANYMORE -->
 	</body>
 </html>
 
@@ -31,7 +36,34 @@ const { title } = Astro.props;
 	
 	html, body {
 		margin: 0;
+		padding: 0;  /* Add this to ensure no padding */
 		width: 100%;
 		height: 100%;
+	}
+
+	/* Keep smooth scrolling */
+	html {
+		scroll-behavior: smooth;
+	}
+
+	/* Remove all page transition styles */
+	/*
+	@view-transition {
+		navigation: auto;
+	}
+
+	.page-transition {
+		view-transition-name: main;
+	}
+	*/
+
+	/* Keep anchor scrolling offsets */
+	[id] {
+		scroll-margin-top: 20px;
+	}
+
+	.signup-outer,
+	#signup {
+		scroll-margin-top: 30px;
 	}
 </style>

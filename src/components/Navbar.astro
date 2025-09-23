@@ -9,22 +9,11 @@
 </div>
 
 <style lang="scss">
-// Import the mixins first
-@import '../styles/_variables.scss';
+// Import the variables from the correct new path
+@import '../styles/base/_variables.scss';
 
-// Add the media-breakpoint-up mixin since it's not available
-@mixin media-breakpoint-up($breakpoint) {
-  @if $breakpoint == md {
-    @media (min-width: 768px) {
-      @content;
-    }
-  }
-  @if $breakpoint == lg {
-    @media (min-width: 992px) {
-      @content;
-    }
-  }
-}
+// Remove the redundant mixin since it's already in _variables.scss
+// @mixin media-breakpoint-up($breakpoint) { ... } ← Remove this
 
 .navbar-wrapper {
   background: white;
