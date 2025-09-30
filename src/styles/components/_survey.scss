@@ -1,4 +1,4 @@
-// Clean survey styles without Bootstrap dependencies
+
 .page-pt main {
   @media (max-width: 576px) {
     padding-bottom: 0 !important;
@@ -6,7 +6,6 @@
 }
 
 .survey {
-  // Container styles - replace Bootstrap container
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -48,7 +47,6 @@
   }
 
   .survey-controls {
-    // Fixed positioning for small screens to properly place arrows
     @media (max-width: 767px) {
       position: relative;
       width: 100%;
@@ -75,7 +73,6 @@
       opacity: 0.2;
     }
 
-    // Updated mobile positioning - use fixed positioning for better control
     @media (max-width: 767px) {
       position: fixed;
       top: 50%;
@@ -90,7 +87,6 @@
       }
     }
 
-    // Keep existing positioning for larger screens (≥768px)
     @media (min-width: 768px) {
       position: absolute;
       top: 50%; 
@@ -176,7 +172,6 @@
   
 
   .survey-question {
-    // Container fluid styles - full width
     width: 100%;
     padding-left: 15px;
     padding-right: 15px;
@@ -270,7 +265,6 @@
           );
         }
         
-        // Inner white circle for the text
         &::before {
           content: '';
           position: absolute;
@@ -340,7 +334,6 @@
     }
 
     .survey-question-title {
-      // Replace Bootstrap font classes with actual styles
       font-family: 'Playfair Display', serif;
       font-weight: 300;
       font-style: italic;
@@ -353,7 +346,6 @@
         font-size: 1.5rem; 
       }
 
-      // Apply Playfair Display to the question text itself
       .question-circle {
         span {
           font-family: 'Playfair Display', serif !important;
@@ -427,7 +419,6 @@
         border-radius: 0;
         transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         
-        // Flex fill equivalent
         flex: 1 1 auto;
         
         display: flex;
@@ -627,7 +618,6 @@
         display: flex;
 
         button {
-          // Button styles without Bootstrap extends
           display: inline-block;
           font-weight: 400;
           color: #fff;
@@ -710,7 +700,6 @@
   }
 
   .survey-progress-top {
-    // Container fluid replacement
     width: 100%;
     padding-left: 15px;
     padding-right: 15px;
@@ -816,7 +805,6 @@
     }
   }
   
-  // Completely disable any hover effects on touch devices
   @media (hover: none) and (pointer: coarse) {
     label {
       &:hover,
@@ -881,8 +869,6 @@
   }
 }
 
-// Ensure all survey question text uses Playfair Display
-// Ensure all survey question text uses Playfair Display - Match old repo styling
 #question-text,
 #visual-question-text {
   font-family: 'Playfair Display', serif !important;

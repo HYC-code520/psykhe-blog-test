@@ -1,6 +1,10 @@
 .about-wrapper {
   @extend .psykhe-font-b2b;
 
+  h1, h2, h3 {
+    font-family: 'Roboto', Arial, sans-serif !important;
+  }
+
   background: white;
   width: 100%;
   height: 100%;
@@ -25,6 +29,7 @@
       }
 
       h1 {
+        font-family: 'Roboto', Arial, sans-serif !important;
         letter-spacing: 0.1em;
         text-transform: uppercase;
 
@@ -43,6 +48,7 @@
       }
 
       h2 {
+        font-family: 'Roboto', Arial, sans-serif !important;
         color: #02031D;
 
         font-style: normal;
@@ -116,7 +122,6 @@
     background: url("/media/b2c/about/hero.png") no-repeat;
     background-size: cover;
     width: 100%;
-    // image dimension 1500x851
     height: 56.73vw;
 
     color: #FFFFFF;
@@ -136,14 +141,12 @@
       margin: 0
     }
 
-    // tablet
     @media (min-width: 768px) and (max-width: 869.99px) {
       background: url("/media/b2c/about/hero_tablet.png") no-repeat;
       background-size: cover;
       height: 72.04vw;
     }
 
-    // mobile
     @media (max-width: 767.99px) {
       background: url("/media/b2c/about/hero_mobile.png") no-repeat;
       background-size: cover;
@@ -167,12 +170,10 @@
       top: 72%;
       right: 53%;
 
-      // mobile
       @media (max-width: 767.99px) {
         display: none;
       }
 
-      //tablet
       @media (min-width: 768px) and (max-width: 869.99px) {
         right: 68%;
       }
@@ -183,12 +184,10 @@
       bottom: 2.5%;
       right: 28%;
 
-      // mobile
       @media (max-width: 767.99px) {
         display: none;
       }
 
-      //tablet
       @media (min-width: 768px) and (max-width: 869.99px) {
         right: 36%;
         bottom: 6%;
@@ -199,12 +198,10 @@
   .phones {
     height: 42.6vw;
 
-    // tablet
     @media (min-width: 768px) and (max-width: 869.99px) {
       height: 63.83vw;
     }
 
-    // mobile
     @media (max-width: 767.99px) {
       height: 100%;
       width: 100%;
@@ -223,12 +220,10 @@
 
         width: 100%;
 
-        // desktop
         background: url("/media/b2c/about/phones.png") no-repeat;
         background-size: 100%;
         height: 42.6vw;
 
-        // tablet
         @media (min-width: 768px) and (max-width: 869.99px) {
           background: url("/media/b2c/about/phones_tablet.png") no-repeat;
           height: 63.83vw;
@@ -236,7 +231,6 @@
           width: 100%;
         }
 
-        // mobile
         @media (max-width: 767.99px) {
           background: url("/media/b2c/about/phones_mobile.png") no-repeat;
           background-size: 100%;

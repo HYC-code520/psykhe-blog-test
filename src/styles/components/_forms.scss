@@ -1,5 +1,3 @@
-// Contact Form Styles for Astro Project
-// Add this to your src/styles/_b2b.scss file
 
 .signup-outer {
   width: 100%;
@@ -30,7 +28,6 @@
       font-weight: 400;
     }
 
-    // Hide messages by default (mimic Vue conditional rendering)
     .subscription-message {
       display: none;
       padding: 1rem 0;
@@ -44,7 +41,6 @@
         color: #ff6b6b;
       }
       
-      // Show when active
       &.show {
         display: block;
       }
@@ -115,12 +111,10 @@
           height: 16px;
         }
         
-        // Hide spinner by default
         .spinner {
           display: none;
         }
         
-        // Show spinner when processing
         &.processing {
           .spinner {
             display: inline-block;

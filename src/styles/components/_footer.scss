@@ -107,7 +107,6 @@
           
           content: ' ';
 
-          // @extend .nav-link-saved;
         }
       }
     }
@@ -212,7 +211,6 @@
     min-height: 500px !important;
     padding: 3rem 1rem !important;
     
-    // Target the Tailwind container
     .max-w-7xl {
       display: flex !important;
       flex-direction: column !important;
@@ -223,7 +221,6 @@
       padding: 0 !important;
     }
     
-    // Target Tailwind flex classes
     .flex {
       display: flex !important;
       flex-direction: column !important;
@@ -236,7 +233,6 @@
       }
     }
     
-    // Target Tailwind flex-1 classes
     .flex-1 {
       flex: none !important;
       width: auto !important;
@@ -248,7 +244,6 @@
       }
     }
     
-    // Style the navigation links
     .flex-1:first-child {
       order: 1;
       
@@ -269,12 +264,10 @@
       }
     }
     
-    // Empty middle div
     .flex-1:nth-child(2) {
       display: none !important;
     }
     
-    // Social footer
     .social-footer {
       order: 2;
       text-align: center !important;
@@ -296,7 +289,6 @@
       }
     }
     
-    // Back to top section - mobile specific positioning
     .ft-back-to-top {
       order: 3;
       text-align: center !important;
@@ -306,20 +298,17 @@
       width: 100% !important;
       
       a {
-        // Inherit the desktop inline-flex styles, just center it
         text-align: center !important;
         justify-content: center !important;
         margin: 0 !important;
       }
     }
     
-    // Override global footer anchor styles for mobile
     a {
       height: auto !important;
       line-height: normal !important;
     }
     
-    // But keep navigation links as blocks
     .flex-1:first-child a {
       display: block !important;
       height: auto !important;

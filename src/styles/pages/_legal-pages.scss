@@ -1,0 +1,199 @@
+.page-privacy-policy,
+.page-terms-conditions {
+  
+  main {
+    max-width: 1152px !important;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    
+    @media (min-width: 640px) {
+      padding: 2rem 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      padding: 2rem 2rem;
+    }
+    
+    @media (min-width: 1024px) {
+      padding: 2rem 3rem;
+    }
+    
+    h1 {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 2.5rem !important;
+      font-weight: 400;
+      text-align: center;
+      margin-top: 0.5rem !important;
+      margin-bottom: 1rem !important;
+      line-height: 1.2;
+      color: #000;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 1.75rem !important;
+      font-weight: 400;
+      margin-top: 1.5rem !important;
+      margin-bottom: 0.5rem !important;
+      line-height: 1.3;
+      color: #000;
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 1.4rem !important;
+      font-weight: 500;
+      margin-top: 1rem !important;
+      margin-bottom: 0.4rem !important;
+      color: #000;
+    }
+
+    h4 {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 1.2rem !important;
+      font-weight: 500;
+      margin-top: 0.8rem !important;
+      margin-bottom: 0.3rem !important;
+      color: #000;
+    }
+
+    p {
+      font-family: 'Montserrat', 'Arial', sans-serif !important;
+      font-size: 0.8rem !important;
+      font-weight: 300;
+      line-height: 1.6;
+      letter-spacing: 0.09em;
+      color: #000;
+      margin-bottom: 0.8rem !important;
+      margin-top: 0 !important;
+    }
+
+    li {
+      font-family: 'Montserrat', 'Arial', sans-serif !important;
+      font-size: 0.8rem !important;
+      font-weight: 300;
+      line-height: 1.6;
+      letter-spacing: 0.09em;
+      color: #000;
+    }
+
+    td, th {
+      font-family: 'Montserrat', 'Arial', sans-serif !important;
+      font-size: 0.8rem !important;
+      font-weight: 300;
+      line-height: 1.6;
+      letter-spacing: 0.09em;
+      color: #000;
+    }
+
+    p:last-child {
+      margin-bottom: 1.5rem !important;
+    }
+
+    ul {
+      margin: 2rem 0;
+      padding-left: 1.5rem;
+      list-style-type: disc;
+      
+      li {
+        font-family: 'Montserrat', 'Arial', sans-serif !important;
+        font-size: 0.8rem !important;
+        font-weight: 300;
+        line-height: 1.6;
+        letter-spacing: 0.09em;
+        color: #000;
+        margin-bottom: 0.5rem;
+        padding-left: 0; 
+        position: static; 
+        
+
+        &:before {
+          display: none; 
+        }
+        
+        a {
+          color: #000;
+          text-decoration: underline;
+          
+          &:hover {
+            color: #000;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.2rem;
+      
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    table {
+      width: 100%;
+      margin: 2rem 0;
+      
+      tr {
+        td {
+          border: 1px solid grey;
+          vertical-align: top;
+          padding: 0.25em 0.5em;
+
+          ol {
+            padding: 0;
+            padding-left: 2em;
+          }
+        }
+      }
+    }
+
+    a {
+      color: #000;
+      text-decoration: underline;
+      
+      &:hover {
+        color: #000;
+        text-decoration: underline;
+      }
+    }
+
+    .obfuscated-email {
+      color: #000;
+      text-decoration: underline;
+      cursor: pointer;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    dl {
+      margin: 1.5rem 0;
+      
+      dt {
+        font-weight: 500;
+        margin-top: 1rem;
+        margin-bottom: 0.25rem;
+        color: #000;
+      }
+      
+      dd {
+        margin-left: 0;
+        margin-bottom: 0.75rem;
+        padding-left: 1rem;
+      }
+    }
+
+    section {
+      margin-bottom: 1.5rem !important;
+    }
+
+    strong, b {
+      font-weight: 500;
+      color: #000;
+    }
+  }
+}
