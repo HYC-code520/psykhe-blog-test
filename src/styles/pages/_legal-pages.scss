@@ -2,7 +2,7 @@
 .page-terms-conditions {
   
   main {
-    max-width: 1152px !important;
+    max-width: 1230px !important;
     margin: 0 auto;
     padding: 2rem 1rem;
     
@@ -121,11 +121,21 @@
           }
         }
       }
+      
+      // Reduce spacing for navigation lists (first ul in the page)
+      &:first-of-type {
+        li {
+          margin-bottom: 0.2rem !important; // Much tighter spacing
+          line-height: 1.4 !important; // Tighter line height
+        }
+      }
     }
 
+    // Regular ordered lists outside tables - make them use a. b. c. format
     ol {
       padding-left: 1.5rem;
       margin-bottom: 1.2rem;
+      list-style-type: lower-alpha !important; // This makes a. b. c. d.
       
       li {
         margin-bottom: 0.5rem;
@@ -145,7 +155,24 @@
           ol {
             padding: 0;
             padding-left: 2em;
+            list-style-type: lower-alpha !important; // This makes a. b. c. d.
           }
+          
+          // Also target any ul lists inside tables to use letters
+          ul {
+            padding: 0;
+            padding-left: 2em;
+            list-style-type: lower-alpha !important; // This makes a. b. c. d.
+          }
+        }
+        
+        // Table headers without borders
+        th {
+          border: none !important; // Remove the border/box
+          vertical-align: top;
+          padding: 0.25em 0.5em;
+          text-align: left !important;
+          font-weight: bold !important;
         }
       }
     }
@@ -194,6 +221,14 @@
     strong, b {
       font-weight: 500;
       color: #000;
+    }
+
+    // Target the navigation section specifically
+    section:first-of-type ul {
+      li {
+        margin-bottom: 0.2rem !important;
+        line-height: 1.4 !important;
+      }
     }
   }
 }
