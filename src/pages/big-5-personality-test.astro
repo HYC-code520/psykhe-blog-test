@@ -259,13 +259,13 @@ const visualQuestionSets = [
               <input id="termsConsent" type="checkbox" class="checkbox-input" required />
               <label class="checkbox-label" for="termsConsent">
                 <span class="required">*</span> I agree to the
-                <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a>
+                <a href="/terms-and-conditions/" target="_blank">Terms and Conditions</a>
               </label>
             </div>
 
             <button
               type="button"
-              class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded submit-user-info"
+              class="submit-user-info"
               id="submit-user-info"
               onclick="submitUserInfo()"
             >
@@ -761,7 +761,7 @@ const visualQuestionSets = [
     const form = document.getElementById('visual-form');
     form.innerHTML = question.answers.map(answer => `
       <div class="survey-question-answer mb-0 sm:mb-2 md:mb-3.5 ${state.visualResponses[state.currentVisualIndex].includes(answer.id) ? 'survey-question-answer-selected' : ''}">
-        <label for="visual-${question.id}-${answer.id}" class="flex items-center w-full py-3 px-5 sm:max-w-[60%] sm:mx-auto md:max-w-none md:mx-0 border border-black bg-white hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white transition-all duration-150 cursor-pointer min-h-[60px] max-h-[60px]">
+        <label for="visual-${question.id}-${answer.id}" class="flex items-center w-full py-3 px-5 sm:max-w-[60%] sm:mx-auto md:max-w-none md:mx-0 border border-black bg-white hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white transition-all duration-150 cursor-pointer min-h-[60px] max-h-[60px] ${question.id === 104 ? 'min-h-[80px] max-h-[80px] py-4' : ''}">
           <input
             id="visual-${question.id}-${answer.id}"
             type="checkbox"
@@ -770,7 +770,7 @@ const visualQuestionSets = [
             ${state.visualResponses[state.currentVisualIndex].includes(answer.id) ? 'checked' : ''}
             onchange="toggleVisualAnswer(${answer.id})"
           />
-          ${answer.icon ? `<img src="${answer.icon}" alt="${answer.text}" class="w-10 h-10 rounded-full object-cover mr-3 flex-shrink-0" />` : ''}
+          ${answer.icon ? `<img src="${answer.icon}" alt="${answer.text}" class="w-14 h-14 rounded-full object-cover ml-4 mr-3 flex-shrink-0" />` : ''}
           <span class="flex-1 text-left text-sm leading-tight">${answer.text}</span>
         </label>
       </div>
@@ -806,11 +806,50 @@ const visualQuestionSets = [
     updateNavigation();
   }
 
+  // Progress animation function
+  function animateProgress(targetProgress, currentProgress, callback) {
+    const duration = 600; // 600ms animation duration
+    const startTime = performance.now();
+    const startProgress = currentProgress;
+
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Ease-out cubic easing function
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+
+      const newProgress = startProgress + (targetProgress - startProgress) * easeOutCubic;
+      
+      // Update the progress value
+      callback(newProgress);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        // Ensure final value is exact
+        callback(targetProgress);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }
+
+  // Enhanced progress update with smooth animation
   function updateQuestionCircleProgress() {
-    const progress = (getCompletedQuestions() / getTotalQuestions()) * 100;
+    const targetProgress = (getCompletedQuestions() / getTotalQuestions()) * 100;
     const circles = document.querySelectorAll('.question-circle');
-    circles.forEach(circle => {
-      circle.style.setProperty('--progress', progress);
+    
+    if (circles.length === 0) return;
+    
+    // Get current progress from the first circle
+    const currentProgress = parseFloat(circles[0].style.getPropertyValue('--progress') || '0');
+    
+    // Animate to target progress
+    animateProgress(targetProgress, currentProgress, (newProgress) => {
+      circles.forEach(circle => {
+        circle.style.setProperty('--progress', newProgress);
+      });
     });
   }
 
@@ -823,28 +862,6 @@ const visualQuestionSets = [
     
     // Animate progress
     animateProgress(getCompletedQuestions());
-  }
-
-  function animateProgress(targetProgress) {
-    const startProgress = state.animatedProgress;
-    const duration = 600;
-    const startTime = performance.now();
-
-    function animate(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
-      
-      state.animatedProgress = startProgress + (targetProgress - startProgress) * easeOutCubic;
-      
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        state.animatedProgress = targetProgress;
-      }
-    }
-    
-    requestAnimationFrame(animate);
   }
 
   function updateNavigation() {
@@ -897,11 +914,43 @@ const visualQuestionSets = [
   }
 
   // User info functions
-  function canSubmitUserInfo() {
-    const firstName = document.getElementById('firstName').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const terms = document.getElementById('termsConsent').checked;
-    return firstName !== '' && email !== '' && isValidEmail(email) && terms;
+  // Simplified form validation
+  function validateUserInfoForm() {
+    const firstName = document.getElementById('firstName');
+    const email = document.getElementById('email');
+    const termsConsent = document.getElementById('termsConsent');
+    
+    const isValid = firstName.value.trim() && 
+                    email.value.trim() && 
+                    isValidEmail(email.value) && 
+                    termsConsent.checked;
+    
+    // Show/hide simple validation hint
+    showValidationHint(!isValid);
+    
+    return isValid;
+  }
+
+  function showValidationHint(showHint) {
+    let hintDiv = document.querySelector('.form-validation-hint');
+    
+    if (showHint) {
+      if (!hintDiv) {
+        hintDiv = document.createElement('div');
+        hintDiv.className = 'form-validation-hint';
+        
+        const form = document.querySelector('.user-info-form');
+        form.insertBefore(hintDiv, form.firstChild);
+      }
+      
+      hintDiv.innerHTML = `
+        <span class="hint-icon">⚠️</span>
+        Please complete the required fields
+      `;
+      hintDiv.classList.add('show');
+    } else if (hintDiv) {
+      hintDiv.classList.remove('show');
+    }
   }
 
   function isValidEmail(email) {
@@ -909,23 +958,13 @@ const visualQuestionSets = [
     return emailRegex.test(email);
   }
 
+  // Enhanced submit function
   function submitUserInfo() {
-    if (!canSubmitUserInfo()) return;
-
-    // Get form values
-    state.firstName = document.getElementById('firstName').value.trim();
-    state.lastName = document.getElementById('lastName').value.trim();
-    state.email = document.getElementById('email').value.trim();
-    state.retailerNames = document.getElementById('retailerNames').value.trim();
-    state.optInUpdate = document.getElementById('optInUpdate').checked;
-    state.optInParticipateInRetails = document.getElementById('optInParticipateInRetails').checked;
-    state.agreedToTerms = document.getElementById('termsConsent').checked;
-
-    // Calculate OCEAN scores
-    calculateOceanScores();
-    
-    state.userInfoStep = true;
-    showCurrentSection();
+    if (validateUserInfoForm()) {
+      // Proceed with form submission
+      console.log('Form is valid, proceeding...');
+      // Your existing submit logic here
+    }
   }
 
   function calculateOceanScores() {
@@ -1237,24 +1276,97 @@ Let me know what you get! 😊`;
     document.getElementById('trait-hint').style.display = 'none';
   }
 
+  // Update the showUserInfoSection function to include validation
+  function showUserInfoSection() {
+    // Hide other sections
+    document.getElementById('survey-section').style.display = 'none';
+    document.getElementById('visual-section').style.display = 'none';
+    document.getElementById('results-section').style.display = 'none';
+    
+    // Show user info section
+    document.getElementById('user-info-section').style.display = '';
+    
+    // Set up validation immediately
+    setTimeout(() => {
+      validateUserInfoForm();
+      
+      // Add event listeners if not already added
+      const firstName = document.getElementById('firstName');
+      const email = document.getElementById('email');
+      const termsConsent = document.getElementById('termsConsent');
+      
+      if (firstName && !firstName.hasAttribute('data-validation-added')) {
+        firstName.addEventListener('input', validateUserInfoForm);
+        firstName.addEventListener('keyup', validateUserInfoForm);
+        firstName.setAttribute('data-validation-added', 'true');
+      }
+      
+      if (email && !email.hasAttribute('data-validation-added')) {
+        email.addEventListener('input', validateUserInfoForm);
+        email.addEventListener('keyup', validateUserInfoForm);
+        email.setAttribute('data-validation-added', 'true');
+      }
+      
+      if (termsConsent && !termsConsent.hasAttribute('data-validation-added')) {
+        termsConsent.addEventListener('change', validateUserInfoForm);
+        termsConsent.setAttribute('data-validation-added', 'true');
+      }
+    }, 100);
+  }
+
   // Initialize on page load
   document.addEventListener('DOMContentLoaded', function() {
     initFlipCounter();
     
-    // Add input validation for user info form
-    const inputs = ['firstName', 'email', 'termsConsent'];
-    inputs.forEach(id => {
-      const element = document.getElementById(id);
-      if (element) {
-        element.addEventListener('input', function() {
-          document.getElementById('submit-user-info').disabled = !canSubmitUserInfo();
-        });
-        element.addEventListener('change', function() {
-          document.getElementById('submit-user-info').disabled = !canSubmitUserInfo();
-        });
-      }
+    // Set up form validation when user info section becomes visible
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+          const userInfoSection = document.getElementById('user-info-section');
+          if (userInfoSection && userInfoSection.style.display !== 'none') {
+            setupFormValidation();
+          }
+        }
+      });
     });
+    
+    const userInfoSection = document.getElementById('user-info-section');
+    if (userInfoSection) {
+      observer.observe(userInfoSection, { attributes: true });
+    }
+    
+    // Also set up validation immediately if the section is already visible
+    if (userInfoSection && userInfoSection.style.display !== 'none') {
+      setupFormValidation();
+    }
   });
+
+  function setupFormValidation() {
+    const firstName = document.getElementById('firstName');
+    const email = document.getElementById('email');
+    const termsConsent = document.getElementById('termsConsent');
+    
+    // Remove existing listeners to avoid duplicates
+    if (firstName && !firstName.hasAttribute('data-validation-setup')) {
+      firstName.addEventListener('input', validateUserInfoForm);
+      firstName.addEventListener('blur', validateUserInfoForm);
+      firstName.setAttribute('data-validation-setup', 'true');
+    }
+    
+    if (email && !email.hasAttribute('data-validation-setup')) {
+      email.addEventListener('input', validateUserInfoForm);
+      email.addEventListener('blur', validateUserInfoForm);
+      email.setAttribute('data-validation-setup', 'true');
+    }
+    
+    if (termsConsent && !termsConsent.hasAttribute('data-validation-setup')) {
+      termsConsent.addEventListener('change', validateUserInfoForm);
+      termsConsent.setAttribute('data-validation-setup', 'true');
+    }
+    
+    // Run initial validation
+    setTimeout(validateUserInfoForm, 100);
+  }
 
   // Make functions globally available
   window.startTest = startTest;

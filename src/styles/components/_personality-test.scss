@@ -872,3 +872,414 @@
     }
   }
 }
+
+// Consistent width for user info section across all screen sizes
+.big-5-personality-test .user-info-section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  
+  .survey-question-title {
+    text-align: center !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .user-info-form {
+    max-width: 100%;
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+      
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #333;
+        font-size: 0.875rem;
+        
+        .required {
+          color: #e53e3e;
+          margin-left: 2px;
+        }
+        
+        small {
+          font-weight: 400;
+          color: #666;
+          margin-left: 4px;
+        }
+      }
+      
+      input {
+        width: 100% !important;
+        padding: 0.75rem 1rem !important;
+        border: 1px solid #000 !important;
+        border-radius: 0 !important;
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+        background-color: white !important;
+        color: #333 !important;
+        box-sizing: border-box !important;
+        transition: border-color 0.2s ease !important;
+        
+        &:focus {
+          outline: none !important;
+          border-color: #000 !important;
+          box-shadow: none !important;
+        }
+        
+        &::placeholder {
+          color: #9ca3af;
+        }
+        
+        // Error state for required fields
+        &.error {
+          border-color: #e53e3e !important;
+          background-color: #fef2f2 !important;
+        }
+        
+        // Success state for filled required fields
+        &.success {
+          border-color: #10b981 !important;
+        }
+      }
+      
+      // Error message styling
+      .error-message {
+        color: #e53e3e;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        display: none;
+        
+        &.show {
+          display: block;
+        }
+      }
+    }
+    
+    .checkbox-container {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      position: relative;
+      
+      .checkbox-input {
+        width: 1rem !important;
+        height: 1rem !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        flex-shrink: 0;
+        margin-top: 0.125rem !important;
+        accent-color: #3b82f6;
+        
+        // Error state for required checkbox
+        &.error {
+          accent-color: #e53e3e;
+          outline: 2px solid #e53e3e;
+          outline-offset: 1px;
+        }
+      }
+      
+      .checkbox-label {
+        font-size: 0.875rem;
+        color: #333;
+        line-height: 1.4;
+        margin: 0;
+        cursor: pointer;
+        
+        .required {
+          color: #e53e3e;
+          margin-right: 4px;
+        }
+        
+        a {
+          color: #000 !important;
+          text-decoration: underline;
+          
+          &:hover {
+            color: #333 !important;
+          }
+        }
+        
+        // Error state for checkbox label
+        &.error {
+          color: #e53e3e;
+        }
+      }
+      
+      // Error message for checkbox
+      .error-message {
+        color: #e53e3e;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        
+        &.show {
+          display: block;
+        }
+      }
+    }
+    
+    .submit-user-info {
+      width: 100% !important;
+      padding: 0.875rem 1.5rem !important;
+      border: none !important;
+      border-radius: 0 !important;
+      font-size: 1rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      transition: all 0.2s ease !important;
+      margin-top: 1rem !important;
+      position: relative;
+      
+      // Default state - always show gradient
+      background: linear-gradient(90deg, #ca43d7 0%, #3773f2 50%, #c0f771 100%) !important;
+      color: white !important;
+      cursor: pointer !important;
+      opacity: 1 !important;
+      
+      &:hover {
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        background: linear-gradient(90deg, #d654e2 0%, #4884ff 50%, #d0ff81 100%) !important;
+      }
+      
+      &:active {
+        transform: translateY(0) !important;
+      }
+    }
+    
+    // Simplified form validation hint - text only
+    .form-validation-hint {
+      font-size: 0.875rem;
+      color: #f87171;
+      display: none;
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 1rem;
+      
+      &.show {
+        display: block;
+      }
+      
+      .hint-icon {
+        display: inline-block;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  
+  .survey-question-proceed-message {
+    text-align: center;
+    max-width: 100%;
+  }
+}
+
+// Remove the mobile-only styling since we want consistent width
+@media (max-width: 767px) {
+  .big-5-personality-test .user-info-section {
+    // Keep the same max-width and centering for mobile
+    max-width: 600px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+    .survey-question-title {
+      margin-top: 0.1rem !important; 
+    }
+  }
+}
+
+// Ensure consistent width on larger screens too
+@media (min-width: 768px) {
+  .big-5-personality-test .user-info-section {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+// User Info Section Styling to match the design
+.big-5-personality-test .user-info-section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  
+  .survey-question-title {
+    font-family: 'Montserrat', 'Arial', sans-serif !important;
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center !important;
+    margin-bottom: 2rem !important;
+    color: #333;
+    line-height: 1.2;
+    
+    @media (max-width: 767px) {
+      font-size: 1.25rem;
+      margin-top: 0.5rem !important;
+    }
+  }
+  
+  .survey-question-proceed-message {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    
+    &.survey-question-proceed-message-bottom {
+      margin-top: 1.5rem;
+      margin-bottom: 0;
+      font-size: 0.875rem;
+    }
+  }
+  
+  .user-info-form {
+    .form-group {
+      margin-bottom: 1.5rem;
+      
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #333;
+        font-size: 0.875rem;
+        
+        .required {
+          color: #e53e3e;
+          margin-left: 2px;
+        }
+        
+        small {
+          font-weight: 400;
+          color: #666;
+          margin-left: 4px;
+        }
+      }
+      
+      input {
+        width: 100% !important;
+        padding: 0.75rem 1rem !important;
+        border: 1px solid #000 !important;
+        border-radius: 0 !important;
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+        background-color: white !important;
+        color: #333 !important;
+        box-sizing: border-box !important;
+        
+        &:focus {
+          outline: none !important;
+          border-color: #000 !important;
+          box-shadow: none !important;
+        }
+        
+        &::placeholder {
+          color: #9ca3af;
+        }
+      }
+    }
+    
+    .checkbox-container {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      
+      .checkbox-input {
+        width: 1rem !important;
+        height: 1rem !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        flex-shrink: 0;
+        margin-top: 0.125rem !important;
+        accent-color: #3b82f6;
+      }
+      
+      .checkbox-label {
+        font-size: 0.875rem;
+        color: #333;
+        line-height: 1.4;
+        margin: 0;
+        cursor: pointer;
+        
+        .required {
+          color: #e53e3e;
+          margin-right: 4px;
+        }
+        
+        a {
+          color: #000 !important;
+          text-decoration: underline;
+          
+          &:hover {
+            color: #333 !important;
+          }
+        }
+      }
+    }
+    
+    .submit-user-info {
+      width: 100% !important;
+      padding: 0.875rem 1.5rem !important;
+      border: none !important;
+      border-radius: 0 !important;
+      font-size: 1rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      transition: all 0.2s ease !important;
+      margin-top: 1rem !important;
+      
+      // Default state - always show gradient
+      background: linear-gradient(90deg, #ca43d7 0%, #3773f2 50%, #c0f771 100%) !important;
+      color: white !important;
+      cursor: pointer !important;
+      opacity: 1 !important;
+      
+      &:hover {
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        background: linear-gradient(90deg, #d654e2 0%, #4884ff 50%, #d0ff81 100%) !important;
+      }
+      
+      &:active {
+        transform: translateY(0) !important;
+      }
+      
+      // Remove the .enabled class requirement - button always has gradient
+      &.enabled {
+        // No additional styles needed since default is already the gradient
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 767px) {
+  .big-5-personality-test .user-info-section {
+    padding: 1.5rem 1rem;
+    
+    .user-info-form {
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+      
+      .checkbox-container {
+        margin-bottom: 0.875rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .big-5-personality-test .user-info-section {
+    padding: 1rem 0.75rem;
+  }
+}
