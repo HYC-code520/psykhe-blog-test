@@ -118,19 +118,21 @@ const visualQuestionSets = [
         </div>
       </div>
 
+      <div class="survey-controls">
+        <button id="prev-btn" class="survey-control-prev" onclick="navigatePrevious()" style="display: none;">
+          <span class="survey-control-prev-icon"></span>
+          <span class="sr-only">Prev</span>
+        </button>
+
+        <button id="next-btn" class="survey-control-next" onclick="navigateNext()" style="display: none;">
+          <span class="survey-control-next-icon"></span>
+          <span class="sr-only">Next</span>
+        </button>
+      </div>
+      
       <div class="flex justify-center relative">
         <!-- Navigation controls -->
-        <div class="survey-controls">
-          <button id="prev-btn" class="survey-control-prev" onclick="navigatePrevious()" style="display: none;">
-            <span class="survey-control-prev-icon"></span>
-            <span class="sr-only">Prev</span>
-          </button>
 
-          <button id="next-btn" class="survey-control-next" onclick="navigateNext()" style="display: none;">
-            <span class="survey-control-next-icon"></span>
-            <span class="sr-only">Next</span>
-          </button>
-        </div>
 
         <!-- Survey Questions -->
         <div id="survey-section" class="survey-question" style="display: none;">
@@ -145,7 +147,7 @@ const visualQuestionSets = [
             Click the right arrow to proceed to the next question.
           </p>
 
-          <form id="survey-form" class="survey-form">
+          <form id="survey-form" class="survey-form row flex flex-col gap-3 md:gap-4">
             <!-- Survey answers will be inserted here -->
           </form>
 
@@ -416,13 +418,14 @@ const visualQuestionSets = [
           </div>
         </div>
 
-        <!-- Bottom Progress bar -->
-        <div id="bottom-progress" class="survey-progress-bottom">
-          <div class="progress-bar">
-            <div id="bottom-progress-fill" class="progress-fill"></div>
-          </div>
-        </div>
+
       </div>
+              <!-- Bottom Progress bar - moved outside the flex container -->
+              <div id="bottom-progress" class="survey-progress-bottom">
+                <div class="progress-bar">
+                  <div id="bottom-progress-fill" class="progress-fill"></div>
+                </div>
+              </div>
     </div>
   </div>
   
@@ -703,17 +706,17 @@ const visualQuestionSets = [
     const section = getCurrentSection();
     
     if (section === 'survey') {
-      document.getElementById('survey-section').style.display = 'block';
+      document.getElementById('survey-section').style.display = '';
       showSurveyQuestion();
     } else if (section === 'visual') {
-      document.getElementById('visual-section').style.display = 'block';
+      document.getElementById('visual-section').style.display = '';
       showVisualQuestion();
     } else if (section === 'userInfo') {
-      document.getElementById('user-info-section').style.display = 'block';
+      document.getElementById('user-info-section').style.display = '';
       document.getElementById('progress-container').style.display = 'none';
       document.getElementById('bottom-progress').style.display = 'none';
     } else if (section === 'complete') {
-      document.getElementById('results-section').style.display = 'block';
+      document.getElementById('results-section').style.display = '';
       document.getElementById('progress-container').style.display = 'none';
       document.getElementById('bottom-progress').style.display = 'none';
       showResults();
@@ -729,18 +732,17 @@ const visualQuestionSets = [
 
     document.getElementById('question-indicator').textContent = `Question ${completed + 1} of ${total}`;
     document.getElementById('question-text').textContent = question.text;
-
     const form = document.getElementById('survey-form');
     form.innerHTML = question.answers.map(answer => `
-      <div class="survey-question-answer ${state.surveyResponses[state.currentSurveyIndex] === answer.id ? 'survey-question-answer-selected' : ''}">
+      <div class="survey-question-answer survey-answer mb-0 sm:mb-1 md:mb-3 ${state.surveyResponses[state.currentSurveyIndex] === answer.id ? 'survey-question-answer-selected' : ''}">
         <input
           id="survey-${question.id}-${answer.id}"
           type="radio"
           value="${answer.id}"
           ${state.surveyResponses[state.currentSurveyIndex] === answer.id ? 'checked' : ''}
         />
-        <label for="survey-${question.id}-${answer.id}" class="pt-answer-1" onclick="selectSurveyAnswer(${answer.id})">
-          <span>${answer.text}</span>
+        <label for="survey-${question.id}-${answer.id}" class="block w-full py-4 px-5 sm:max-w-[60%] sm:mx-auto md:max-w-none md:mx-0 text-center border border-black bg-white hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white transition-all duration-150 cursor-pointer" onclick="selectSurveyAnswer(${answer.id})">
+          <span class="block w-full text-center">${answer.text}</span>
         </label>
       </div>
     `).join('');
@@ -758,21 +760,19 @@ const visualQuestionSets = [
 
     const form = document.getElementById('visual-form');
     form.innerHTML = question.answers.map(answer => `
-      <div class="flex-1 min-w-0 sm:flex-none sm:w-auto survey-question-answer ${state.visualResponses[state.currentVisualIndex].includes(answer.id) ? 'survey-question-answer-selected' : ''}">
-        <div class="form-group">
+      <div class="survey-question-answer mb-0 sm:mb-2 md:mb-3.5 ${state.visualResponses[state.currentVisualIndex].includes(answer.id) ? 'survey-question-answer-selected' : ''}">
+        <label for="visual-${question.id}-${answer.id}" class="flex items-center w-full py-3 px-5 sm:max-w-[60%] sm:mx-auto md:max-w-none md:mx-0 border border-black bg-white hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white transition-all duration-150 cursor-pointer min-h-[60px] max-h-[60px]">
           <input
             id="visual-${question.id}-${answer.id}"
             type="checkbox"
             value="${answer.id}"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="visual-checkbox mr-4 w-5 h-5 flex-shrink-0"
             ${state.visualResponses[state.currentVisualIndex].includes(answer.id) ? 'checked' : ''}
             onchange="toggleVisualAnswer(${answer.id})"
           />
-          <label for="visual-${question.id}-${answer.id}" class="pt-answer-1">
-            ${answer.icon ? `<img src="${answer.icon}" alt="${answer.text}" class="answer-icon" />` : ''}
-            <span>${answer.text}</span>
-          </label>
-        </div>
+          ${answer.icon ? `<img src="${answer.icon}" alt="${answer.text}" class="w-10 h-10 rounded-full object-cover mr-3 flex-shrink-0" />` : ''}
+          <span class="flex-1 text-left text-sm leading-tight">${answer.text}</span>
+        </label>
       </div>
     `).join('');
 
@@ -854,8 +854,9 @@ const visualQuestionSets = [
     // Show/hide previous button
     prevBtn.style.display = isFirstQuestion() ? 'none' : 'block';
     
-    // Show/hide next button
-    nextBtn.style.display = canNavigateNext() ? 'block' : 'none';
+    // Always show next button, but enable/disable it based on whether user can proceed
+    nextBtn.style.display = 'block';
+    nextBtn.disabled = !canNavigateNext();
   }
 
   function navigateNext() {
