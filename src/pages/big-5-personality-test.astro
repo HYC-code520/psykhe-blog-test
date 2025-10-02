@@ -316,13 +316,17 @@ const visualQuestionSets = [
 
                       <div id="info-popup" class="info-popup" style="display: none;">
                         <p>
-                          Using a version of the Big 5 model of personality traits, we've calculated your scores below.
+                          Using a version of the Big 5 model of personality traits, we’ve calculated your scores below.
                           Within psychology, this model is the most trusted framework for measuring personality, and has
-                          a known relationship with a variety of preferences.
+                          a known relationship with a variety of preferences. If you’ve ever wondered why you’re drawn
+                          to certain brands, clothes, music, or hobbies, your personality scores can help you understand
+                          why.
                         </p>
+
                         <p>
                           Your core personal style is arrived at from how the five scores combine and interact together,
-                          and not from one score alone, for an aesthetic and lifestyle that's uniquely yours.
+                          and not from one score alone, for an aesthetic and lifestyle that’s uniquely yours. Read on
+                          for an explanation of how you scored within each scale.
                         </p>
                       </div>
                     </div>
@@ -928,7 +932,7 @@ const visualQuestionSets = [
     // Show/hide simple validation hint
     showValidationHint(!isValid);
     
-    return isValid;
+    return isValid; // Make sure to return the validation result
   }
 
   function showValidationHint(showHint) {
@@ -961,9 +965,35 @@ const visualQuestionSets = [
   // Enhanced submit function
   function submitUserInfo() {
     if (validateUserInfoForm()) {
-      // Proceed with form submission
-      console.log('Form is valid, proceeding...');
-      // Your existing submit logic here
+      // Calculate OCEAN scores from survey responses
+      calculateOceanScores();
+      
+      // Get form data
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const retailerNames = document.getElementById('retailerNames').value.trim();
+      const optInUpdate = document.getElementById('optInUpdate').checked;
+      const optInParticipateInRetails = document.getElementById('optInParticipateInRetails').checked;
+      
+      // Store user data in state
+      state.userData = {
+        firstName,
+        lastName,
+        email,
+        retailerNames,
+        optInUpdate,
+        optInParticipateInRetails
+      };
+      
+      console.log('Form is valid, showing results...', state.ocean);
+      
+      // Hide user info section and show results
+      document.getElementById('user-info-section').style.display = 'none';
+      document.getElementById('results-section').style.display = 'block';
+      
+      // Show the results
+      showResults();
     }
   }
 
@@ -1007,8 +1037,9 @@ const visualQuestionSets = [
 
   function updateProfileTitle() {
     const personalityCode = `${state.ocean.O}${state.ocean.C}${state.ocean.E}${state.ocean.A}${state.ocean.N}`;
+    const firstName = state.userData?.firstName || 'there';
     document.getElementById('profile-title').innerHTML = `
-      <span>Hi ${state.firstName},</span> your personality code is ${personalityCode}
+      <span>Hi ${firstName},</span> your personality code is ${personalityCode}
       <button
         class="info-popup-trigger"
         onmouseover="showInfoPopup()"
