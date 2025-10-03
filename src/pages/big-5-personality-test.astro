@@ -944,7 +944,10 @@ const visualQuestionSets = [
         hintDiv.className = 'form-validation-hint';
         
         const form = document.querySelector('.user-info-form');
-        form.insertBefore(hintDiv, form.firstChild);
+        const submitButton = document.querySelector('.submit-user-info');
+        
+        // Insert the hint div right before the submit button
+        form.insertBefore(hintDiv, submitButton);
       }
       
       hintDiv.innerHTML = `
@@ -1157,7 +1160,11 @@ const visualQuestionSets = [
               ${mobileContent.paragraphs.map(p => `<p>${p}</p>`).join('')}
               <hr class="border-t border-gray-300 my-4" />
               <div class="legend">
-                <span>HIGH = 5 • MODERATE-HIGH = 4 • MODERATE = 3 • MODERATE-LOW = 2 • LOW = 1</span>
+                <span>HIGH = 5</span>
+                <span>MODERATE-HIGH = 4</span>
+                <span>MODERATE = 3</span>
+                <span>MODERATE-LOW = 2</span>
+                <span>LOW = 1</span>
               </div>
             </div>
           `;
@@ -1165,10 +1172,8 @@ const visualQuestionSets = [
       }
     }
 
-    // Update mobile header
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
-      document.getElementById('mobile-trait-header').textContent = `${state.selectedMobileTrait.toUpperCase()}: ${getCurrentMobileTraitScore()}`;
-    }
+    // Update mobile header - remove the window width check since CSS handles visibility
+    document.getElementById('mobile-trait-header').textContent = `${state.selectedMobileTrait.toUpperCase()}: ${getCurrentMobileTraitScore()}`;
 
     // Update navigation arrow state
     document.getElementById('trait-prev').disabled = state.activeTabIndex === 0;
