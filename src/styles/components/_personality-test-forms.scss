@@ -8,10 +8,10 @@
   padding: 2rem 1.5rem;
   
   @media (max-width: 767px) {
-    max-width: 500px; // Reduced max-width for better mobile experience
+    max-width: 500px; 
     padding: 1.5rem 1rem;
-    padding-left: 40px; // Increased to prevent overlap with navigation arrows
-    padding-right: 40px; // Increased to prevent overlap with navigation arrows
+    padding-left: 30px; 
+    padding-right: 30px; 
     
     .survey-question-title {
       text-align: center !important;
@@ -21,7 +21,7 @@
   }
 
   @media (max-width: 480px) {
-    padding: 1rem 40px; // Increased horizontal padding to prevent overlap with navigation arrows
+    padding: 1rem 30px; 
   }
 
   @media (min-width: 768px) {

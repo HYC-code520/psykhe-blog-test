@@ -11,12 +11,25 @@
   margin: 0 auto;
   padding-left: 15px;
   padding-right: 15px;
+  min-height: 80vh; // Set minimum height to push footer lower
+  margin-bottom: 4rem; // Add space between survey and footer
   
   overflow-x: visible;
   position: relative;
 
   @media (min-width: 576px) {
     width: 100%;
+  }
+
+  // Mobile adjustments for footer spacing
+  @media (max-width: 767px) {
+    min-height: 75vh; // Slightly less height on mobile
+    margin-bottom: 3rem; // Reduced margin on mobile
+  }
+
+  @media (max-width: 480px) {
+    min-height: 70vh; // Even less height on small mobile
+    margin-bottom: 2rem; // Smaller margin on very small screens
   }
 
   &.survey-beginning {
@@ -792,11 +805,17 @@
     padding-left: 15px;
     padding-right: 15px;
     margin-top: 1.5rem;
+    margin-bottom: 2rem; // Add bottom margin to create space from footer
     
     display: none;
 
     @media (max-width: 767px) {
       display: block;
+      margin-bottom: 1.5rem; // Slightly less margin on mobile
+    }
+
+    @media (max-width: 480px) {
+      margin-bottom: 1rem; // Even less margin on very small screens
     }
 
     .progress-bar {

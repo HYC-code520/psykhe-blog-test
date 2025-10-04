@@ -19,16 +19,16 @@ function showMobileDownloadOptions() {
       <p>Choose how you'd like to save your results:</p>
       <div class="download-options">
         <button class="download-option-btn" onclick="downloadFullScreenshot()">
-          <span>📱</span>
+          
           <div>
-            <strong>Full Results</strong>
-            <small>Screenshot of complete results (excluding footer)</small>
+            <strong>Current Trait</strong>
+            <small> Download Current Selected Trait Results </small>
           </div>
         </button>
         <button class="download-option-btn" onclick="downloadAllTraitsWithPhotos()">
-          <span>📊</span>
+          
           <div>
-            <strong>5 Individual Trait Images</strong>
+            <strong>Download All Traits</strong>
             <small>Download 5 separate images, one for each trait</small>
           </div>
         </button>

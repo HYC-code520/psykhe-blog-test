@@ -5,6 +5,17 @@ body {
   letter-spacing: 0.09em;
   font-family: 'Montserrat', 'Arial', sans-serif;
   color: #000;
+  scroll-behavior: auto !important; // Disable smooth scrolling for instant jumps
+}
+
+// Ensure anchor links land precisely without extra spacing
+html {
+  scroll-padding-top: 0; // Remove any default scroll padding
+}
+
+// Specific styling for contact anchor to ensure precise positioning
+#contact {
+  scroll-margin-top: 0; // Ensure no extra margin when jumping to this anchor
 }
 
 body a {

@@ -240,7 +240,7 @@ import Footer from '../components/Footer.astro';
 
       <div class="signup-outer">
         <div class="signup">
-          <p id="signup" class="signup-heading">Get PSYKHE AI For Your Business</p>
+          <p id="contact" class="signup-heading">Get PSYKHE AI For Your Business</p>
 
           <p class="signup-content">
             Get in touch to discuss your Enterprise's specific needs and get an in‑depth understanding of how psych-based
@@ -303,6 +303,27 @@ import Footer from '../components/Footer.astro';
 </style>
 
 <script>
+// Handle immediate scroll to anchor on page load to prevent flash
+(function() {
+  // Check if there's a hash in the URL
+  if (window.location.hash) {
+    // Hide the page content immediately to prevent flash
+    document.documentElement.style.visibility = 'hidden';
+    
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Scroll to the target immediately
+      const target = document.querySelector(window.location.hash);
+      if (target) {
+        target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }
+      
+      // Show the page content
+      document.documentElement.style.visibility = 'visible';
+    });
+  }
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
