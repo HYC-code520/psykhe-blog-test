@@ -95,23 +95,43 @@
           font-size: 1.1rem;
           font-weight: 400;
 
-          .nav-case-studies {
-            display: none;
-
-            @media (min-width: 768px) {
-              display: block;
-            }
-
-            margin-left: 4rem;
-          }
-
+          .nav-case-studies,
           .nav-book-demo {
             display: none;
 
             @media (min-width: 768px) {
               display: block;
             }
+            
+            a {
+              position: relative;
+              transition: all 0.3s ease;
+              text-decoration: none;
+              
+              &::after {
+                content: '';
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background-color: white;
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.3s ease;
+              }
+              
+              &:hover::after {
+                transform: scaleX(1);
+              }
+            }
+          }
+          
+          .nav-case-studies {
+            margin-left: 4rem;
+          }
 
+          .nav-book-demo {
             margin-left: 2rem;
           }
 

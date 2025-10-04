@@ -238,7 +238,7 @@ import Footer from '../components/Footer.astro';
         </div>
       </div>
 
-      <div class="signup-outer">
+      <div class="signup-outer" id="signup">
         <div class="signup">
           <p id="contact" class="signup-heading">Get PSYKHE AI For Your Business</p>
 
@@ -315,7 +315,7 @@ import Footer from '../components/Footer.astro';
       // Scroll to the target immediately
       const target = document.querySelector(window.location.hash);
       if (target) {
-        target.scrollIntoView({ behavior: 'auto', block: 'start' });
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
       
       // Show the page content
@@ -323,6 +323,29 @@ import Footer from '../components/Footer.astro';
     });
   }
 })();
+
+// Handle anchor link clicks for smooth scrolling
+document.addEventListener('DOMContentLoaded', function() {
+  // Add smooth scrolling to all anchor links
+  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+  anchorLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        e.preventDefault();
+        targetElement.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+        
+        // Update URL without triggering page reload
+        history.pushState(null, null, targetId);
+      }
+    });
+  });
+});
 
 document.addEventListener('DOMContentLoaded', async function() {
   const form = document.getElementById('contact-form') as HTMLFormElement;

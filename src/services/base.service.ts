@@ -48,4 +48,4 @@ export abstract class ApiService<T> {
   delete?(params: RequestParams): Promise<boolean>;
 }
 
-export interface RequestParams {}
+export type RequestParams = {}
