@@ -8,9 +8,10 @@
   padding: 2rem 1.5rem;
   
   @media (max-width: 767px) {
+    max-width: 500px; // Reduced max-width for better mobile experience
     padding: 1.5rem 1rem;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 40px; // Increased to prevent overlap with navigation arrows
+    padding-right: 40px; // Increased to prevent overlap with navigation arrows
     
     .survey-question-title {
       text-align: center !important;
@@ -20,7 +21,7 @@
   }
 
   @media (max-width: 480px) {
-    padding: 1rem 0.75rem;
+    padding: 1rem 40px; // Increased horizontal padding to prevent overlap with navigation arrows
   }
 
   @media (min-width: 768px) {
@@ -225,10 +226,6 @@
       
       &:active {
         transform: translateY(0) !important;
-      }
-      
-      &.enabled {
-        // Additional enabled state styles if needed
       }
     }
     

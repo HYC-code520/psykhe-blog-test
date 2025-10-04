@@ -56,7 +56,7 @@
       
       & + .survey-question,
       & + .visual-question {
-        margin-top: 0;
+        margin-top: 0; // This is overridden by padding-top in .survey-question
       }
     }
   }
@@ -209,11 +209,13 @@
       margin: 0 auto;
       padding-left: 40px;
       padding-right: 40px;
+      padding-top: 4rem; // Add top spacing to prevent overlap with navbar
     }
 
     @media (max-width: 576px) {
       padding-left: 32px;
       padding-right: 32px;
+      padding-top: 4rem; // Ensure visual questions also have top spacing
     }
 
     @media (min-width: 768px) { 
