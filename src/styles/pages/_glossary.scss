@@ -126,6 +126,22 @@
         }
       }
     }
+
+    // Ensure "FIND OUT MORE" button is centered
+    .take-test-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      padding: 2rem 1rem 3rem;
+      margin-top: 2rem;
+
+      .btn-home-tan {
+        display: inline-block;
+        margin: 0 auto;
+      }
+    }
   }
   
 .about-wrapper--glossary {
