@@ -7,7 +7,7 @@
     margin-top: -2.5rem; 
   }
   
-  // Summary section and desktop layout
+
   .summary-section {
     @media (max-width: 767px) {
       margin-left: 0; 
@@ -30,7 +30,7 @@
     }
   }
 
-  // Profile section
+
   .profile-top {
     .page-profile-intro {
       flex: 0 0 100% !important;
@@ -81,7 +81,7 @@
     }
   }
 
-  // Title separator
+
   .title-separator {
     border: none;
     height: 1px;
@@ -99,7 +99,7 @@
     width: 100%;
   }
   
-  // Info popup
+
   .info-popup-trigger {
     position: absolute;
     top: -22px; 
@@ -167,7 +167,7 @@
     }
   }
 
-  // Desktop layout grid
+
   @media (min-width: 768px) {
     .summary-section {
       .result-page-desktop-layout {
@@ -236,7 +236,7 @@
         }
       }
 
-      // Responsive grid adjustments
+
       @media (min-width: 768px) and (max-width: 991px) {
         width: calc(100% + 6rem); 
         margin-left: -3rem;  
@@ -334,7 +334,7 @@
     }
   }
   
-  // Mobile layout
+
   @media (max-width: 767px) {
     .summary-section {
       .result-page-desktop-layout {
@@ -351,7 +351,7 @@
     }
   }
 
-  // Navigation tabs
+
   @media (min-width: 768px) {
     .page-profile-traits {
       .nav-item {
@@ -397,7 +397,7 @@
     }
   }
 
-  // Profile trait section text sizing
+
   @media (min-width: 768px) {
     .profile-trait-section {
       p {
@@ -419,7 +419,7 @@
   }
 }
 
-// Profile trait section general styles
+    
 .profile-trait-section {
   p {
     margin-bottom: 1.5rem !important; 

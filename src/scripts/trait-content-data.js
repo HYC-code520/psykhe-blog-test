@@ -1,5 +1,3 @@
-// Trait content data extracted from big-5-personality-test.astro
-// This will be loaded as a regular script and set the global traitContent variable
 
 window.traitContent = {
   openness: {

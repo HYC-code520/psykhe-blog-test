@@ -2,7 +2,7 @@
 // PERSONALITY TEST - BUTTONS, NAVIGATION & MOBILE
 // =============================================================================
 
-// Floating Action Buttons
+
 .floating-action-buttons {
     position: fixed;
     bottom: 4rem;
@@ -85,7 +85,7 @@
     }
   }
   
-  // Bottom Action Buttons
+
   .bottom-action-buttons {
     display: flex;
     flex-direction: column;
@@ -174,7 +174,7 @@
     }
   }
   
-  // Trait Navigation Arrows
+
   .trait-navigation-arrows {
     position: relative;
     z-index: 100;
@@ -264,7 +264,7 @@
     }
   }
   
-  // Download Notification
+
   .download-notification {
     position: fixed;
     top: 2rem;
@@ -300,7 +300,7 @@
     }
   }
   
-  // Trait Navigation Hint
+
   .trait-navigation-hint {
     position: fixed;
     top: 50%;
@@ -346,7 +346,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
       z-index: 10;
       
-      // Mobile-specific styles
+
       @media (max-width: 767px) {
         background: #2f2d2d !important;
         width: 36px !important;
@@ -357,7 +357,7 @@
         right: -35px !important;
       }
       
-      // Force the X symbol to be black - this is the key fix!
+
       span {
         color: #000000 !important;
         font-weight: 900 !important;
@@ -371,7 +371,7 @@
         }
       }
       
-      // Also target any other possible text content
+
       &, * {
         color: #000000 !important;
       }
@@ -460,7 +460,7 @@
     }
   }
   
-  // Mobile Trait Header
+
   .mobile-trait-header {
     text-align: center !important;
     color: white !important;
@@ -486,7 +486,7 @@
     }
   }
   
-  // Mobile-specific overrides
+
   @media (max-width: 767px) {
     .mob-vis-sm .profile-trait-section {
       padding-top: 0.5rem;
@@ -504,7 +504,7 @@
       padding-left: 1.5rem !important;
       padding-right: 1.5rem !important;
       
-      // Force white text on mobile
+
       h1, h2, h3, h4, h5, h6,
       .trait-title,
       .mobile-trait-header,
@@ -650,7 +650,7 @@
         box-sizing: border-box !important;
       }
   
-      // Mobile legend styles
+
       .mob-vis-sm.tab-content .profile-trait-section .legend {
         display: flex !important;
         flex-direction: column !important;
@@ -674,7 +674,7 @@
     }
   }
   
-  // Additional mobile breakpoints
+  
   @media (max-width: 576px) {
     .big-5-personality-test .summary-section {
       padding-left: 1.25rem !important;

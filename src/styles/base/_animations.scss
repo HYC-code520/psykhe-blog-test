@@ -1,4 +1,4 @@
-// Fade in/out animation
+
 .fade-enter-active {
   transition: opacity 1s;
 }
@@ -8,7 +8,7 @@
   opacity: 0;
 }
 
-// Fade in only animation
+
 .fade-in-only-enter-active {
   transition: opacity 0.5s;
 }
@@ -21,7 +21,7 @@
   opacity: 0;
 }
 
-// Fade in and out animation
+
 .fade-in-out-enter-active {
   transition: opacity 0.5s;
 }
@@ -36,7 +36,7 @@
   transition: opacity 0.5s;
 }
 
-// Grid rearrangement animation
+
 .grid-enter {
   opacity: 0;
 }
@@ -55,7 +55,7 @@
   transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-// Search box slide animation
+
 .slide-fade-enter-active {
   transition: all 0.3s ease;
 }

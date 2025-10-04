@@ -1,12 +1,12 @@
 ---
-// src/pages/big-5-personality-test.astro
+
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FlipCounter from '../components/FlipCounter.astro';
 import { SurveyQuestions } from '../data/personality-questions';
 
-// Define visual questions (from Vue component)
+
 const visualQuestionSets = [
   {
     id: 101,
@@ -69,7 +69,7 @@ const visualQuestionSets = [
   <Navbar />
   
   <div class="survey big-5-personality-test">
-    <!-- Disclaimer Screen -->
+
     <div id="disclaimer-screen" class="survey-disclaimer">
       <div class="survey-disclaimer-content">
         <p class="smaller">
@@ -107,9 +107,9 @@ const visualQuestionSets = [
       </div>
     </div>
 
-    <!-- Main Test View -->
+
     <div id="test-screen" style="display: none;">
-      <!-- Progress bar -->
+
       <div id="progress-container" class="survey-progress-top">
         <div class="progress-bar">
           <div id="progress" class="progress-fill"></div>
@@ -129,7 +129,7 @@ const visualQuestionSets = [
       </div>
       
       <div class="flex justify-center relative">
-        <!-- Survey Questions -->
+
         <div id="survey-section" class="survey-question" style="display: none;">
           <div class="survey-question-title">
             <div id="question-circle" class="question-circle">
@@ -143,7 +143,7 @@ const visualQuestionSets = [
           </p>
 
           <form id="survey-form" class="survey-form row flex flex-col gap-3 md:gap-4">
-            <!-- Survey answers will be inserted here -->
+
           </form>
 
           <p class="survey-question-proceed-message survey-question-proceed-message-bottom">
@@ -151,7 +151,7 @@ const visualQuestionSets = [
           </p>
         </div>
 
-        <!-- Visual Questions -->
+
         <div id="visual-section" class="visual-section survey-question" style="display: none;">
           <div class="survey-question-title">
             <div id="visual-question-circle" class="question-circle">
@@ -165,7 +165,7 @@ const visualQuestionSets = [
           </p>
 
           <form id="visual-form" class="row">
-            <!-- Visual answers will be inserted here -->
+
           </form>
 
           <p class="survey-question-proceed-message survey-question-proceed-message-bottom">
@@ -173,7 +173,7 @@ const visualQuestionSets = [
           </p>
         </div>
 
-        <!-- User Information Form -->
+
         <div id="user-info-section" class="user-info-section" style="display: none;">
           <h2 class="survey-question-title">Almost there! Tell us about yourself</h2>
 
@@ -273,9 +273,9 @@ const visualQuestionSets = [
           </p>
         </div>
 
-        <!-- Results Screen -->
+
         <div id="results-section" class="summary-section" style="display: none;">
-          <!-- Download Notification -->
+
           <div id="download-notification" class="download-notification" style="display: none;">
             <span id="notification-text"></span>
           </div>
@@ -286,7 +286,7 @@ const visualQuestionSets = [
               <img id="result-photo" class="result-photo" alt="Personality result" />
             </div>
 
-            <!-- Desktop legend -->
+
             <div class="desktop-legend">
               <span>HIGH = 5 • </span>
               <span>MODERATE-HIGH = 4 • </span>
@@ -327,10 +327,10 @@ const visualQuestionSets = [
                     </div>
                   </section>
 
-                  <!-- Mobile trait bars -->
+
                   <section class="profile-trait-bars mob-vis-sm">
                     <div role="tablist" id="mobile-trait-bars">
-                      <!-- Mobile trait bars will be inserted here -->
+
                     </div>
                   </section>
 
@@ -338,7 +338,6 @@ const visualQuestionSets = [
                 </div>
 
                 <div class="page-profile-traits">
-                  <!-- Navigation Arrows for Desktop -->
                   <div class="trait-navigation-arrows">
                     <button
                       class="trait-arrow trait-arrow-left"
@@ -354,16 +353,14 @@ const visualQuestionSets = [
                     </button>
                   </div>
 
-                  <!-- Desktop tabs -->
                   <div id="desktop-tabs" class="mob-hide-sm">
-                    <!-- Desktop trait tabs will be inserted here -->
+
                   </div>
 
-                  <!-- Mobile trait content -->
                   <div class="mob-vis-sm tab-content">
                     <div id="mobile-trait-header" class="mobile-trait-header"></div>
                     <div id="mobile-trait-content">
-                      <!-- Mobile trait content will be inserted here -->
+
                     </div>
                   </div>
                 </div>
@@ -371,7 +368,7 @@ const visualQuestionSets = [
             </div>
           </div>
 
-          <!-- Floating Action Buttons -->
+
           <div class="floating-action-buttons">
             <button class="fab-button fab-download" title="Download Results" onclick="downloadResults()">
               <img src="/media/b2c/personality-test/Test-Download-bttn.png" alt="Download Results" />
@@ -386,14 +383,14 @@ const visualQuestionSets = [
             </button>
           </div>
 
-          <!-- Bottom Action Buttons -->
+
           <div class="bottom-action-buttons d-none d-md-flex">
             <button class="gradient-button retake-button" onclick="retakeTest()">Take test again</button>
             <button class="gradient-button download-button" onclick="downloadResults()">Download result</button>
             <button class="gradient-button share-button" onclick="shareResults()">Share with a friend</button>
           </div>
 
-          <!-- Trait Navigation Hint -->
+
           <div id="trait-hint" class="trait-navigation-hint" style="display: none;">
             <div class="hint-content">
               <button class="hint-close" onclick="dismissTraitHint()">
@@ -418,7 +415,7 @@ const visualQuestionSets = [
         </div>
       </div>
       
-      <!-- Bottom Progress bar - moved outside the flex container -->
+
       <div id="bottom-progress" class="survey-progress-bottom">
         <div class="progress-bar">
           <div id="bottom-progress-fill" class="progress-fill"></div>
@@ -427,29 +424,32 @@ const visualQuestionSets = [
     </div>
   </div>
   
-  <!-- Add the Footer here -->
+
   <Footer />
 </Layout>
 
-<!-- Load trait content data first -->
+
 <script src="../scripts/trait-content-data.js"></script>
 
-<!-- Then load the main logic -->
+
+<script src="../scripts/download-functionality.js"></script>
+
+
 <script src="../scripts/personality-test-logic.js"></script>
 
 <script define:vars={{ surveyQuestions: SurveyQuestions, visualQuestions: visualQuestionSets }}>
-  // Initialize the test with the data from Astro
+
   document.addEventListener('DOMContentLoaded', function() {
-    // Make sure traitContent is available globally
+
     if (typeof window.traitContent !== 'undefined') {
-      // Set the traitContent in the global scope for the personality test logic
+
       window.traitContent = window.traitContent;
       console.log('Trait content loaded:', Object.keys(window.traitContent));
     } else {
       console.error('Trait content not loaded!');
     }
     
-    // Initialize the personality test
+
     initializePersonalityTest(surveyQuestions, visualQuestions);
   });
 </script>

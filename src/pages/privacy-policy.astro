@@ -8,7 +8,7 @@ import Footer from '../components/Footer.astro';
   <div class="page page-privacy-policy">
     <Navbar />
     
-    <!-- Use Tailwind's responsive container classes -->
+
     <main class="mx-auto px-4 py-8">
       <div>
         <h1>PSYKHE Privacy Policy</h1>
@@ -870,12 +870,12 @@ import Footer from '../components/Footer.astro';
 </Layout>
 
 <script>
-  // Email obfuscation functionality for any obfuscated emails
+
   function mailto(address: string, host: string, tld: string) {
     window.location.href = `mailto:${address}@${host}.${tld}`;
   }
 
-  // Optional cookie manager placeholder
+
   function optionalsManager(value: boolean) {
     // TODO: Implement third party data sharing options
     console.log('Cookie preferences:', value);

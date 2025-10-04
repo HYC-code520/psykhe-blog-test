@@ -315,30 +315,30 @@ document.addEventListener('DOMContentLoaded', function() {
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    // Show loading state (mimic Vue reactive button)
+
     submitBtn.classList.add('processing');
     submitBtn.disabled = true;
     
-    // Hide any existing messages (mimic Vue conditional rendering)
+
     successMessage.classList.remove('show');
     errorMessage.classList.remove('show');
     
-    // Get form data
+
     const formData = new FormData(form);
     
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Show success (mimic Vue conditional rendering)
+
       successMessage.classList.add('show');
       form.reset();
       
     } catch (error) {
-      // Show error (mimic Vue conditional rendering)
+
       errorMessage.classList.add('show');
     } finally {
-      // Reset button state (mimic Vue reactivity)
+
       submitBtn.classList.remove('processing');
       submitBtn.disabled = false;
     }

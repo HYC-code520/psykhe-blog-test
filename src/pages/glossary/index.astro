@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 
-// Group entries by first letter
+
 const groupedEntries = glossaryEntries.reduce((acc, entry) => {
   const firstLetter = entry.title.charAt(0).toUpperCase();
   if (!acc[firstLetter]) {
@@ -14,7 +14,7 @@ const groupedEntries = glossaryEntries.reduce((acc, entry) => {
   return acc;
 }, {} as Record<string, typeof glossaryEntries>);
 
-// Sort letters and entries
+
 const sortedLetters = Object.keys(groupedEntries).sort();
 sortedLetters.forEach(letter => {
   groupedEntries[letter].sort((a, b) => a.title.localeCompare(b.title));
@@ -42,7 +42,7 @@ sortedLetters.forEach(letter => {
           </p>
         </div>
         <figure>
-          <!-- Add an image or leave empty for spacing -->
+
           <img src="/media/b2b/ww/hero_banner.png" alt="" style="opacity: 0; visibility: hidden;" />
         </figure>
       </div>

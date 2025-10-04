@@ -1,13 +1,11 @@
 // Main JavaScript logic extracted from big-5-personality-test.astro
-// Import trait content - this will be loaded separately
-// import { traitContent } from './trait-content-data.js';
 
-// This will reference the global traitContent from window
+
 function getTraitContent() {
   return window.traitContent || {};
 }
 
-// Global state - will be initialized by the Astro page
+
 const state = {
   disclaimerShown: false,
   currentSurveyIndex: 0,
@@ -29,21 +27,21 @@ const state = {
   animatedProgress: 0
 };
 
-// These will be set by the Astro page
+
 let surveyQuestions = [];
 let visualQuestions = [];
 
-// Initialize function to be called from Astro page
+
 function initializePersonalityTest(surveyData, visualData) {
   surveyQuestions = surveyData;
   visualQuestions = visualData;
   
-  // Initialize response arrays with correct lengths
+
   state.surveyResponses = Array(surveyQuestions.length).fill(null);
   state.visualResponses = Array(visualQuestions.length).fill(null).map(() => []);
 }
 
-// Initialize flip counter
+
 function initFlipCounter() {
   const now = new Date();
   const startOfYear = new Date(now.getFullYear(), 0, 1, 0, 0, 0, 0);
@@ -56,7 +54,6 @@ function initFlipCounter() {
   }
 }
 
-// Section management
 function getCurrentSection() {
   if (state.currentSurveyIndex < surveyQuestions.length) return 'survey';
   if (state.currentVisualIndex < visualQuestions.length) return 'visual';
@@ -88,7 +85,7 @@ function isFirstQuestion() {
   return state.currentSurveyIndex === 0 && state.currentVisualIndex === 0;
 }
 
-// Test flow functions
+
 function startTest() {
   state.disclaimerShown = true;
   document.getElementById('disclaimer-screen').style.display = 'none';
@@ -98,7 +95,7 @@ function startTest() {
 }
 
 function showCurrentSection() {
-  // Hide all sections
+
   document.getElementById('survey-section').style.display = 'none';
   document.getElementById('visual-section').style.display = 'none';
   document.getElementById('user-info-section').style.display = 'none';
@@ -182,7 +179,7 @@ function showVisualQuestion() {
 
 function selectSurveyAnswer(answerId) {
   state.surveyResponses[state.currentSurveyIndex] = answerId;
-  showSurveyQuestion(); // Refresh to show selection
+  showSurveyQuestion(); 
   
   setTimeout(() => {
     if (state.currentSurveyIndex < surveyQuestions.length - 1) {
@@ -203,13 +200,13 @@ function toggleVisualAnswer(answerId) {
     responses.push(answerId);
   }
   
-  showVisualQuestion(); // Refresh to show selection
+  showVisualQuestion(); 
   updateNavigation();
 }
 
-// Progress animation function
+
 function animateProgress(targetProgress, currentProgress, callback) {
-  const duration = 600; // 600ms animation duration
+  const duration = 600; 
   const startTime = performance.now();
   const startProgress = currentProgress;
 
@@ -217,18 +214,18 @@ function animateProgress(targetProgress, currentProgress, callback) {
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / duration, 1);
 
-    // Ease-out cubic easing function
+
     const easeOutCubic = 1 - (1 - progress) ** 3;
 
     const newProgress = startProgress + (targetProgress - startProgress) * easeOutCubic;
     
-    // Update the progress value
+
     callback(newProgress);
 
     if (progress < 1) {
       requestAnimationFrame(animate);
     } else {
-      // Ensure final value is exact
+
       callback(targetProgress);
     }
   };
@@ -236,17 +233,17 @@ function animateProgress(targetProgress, currentProgress, callback) {
   requestAnimationFrame(animate);
 }
 
-// Enhanced progress update with smooth animation
+
 function updateQuestionCircleProgress() {
   const targetProgress = (getCompletedQuestions() / getTotalQuestions()) * 100;
   const circles = document.querySelectorAll('.question-circle');
   
   if (circles.length === 0) return;
   
-  // Get current progress from the first circle
+
   const currentProgress = parseFloat(circles[0].style.getPropertyValue('--progress') || '0');
   
-  // Animate to target progress
+
   animateProgress(targetProgress, currentProgress, (newProgress) => {
     circles.forEach(circle => {
       circle.style.setProperty('--progress', newProgress);
@@ -266,10 +263,10 @@ function updateNavigation() {
   const prevBtn = document.getElementById('prev-btn');
   const nextBtn = document.getElementById('next-btn');
   
-  // Show/hide previous button
+
   if (prevBtn) prevBtn.style.display = isFirstQuestion() ? 'none' : 'block';
   
-  // Always show next button, but enable/disable it based on whether user can proceed
+
   if (nextBtn) {
     nextBtn.style.display = 'block';
     nextBtn.disabled = !canNavigateNext();
@@ -313,7 +310,7 @@ function navigatePrevious() {
   updateProgress();
 }
 
-// User info functions
+
 function validateUserInfoForm(showHint = false) {
   const firstName = document.getElementById('firstName');
   const email = document.getElementById('email');
@@ -324,7 +321,7 @@ function validateUserInfoForm(showHint = false) {
                   isValidEmail(email.value) && 
                   termsConsent.checked;
   
-  // Only show validation hint if explicitly requested (on submit)
+
   if (showHint) {
     showValidationHint(!isValid);
   }
@@ -343,7 +340,7 @@ function showValidationHint(showHint) {
       const form = document.querySelector('.user-info-form');
       const submitButton = document.querySelector('.submit-user-info');
       
-      // Insert the hint div right before the submit button
+
       form.insertBefore(hintDiv, submitButton);
     }
     
@@ -363,12 +360,12 @@ function isValidEmail(email) {
 }
 
 function submitUserInfo() {
-  // Only show validation hint when user tries to submit
+
   if (validateUserInfoForm(true)) {
-    // Calculate OCEAN scores from survey responses
+
     calculateOceanScores();
     
-    // Get form data
+
     const firstName = document.getElementById('firstName').value.trim();
     const lastName = document.getElementById('lastName').value.trim();
     const email = document.getElementById('email').value.trim();
@@ -376,7 +373,7 @@ function submitUserInfo() {
     const optInUpdate = document.getElementById('optInUpdate').checked;
     const optInParticipateInRetails = document.getElementById('optInParticipateInRetails').checked;
     
-    // Store user data in state
+
     state.userData = {
       firstName,
       lastName,
@@ -386,13 +383,12 @@ function submitUserInfo() {
       optInParticipateInRetails
     };
     
-    console.log('Form is valid, showing results...', state.ocean);
     
-    // Hide user info section and show results
+
     document.getElementById('user-info-section').style.display = 'none';
     document.getElementById('results-section').style.display = 'block';
     
-    // Show the results
+
     showResults();
   }
 }
@@ -407,7 +403,7 @@ function calculateOceanScores() {
     }
   });
 
-  // Calculate averages and round
+
   Object.keys(traitScores).forEach(trait => {
     if (traitScores[trait].length > 0) {
       const sum = traitScores[trait].reduce((total, score) => total + score, 0);
@@ -417,9 +413,9 @@ function calculateOceanScores() {
   });
 }
 
-// Results functions
+
 function showResults() {
-  // Hide navigation controls on results page
+
   const prevBtn = document.getElementById('prev-btn');
   const nextBtn = document.getElementById('next-btn');
   const surveyControls = document.querySelector('.survey-controls');
@@ -511,15 +507,15 @@ function updateCurrentTraitDisplay() {
   const score = state.ocean[currentTrait.key];
   const level = toHuman(score);
 
-  // Update photo
+
   const photoPath = `/media/b2c/personality-test/${currentTrait.name}/${level}.jpg`;
   document.getElementById('result-photo').src = photoPath;
   document.getElementById('photo-label').textContent = `${currentTrait.name.toUpperCase()} ${score}`;
 
-  // Get trait content from global object
+
   const traitContent = getTraitContent();
   
-  // Update trait content for desktop
+
   const desktopTraitContent = document.getElementById('desktop-trait-content');
   if (desktopTraitContent && traitContent[currentTrait.name] && traitContent[currentTrait.name][level]) {
     const content = traitContent[currentTrait.name][level];
@@ -547,7 +543,7 @@ function updateCurrentTraitDisplay() {
     console.error('Trait content not found for:', currentTrait.name, level, traitContent);
   }
 
-  // Update mobile trait content
+
   const mobileTraitContent = document.getElementById('mobile-trait-content');
   if (mobileTraitContent) {
     const mobileTrait = traits.find(t => t.name === state.selectedMobileTrait);
@@ -574,10 +570,10 @@ function updateCurrentTraitDisplay() {
     }
   }
 
-  // Update mobile header
+
   document.getElementById('mobile-trait-header').textContent = `${state.selectedMobileTrait.toUpperCase()}: ${getCurrentMobileTraitScore()}`;
 
-  // Update navigation arrow state
+
   const traitPrevBtn = document.getElementById('trait-prev');
   if (traitPrevBtn) {
     traitPrevBtn.disabled = state.activeTabIndex === 0;
@@ -644,10 +640,6 @@ function navigateTrait(direction) {
   updateCurrentTraitDisplay();
 }
 
-// Action functions
-function downloadResults() {
-  showNotification('Feature coming soon!');
-}
 
 function shareResults() {
   const shareMessage = `Hey! I just took this fascinating Big Five personality test that reveals your unique personality profile. 🧠
@@ -722,9 +714,7 @@ function setupFormValidation() {
   const email = document.getElementById('email');
   const termsConsent = document.getElementById('termsConsent');
   
-  // Add event listeners but don't show validation hints during interaction
   if (firstName && !firstName.hasAttribute('data-validation-setup')) {
-    // Remove validation from input events - only validate silently for internal state
     firstName.addEventListener('input', () => validateUserInfoForm(false));
     firstName.addEventListener('blur', () => validateUserInfoForm(false));
     firstName.setAttribute('data-validation-setup', 'true');
@@ -740,15 +730,11 @@ function setupFormValidation() {
     termsConsent.addEventListener('change', () => validateUserInfoForm(false));
     termsConsent.setAttribute('data-validation-setup', 'true');
   }
-  
-  // Don't run any initial validation
 }
 
-// Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
   initFlipCounter();
   
-  // Set up form validation when user info section becomes visible
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
@@ -765,13 +751,11 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(userInfoSection, { attributes: true });
   }
   
-  // Also set up validation immediately if the section is already visible
   if (userInfoSection && userInfoSection.style.display !== 'none') {
     setupFormValidation();
   }
 });
 
-// Make functions globally available
 window.startTest = startTest;
 window.navigateNext = navigateNext;
 window.navigatePrevious = navigatePrevious;
@@ -781,10 +765,16 @@ window.submitUserInfo = submitUserInfo;
 window.selectMobileTrait = selectMobileTrait;
 window.changeTab = changeTab;
 window.navigateTrait = navigateTrait;
-window.downloadResults = downloadResults;
 window.shareResults = shareResults;
 window.retakeTest = retakeTest;
 window.showInfoPopup = showInfoPopup;
 window.hideInfoPopup = hideInfoPopup;
 window.dismissTraitHint = dismissTraitHint;
 window.initializePersonalityTest = initializePersonalityTest;
+
+window.showNotification = showNotification;
+window.getTraitContent = getTraitContent;
+window.toHuman = toHuman;
+window.state = state;
+window.updateDesktopTabs = updateDesktopTabs;
+window.updateCurrentTraitDisplay = updateCurrentTraitDisplay;
