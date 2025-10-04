@@ -324,7 +324,7 @@ import Footer from '../components/Footer.astro';
   }
 })();
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
   const successMessage = document.getElementById('success-message');
@@ -333,33 +333,69 @@ document.addEventListener('DOMContentLoaded', function() {
   // Add null checks
   if (!form || !submitBtn || !successMessage || !errorMessage) return;
 
+  // Import the subscription service
+  // For testing: use MockSubscriptionService if you're having CORS issues
+  // For production: use SubscriptionService
+  const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  
+  let subscriptionService;
+  if (isDevelopment) {
+    console.log('🧪 Development mode: Using mock service to avoid CORS issues');
+    const { MockSubscriptionService } = await import('../services/mock-subscription.service');
+    subscriptionService = new MockSubscriptionService();
+  } else {
+    console.log('🚀 Production mode: Using real API service');
+    const { SubscriptionService } = await import('../services/subscription.service');
+    subscriptionService = new SubscriptionService();
+  }
+
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
     
-
+    // Show loading state
     submitBtn.classList.add('processing');
     submitBtn.disabled = true;
     
-
+    // Hide previous messages
     successMessage.classList.remove('show');
     errorMessage.classList.remove('show');
     
-
+    // Get form data
     const formData = new FormData(form);
+    const firstName = formData.get('first_name') as string;
+    const lastName = formData.get('last_name') as string;
+    const businessType = formData.get('business_type') as string;
+    const email = formData.get('email') as string;
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Actually submit to API
+      console.log('Submitting form data:', { firstName, lastName, businessType, email });
+      console.log('Current origin:', window.location.origin);
       
-
+      await subscriptionService.store(firstName, lastName, businessType, email);
+      
+      // Show success message
       successMessage.classList.add('show');
       form.reset();
       
     } catch (error) {
-
+      console.error('Form submission error:', error);
+      console.error('Error details:', {
+        name: error.name,
+        message: error.message,
+        stack: error.stack
+      });
+      
+      // Check if it's a CORS error
+      if (error.message.includes('CORS') || error.message.includes('fetch')) {
+        console.error('🚨 CORS Error detected! The API only allows requests from https://psykhe.com');
+        console.error('Current origin:', window.location.origin);
+        console.error('You need to update AWS API Gateway CORS settings or test from the correct domain');
+      }
+      
       errorMessage.classList.add('show');
     } finally {
-
+      // Reset button state
       submitBtn.classList.remove('processing');
       submitBtn.disabled = false;
     }

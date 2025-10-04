@@ -359,37 +359,76 @@ function isValidEmail(email) {
   return emailRegex.test(email);
 }
 
-function submitUserInfo() {
-
+async function submitUserInfo() {
   if (validateUserInfoForm(true)) {
-
-    calculateOceanScores();
+    const submitButton = document.getElementById('submit-user-info');
     
-
-    const firstName = document.getElementById('firstName').value.trim();
-    const lastName = document.getElementById('lastName').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const retailerNames = document.getElementById('retailerNames').value.trim();
-    const optInUpdate = document.getElementById('optInUpdate').checked;
-    const optInParticipateInRetails = document.getElementById('optInParticipateInRetails').checked;
+    // Show loading state
+    if (submitButton) {
+      submitButton.classList.add('processing');
+      submitButton.disabled = true;
+    }
     
-
-    state.userData = {
-      firstName,
-      lastName,
-      email,
-      retailerNames,
-      optInUpdate,
-      optInParticipateInRetails
-    };
-    
-    
-
-    document.getElementById('user-info-section').style.display = 'none';
-    document.getElementById('results-section').style.display = 'block';
-    
-
-    showResults();
+    try {
+      // Calculate scores first
+      calculateOceanScores();
+      
+      // Get form data
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const retailerNames = document.getElementById('retailerNames').value.trim();
+      const optInUpdate = document.getElementById('optInUpdate').checked;
+      const optInParticipateInRetails = document.getElementById('optInParticipateInRetails').checked;
+      
+      // Store user data with personality scores
+      state.userData = {
+        firstName,
+        lastName,
+        email,
+        retailerNames,
+        optInUpdate,
+        optInParticipateInRetails,
+        oceanScores: state.ocean // Include personality scores
+      };
+      
+      try {
+        // Import and use the appropriate service based on environment
+        const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        
+        let subscriptionService;
+        if (isDevelopment) {
+          console.log('🧪 Development mode: Using mock service for personality test');
+          const { MockSubscriptionService } = await import('../services/mock-subscription.service');
+          subscriptionService = new MockSubscriptionService();
+        } else {
+          console.log('🚀 Production mode: Using real API service for personality test');
+          const { SubscriptionService } = await import('../services/subscription.service');
+          subscriptionService = new SubscriptionService();
+        }
+        
+        // Submit personality test data to API
+        await subscriptionService.submitPersonalityTest(state.userData);
+        
+        console.log('Personality test data submitted successfully');
+      } catch (error) {
+        console.error('Failed to submit personality test data:', error);
+        // Continue showing results even if submission fails
+      }
+      
+      // Show results regardless of submission success/failure
+      document.getElementById('user-info-section').style.display = 'none';
+      document.getElementById('results-section').style.display = 'block';
+      
+      showResults();
+      
+    } finally {
+      // Remove loading state
+      if (submitButton) {
+        submitButton.classList.remove('processing');
+        submitButton.disabled = false;
+      }
+    }
   }
 }
 
