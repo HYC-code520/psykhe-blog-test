@@ -1,0 +1,1423 @@
+---
+// src/pages/big-5-personality-test.astro
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import FlipCounter from '../components/FlipCounter.astro';
+import { SurveyQuestions } from '../data/personality-questions';
+
+// Define visual questions (from Vue component)
+const visualQuestionSets = [
+  {
+    id: 101,
+    text: 'Which do you primarily buy? (Select all that apply.)',
+    answers: [
+      { id: 1, text: 'Womenswear' },
+      { id: 2, text: 'Menswear' },
+      { id: 3, text: 'Homeware & interiors' },
+      { id: 4, text: 'Beauty & personal care products' }
+    ]
+  },
+  {
+    id: 102,
+    text: 'Which price points do you shop at? (Select all that apply.)',
+    answers: [
+      { id: 1, text: 'Low-range' },
+      { id: 2, text: 'Mid-range' },
+      { id: 3, text: 'High-range' }
+    ]
+  },
+  {
+    id: 103,
+    text: 'Your favorite brands are most like which of the following? (Select all that apply.)',
+    answers: [
+      { id: 1, text: 'Classic all-American labels' },
+      { id: 2, text: 'Sporty athleisure which focus on technical fabrics' },
+      { id: 3, text: 'Mall brands which capture trends' },
+      { id: 4, text: 'Colorful, artisanal brands' },
+      { id: 5, text: 'Quirky, offbeat, different' },
+      { id: 6, text: 'Minimalist, directional high-end fashion' },
+      { id: 7, text: 'Traditional luxury brands' }
+    ]
+  },
+  {
+    id: 104,
+    text: 'How do you feel about prints? (Select all that apply.)',
+    answers: [
+      { id: 1, text: 'Solids only', icon: '/media/b2c/solidprint.png' },
+      { id: 2, text: 'I like tropical prints', icon: '/media/b2c/tropicalprints.png' },
+      { id: 3, text: 'I like floral prints', icon: '/media/b2c/floralprints.png' },
+      { id: 4, text: 'I like cheques and traditional prints', icon: '/media/b2c/chequesprints.png' },
+      { id: 5, text: 'I love prints', icon: '/media/b2c/iloveprints.png' }
+    ]
+  },
+  {
+    id: 105,
+    text: 'Which is your color preference? (Select all that apply.)',
+    answers: [
+      { id: 1, text: 'Black and white' },
+      { id: 2, text: 'Earthy neutrals, gray' },
+      { id: 3, text: 'Pastels and pale colors' },
+      { id: 4, text: 'Bright colors' },
+      { id: 5, text: 'Shiny metallics' }
+    ]
+  }
+];
+---
+
+<Layout title="Big 5 Personality Test | PSYKHE">
+  <Navbar />
+  
+  <div class="survey big-5-personality-test">
+    <!-- Disclaimer Screen -->
+    <div id="disclaimer-screen" class="survey-disclaimer">
+      <div class="survey-disclaimer-content">
+        <p class="smaller">
+          In under 3 minutes, you'll complete the Big Five Inventory-2 (BFI-2) with questions supplemented by PSYKHE
+          AI, giving you the results of your unique personality profile in terms of the Big Five traits: the most
+          important measure identified by psychologists for understanding people, their outcomes, and preferences.
+        </p>
+
+        <div class="survey-hero">
+          <img src="/media/b2b/ww/hero_bigfive.jpg" alt="Hero" />
+        </div>
+
+        <div class="survey-disclaimer-actions">
+          <button onclick="startTest()">Start</button>
+        </div>
+
+
+        <FlipCounter baseValue={230000} incrementRate={1} updateInterval={10000} label="TESTS TAKEN" />
+
+
+        <p class="smaller disclaimer-copyright" style="font-size: 0.7rem; margin-top: auto; flex-shrink: 0;">
+          Big Five Inventory-2 Items Copyright 2015 By Drs. Oliver P. John and Christopher J. Soto. Reprinted with
+          permission. Test results developed independently by PSYKHE AI, and not endorsed by Drs. John and Soto.
+        </p>
+
+        <style>
+          .disclaimer-copyright {
+            display: none;
+          }
+          
+          @media (min-width: 1097px) {
+            .disclaimer-copyright {
+              display: block;
+            }
+          }
+        </style>
+      </div>
+    </div>
+
+    <!-- Main Test View -->
+    <div id="test-screen" style="display: none;">
+      <!-- Progress bar -->
+      <div id="progress-container" class="survey-progress-top">
+        <div class="progress-bar">
+          <div id="progress" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="survey-controls">
+        <button id="prev-btn" class="survey-control-prev" onclick="navigatePrevious()" style="display: none;">
+          <span class="survey-control-prev-icon"></span>
+          <span class="sr-only">Prev</span>
+        </button>
+
+        <button id="next-btn" class="survey-control-next" onclick="navigateNext()" style="display: none;">
+          <span class="survey-control-next-icon"></span>
+          <span class="sr-only">Next</span>
+        </button>
+      </div>
+      
+      <div class="flex justify-center relative">
+        <!-- Navigation controls -->
+
+
+        <!-- Survey Questions -->
+        <div id="survey-section" class="survey-question" style="display: none;">
+          <div class="survey-question-title">
+            <div id="question-circle" class="question-circle">
+              <div id="question-indicator" class="question-number-indicator"></div>
+              <span id="question-text"></span>
+            </div>
+          </div>
+
+          <p class="survey-question-proceed-message survey-question-proceed-message-top">
+            Click the right arrow to proceed to the next question.
+          </p>
+
+          <form id="survey-form" class="survey-form row flex flex-col gap-3 md:gap-4">
+            <!-- Survey answers will be inserted here -->
+          </form>
+
+          <p class="survey-question-proceed-message survey-question-proceed-message-bottom">
+            Click the right arrow to proceed to the next question.
+          </p>
+        </div>
+
+        <!-- Visual Questions -->
+        <div id="visual-section" class="visual-section survey-question" style="display: none;">
+          <div class="survey-question-title">
+            <div id="visual-question-circle" class="question-circle">
+              <div id="visual-question-indicator" class="question-number-indicator"></div>
+              <span id="visual-question-text"></span>
+            </div>
+          </div>
+
+          <p class="survey-question-proceed-message survey-question-proceed-message-top">
+            Select at least one option and click the right arrow to proceed.
+          </p>
+
+          <form id="visual-form" class="row">
+            <!-- Visual answers will be inserted here -->
+          </form>
+
+          <p class="survey-question-proceed-message survey-question-proceed-message-bottom">
+            Select at least one option and click the right arrow to proceed.
+          </p>
+        </div>
+
+        <!-- User Information Form -->
+        <div id="user-info-section" class="user-info-section" style="display: none;">
+          <h2 class="survey-question-title">Almost there! Tell us about yourself</h2>
+
+          <p class="survey-question-proceed-message survey-question-proceed-message-top">
+            Please provide your information to see your results.
+          </p>
+
+          <form class="user-info-form">
+            <div class="form-group">
+              <label for="firstName">First Name <span class="required">*</span></label>
+              <input
+                id="firstName"
+                type="text"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+                placeholder="Enter your first name"
+                name="given-name"
+                autocomplete="given-name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="lastName">Last Name <small>(optional)</small></label>
+              <input
+                id="lastName"
+                type="text"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your last name"
+                name="family-name"
+                autocomplete="family-name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address <span class="required">*</span></label>
+              <input
+                id="email"
+                type="email"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+                placeholder="Enter your email address"
+                name="email"
+                autocomplete="email"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="retailerNames">
+                At which retailers would you like to have a more personalized experience?
+                <small>(optional)</small>
+              </label>
+              <input
+                id="retailerNames"
+                type="text"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter retailer names"
+                autocomplete="off"
+                maxlength="250"
+              />
+            </div>
+
+            <div class="checkbox-container">
+              <input id="optInUpdate" type="checkbox" class="checkbox-input" />
+              <label class="checkbox-label" for="optInUpdate">
+                I agree to receive occasional updates from PSYKHE AI.
+              </label>
+            </div>
+
+            <div class="checkbox-container">
+              <input id="optInParticipateInRetails" type="checkbox" class="checkbox-input" />
+              <label class="checkbox-label" for="optInParticipateInRetails">
+                I would like to use my data to opt-in to a hyper-personalized shopping experience at participating
+                retailers.
+              </label>
+            </div>
+
+            <div class="checkbox-container">
+              <input id="termsConsent" type="checkbox" class="checkbox-input" required />
+              <label class="checkbox-label" for="termsConsent">
+                <span class="required">*</span> I agree to the
+                <a href="/terms-and-conditions/" target="_blank">Terms and Conditions</a>
+              </label>
+            </div>
+
+            <button
+              type="button"
+              class="submit-user-info"
+              id="submit-user-info"
+              onclick="submitUserInfo()"
+            >
+              See My Results
+            </button>
+          </form>
+
+          <p class="survey-question-proceed-message survey-question-proceed-message-bottom">
+            Your information is secure and will only be used as described in our privacy policy.
+          </p>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-section" class="summary-section" style="display: none;">
+          <!-- Download Notification -->
+          <div id="download-notification" class="download-notification" style="display: none;">
+            <span id="notification-text"></span>
+          </div>
+
+          <div class="result-page-desktop-layout">
+            <div class="result-photo-container">
+              <div id="photo-label" class="photo-label"></div>
+              <img id="result-photo" class="result-photo" alt="Personality result" />
+            </div>
+
+            <!-- Desktop legend -->
+            <div class="desktop-legend">
+              <span>HIGH = 5 • </span>
+              <span>MODERATE-HIGH = 4 • </span>
+              <span>MODERATE = 3 • </span>
+              <span>MODERATE-LOW = 2 • </span>
+              <span>LOW = 1</span>
+            </div>
+
+            <div class="result-content-container">
+              <div class="profile-top">
+                <div class="row">
+                  <section class="page-profile-intro">
+                    <div class="title-section">
+                      <h3 id="profile-title" class="profile-title">
+                        <button
+                          class="info-popup-trigger"
+                          onmouseover="showInfoPopup()"
+                          onmouseleave="hideInfoPopup()"
+                        ></button>
+                      </h3>
+                      <hr class="title-separator" />
+
+                      <div id="info-popup" class="info-popup" style="display: none;">
+                        <p>
+                          Using a version of the Big 5 model of personality traits, we’ve calculated your scores below.
+                          Within psychology, this model is the most trusted framework for measuring personality, and has
+                          a known relationship with a variety of preferences. If you’ve ever wondered why you’re drawn
+                          to certain brands, clothes, music, or hobbies, your personality scores can help you understand
+                          why.
+                        </p>
+
+                        <p>
+                          Your core personal style is arrived at from how the five scores combine and interact together,
+                          and not from one score alone, for an aesthetic and lifestyle that’s uniquely yours. Read on
+                          for an explanation of how you scored within each scale.
+                        </p>
+                      </div>
+                    </div>
+                  </section>
+
+                  <!-- Mobile trait bars -->
+                  <section class="profile-trait-bars mob-vis-sm">
+                    <div role="tablist" id="mobile-trait-bars">
+                      <!-- Mobile trait bars will be inserted here -->
+                    </div>
+                  </section>
+
+                  <div class="profile-top-message mob-vis-sm">⬆ Tap the result above for more detail. ⬇</div>
+                </div>
+
+                <div class="page-profile-traits">
+                  <!-- Navigation Arrows for Desktop -->
+                  <div class="trait-navigation-arrows">
+                    <button
+                      class="trait-arrow trait-arrow-left"
+                      id="trait-prev"
+                      onclick="navigateTrait(-1)"
+                      title="Previous trait"
+                    >
+                      <img src="/media/b2c/personality-test/left-arrow-button.png" alt="Previous" />
+                    </button>
+
+                    <button class="trait-arrow trait-arrow-right" onclick="navigateTrait(1)" title="Next trait">
+                      <img src="/media/b2c/personality-test/right-arrow-button.png" alt="Next" />
+                    </button>
+                  </div>
+
+                  <!-- Desktop tabs -->
+                  <div id="desktop-tabs" class="mob-hide-sm">
+                    <!-- Desktop trait tabs will be inserted here -->
+                  </div>
+
+                  <!-- Mobile trait content -->
+                  <div class="mob-vis-sm tab-content">
+                    <div id="mobile-trait-header" class="mobile-trait-header"></div>
+                    <div id="mobile-trait-content">
+                      <!-- Mobile trait content will be inserted here -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating Action Buttons -->
+          <div class="floating-action-buttons">
+            <button class="fab-button fab-download" title="Download Results" onclick="downloadResults()">
+              <img src="/media/b2c/personality-test/Test-Download-bttn.png" alt="Download Results" />
+            </button>
+
+            <button class="fab-button fab-share" title="Share Results" onclick="shareResults()">
+              <img src="/media/b2c/personality-test/Test-Share-bttn.png" alt="Share Results" />
+            </button>
+
+            <button class="fab-button fab-retake" title="Retake Test" onclick="retakeTest()">
+              <img src="/media/b2c/personality-test/Test-Retake-bttn.png" alt="Retake Test" />
+            </button>
+          </div>
+
+          <!-- Bottom Action Buttons -->
+          <div class="bottom-action-buttons d-none d-md-flex">
+            <button class="gradient-button retake-button" onclick="retakeTest()">Take test again</button>
+            <button class="gradient-button download-button" onclick="downloadResults()">Download result</button>
+            <button class="gradient-button share-button" onclick="shareResults()">Share with a friend</button>
+          </div>
+
+          <!-- Trait Navigation Hint -->
+          <div id="trait-hint" class="trait-navigation-hint" style="display: none;">
+            <div class="hint-content">
+              <button class="hint-close" onclick="dismissTraitHint()">
+                <span>×</span>
+              </button>
+
+              <div class="mob-hide-sm">
+                <div class="hint-message">
+                  <span class="hint-icon">💡</span>
+                  <span>Click on the trait tabs or use the arrow buttons to explore all 5 personality traits!</span>
+                </div>
+              </div>
+
+              <div class="mob-vis-sm">
+                <div class="hint-message">
+                  <span class="hint-icon">💡</span>
+                  <span>Tap on the trait bars to see detailed descriptions of each personality trait!</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+              <!-- Bottom Progress bar - moved outside the flex container -->
+              <div id="bottom-progress" class="survey-progress-bottom">
+                <div class="progress-bar">
+                  <div id="bottom-progress-fill" class="progress-fill"></div>
+                </div>
+              </div>
+    </div>
+  </div>
+  
+  <!-- Add the Footer here -->
+  <Footer />
+</Layout>
+
+<script define:vars={{ surveyQuestions: SurveyQuestions, visualQuestions: visualQuestionSets }}>
+  // Global state
+  let state = {
+    disclaimerShown: false,
+    currentSurveyIndex: 0,
+    currentVisualIndex: 0,
+    userInfoStep: false,
+    firstName: '',
+    lastName: '',
+    email: '',
+    retailerNames: '',
+    optInUpdate: false,
+    optInParticipateInRetails: false,
+    agreedToTerms: false,
+    selectedMobileTrait: 'openness',
+    activeTabIndex: 0,
+    ocean: { O: -1, C: -1, E: -1, A: -1, N: -1 },
+    surveyResponses: Array(surveyQuestions.length).fill(null),
+    visualResponses: Array(visualQuestions.length).fill(null).map(() => []),
+    showTraitHint: false,
+    animatedProgress: 0
+  };
+
+  // Trait content data - converted from your Astro components
+  const traitContent = {
+    openness: {
+      low: {
+        paragraphs: [
+          "You're a classicist, and not a big fan of abstract ideas and new theories. You find people who are always flaunting intellectualism a bit pretentious. You're more analytical than imaginative, prefer real, tangible solutions, and opt for the tried-and-tested. You value traditions and tend to keep a social circle that you've cultivated over time.",
+          "Your style is similarly conservative and traditional. You prefer time-tested brands, and like to look to classic style icons of the past. You're politically fairly conservative, and value routine and order in your lifestyle.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from low openness alone - creating an identity that's uniquely yours."
+        ]
+      },
+      'moderate-low': {
+        paragraphs: [
+          "You're somewhat of a classicist, and not always a big fan of abstract ideas and new theories. You find people who are always flaunting intellectualism a bit pretentious. You're more analytical than imaginative, prefer real, tangible solutions, and opt for the tried-and-tested. You value traditions and tend to keep a social circle that you've cultivated over time.",
+          "Your style is similarly conservative and traditional. You prefer time-tested brands, and like to look to classic style icons of the past. You're politically fairly conservative, and value routine and order in your lifestyle.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-low openness alone - creating an identity that's uniquely yours."
+        ]
+      },
+      moderate: {
+        paragraphs: [
+          "At times, you can feel highly creative, curious, and adventurous. At other times, you prefer routine, structure, and tradition. You are able to find a good balance between new ideas and simply being practical. When you are faced with a problem, you are able to consider tried-and true methods, but can also think outside the box. This equilibrium allows you to thoughtfully consider both innovative and established methods when addressing challenges, making you a versatile and effective problem-solver.",
+          "As such, your style has a good balance of both classic staples and more directional, trendier pieces. You like to mix it up when it comes to most things. When planning trips, you strike a balance between scheduled activities and spontaneous exploration, ensuring both structure and freedom. In the realm of politics, you maintain a centrist perspective, valuing diverse viewpoints and fostering balanced discussions.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate openness alone - creating an identity that's uniquely yours."
+        ]
+      },
+      'moderate-high': {
+        paragraphs: [
+          "You're forward-thinking, not big on traditional theories, prefer to challenge the status quo, and are more liberal in your values. You're worldly, intellectually curious, and are generally receptive to abstract ideas and new cultures. Well-read and well-travelled, you're eager to know everything about everything.",
+          "As you're creative and intellectual, you love designs that are a little bit distinctive. You crave novelty, love innovative new brands, and cherish your Gold status. If you're not already living in California, you should be. Style-wise, you tend to do wither minimalist or maximalist extremes.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-high openness alone - creating an identity that's uniquely yours."
+        ]
+      },
+      high: {
+        paragraphs: [
+          "You have a strong disdain for convention, are liberal in your values, and tend to be avant-garde in the way you live, work and think. You're worldly, intellectually curious, and love exploring abstract ideas and immersing yourself in new cultures. Highly well-read and well-travelled, you tend to know a little bit of everything about everything.",
+          "As you're creative and intellectual, you tend to either dress very simply - think Steve Jobs or or Joan Didion - or with very out-there flair. You crave novelty, love innovative new brands, and cherish your Gold status. If you're not already living in California, you should be.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from high openness alone - creating an identity that's uniquely yours."
+        ]
+      }
+    },
+    conscientiousness: {
+      low: {
+        paragraphs: [
+          "You value experiences much more than worldly success, and as such tend to be very laid-back. Instead of being goal-oriented, you prefer to bask in the moment. A free-spirit, you like to live life on the edge and defy society's conventions. Time, rules, all these things are just mental constructs, right?",
+          "Your fun-loving nature translates into a look that could lean into streetwear, party staples, a bohemian aesthetic or a rock 'n' roll, sensibility. Your concept of self-care is to do as little as possible and prefer brands that are natural and artisanal.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from low conscientiousness alone - creating an identity that's uniquely yours."
+        ]
+      },
+      'moderate-low': {
+        paragraphs: [
+          "You're laid-back, like to live a bit on the edge, and tend to value experiences more than worldly success. Instead of always obsessing about long-term goals, you often prefer to bask in the moment. A free-spirit, you don't feel the need to always conform society's conventions. Time, rules, all these things are just mental constructs right?",
+          "Your fun-loving nature translates into a look that could lean into streetwear, party staples, a bohemian aesthetic or a rock 'n' roll, sensibility. Your concept of self-care is to do as little as possible and prefer brands that are natural and artisanal.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-low conscientiousness alone - creating an identity that's uniquely yours."
+        ]
+      },
+      moderate: {
+        paragraphs: [
+          "You're a hybrid of free-spirit and goal-getter, knowing when to shift from responsible mode to fun mode and back again. Sometimes you feel confused about what you value more: in-the-moment experiences or worldly success, but ultimately you've learned to embrace both sides of who you are. It's a good balance to have: hard-working, neat, and health-focused, but not obsessively so.",
+          "As such, your preferences and lifestyle tends to have plenty of contrasts. For example, you like to mix business and sporty separates - like a hoodie under a tailored jacket. Not easily derailed, you're able to context-switch quickly - one day you're out until late, the next day you're at the gym early.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate conscientiousness alone - creating an identity that's uniquely yours."
+        ]
+      },
+      'moderate-high': {
+        paragraphs: [
+          "A natural go-getter, you enjoy planning out long-term goals, and working hard to achieve them. Generally organized and responsible, you tend to have a place for everything, and are mostly on top of all your paperwork and duties, from pension scheme to teeth cleaning. You tend to have a cautious streak, and prefer to think things through, but still know how to have fun.",
+          "Naturally, your style leans towards an adult-like aesthetic - tailored, crisp and neat - and you like clean lines in design. You're able to context-switch quickly - one day you're out until late, the next day you're at the gym. You appreciate high quality in all things.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-high conscientiousness alone - creating an identity that's uniquely yours."
+        ]
+      },
+      high: {
+        paragraphs: [
+          "You excel at formulating long-term goals, then organizing, planning, and working consistently to achieve them. Meticulously organized and responsible, you have a place for everything, and are fully on top of all your paperwork, healthcare and duties, from pension scheme to teeth cleaning. You have a cautious streak, and like to think things through.",
+          "Naturally, your style is adult-like, tailored, crisp and neat. You like clean lines in design, and keep your clothes in immaculate condition. You're sophisticated and like curated brands, and high quality in all things.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from high conscientiousness alone - creating an identity that's uniquely yours."
+        ]
+      }
+    },
+    extroversion: {
+      low: {
+        paragraphs: [
+          "You probably knew this already, but you're introverted. You tend to be quiet and keep to yourself, and can easily feel over-stimulated if forced to spend too much time in social situations. On the shy side, having too much attention on you makes you feel uncomfortable, so you're happiest behind-the-scenes, or home with a good book. If you must socialize, you prefer one-on-ones with a good longtime friend.",
+          "You like contemplative music that you can enjoy alone, and your sophisticated, simple style is also on the quieter side. You prefer vacations in remote places where you can enjoy unique scenery.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from low extroversion alone - creating an identity that's uniquely yours."
+        ]
+      },
+      'moderate-low': {
+        paragraphs: [
+          "You're on the quiet side, tend to keep to yourself, and can feel over-stimulated after spending too much time with others. A bit reserved, having too much attention on you can make you feel uncomfortable, so you feel best behind-the-scenes, or at home with a good book. When catching up with people, you generally prefer small groups or a one-on-one with a good friend.",
+          "You enjoy chill, contemplative music that makes you think, and your sophisticated, non-flashy style is also on the quieter, cerebral side. You prefer vacations in remote places where you can enjoy unique scenery.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-low extroversion alone - creating an identity that's uniquely yours."
+        ]
+      },
+      moderate: {
+        paragraphs: [
+          "You love a good party as much as the next person, but can also feel easily depleted if you don't have quality alone time to recharge: it's a careful balance you've mastered over the years. Sometimes you feel excited about life and are eager to pencil-in plans, but often you have periods of lying low. It comes in waves.",
+          "Because you're somewhere in the middle between extroversion and introversion, your style in respect to this trait is also balanced and varied. You're neither too loud or flashy nor too boring. You like slow and fast tempo music in equal measure. Depends on the mood.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate extroversion alone - creating an identity that's uniquely yours."
+        ]
+      },
+      'moderate-high': {
+        paragraphs: [
+          "Seldom shy, you're usually the first to get up and dance and often the last one standing. You like to make plans and organize social events, and often have many chats and conversations on the go. You still enjoy your alone time, but socializing generally makes you feel even more energized than you already are. Most of the time, you like to talk through your problems with others.",
+          "As such, you tend to like statement styles and exuberant colors and details, fun new brands with distinctive identities, as well as energetic music.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-high extroversion alone - creating an identity that's uniquely yours."
+        ]
+      },
+      high: {
+        paragraphs: [
+          "Never shy, you're always the first to get up and dance as well as the last person standing. With your explosive energy, you live to make plans and organize social events, and thrive off having many chats and conversations on the go. Socializing makes you feel energized, you're assertive, and you like to talking through issues with several different people.",
+          "As such, you love statement styles, and exuberant colors and details, fun new brands with distinctive identities, as well as energetic music.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from high extroversion alone - creating an identity that's uniquely yours."
+        ]
+      }
+    },
+    agreeableness: {
+      low: {
+        paragraphs: [
+          "Hello, contrarian. With a very strong sense of self, and a keen competitive streak, you generally like to focus on you, work best alone, believe modesty is overrated, and aren't into the whole group thing. Never afraid to voice an opinion, you love a good debate, whether on social media or at dinner.",
+          "Your every-person-for-themselves superhero style trickles down to a bold taste in fashion, music, and films with strong leading characters. You love manifesto-style reads.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from low agreeableness alone - creating an identity that's uniquely yours."
+        ]
+      },
+      'moderate-low': {
+        paragraphs: [
+          "Hello, contrarian. With a strong sense of self and a slight competitive streak, you mostly like to focus on you, prefer to work alone, and aren't super into the whole group thing. It's easy for you to voice an opinion, and you love a good debate on topics you care about, whether on social media or at dinner.",
+          "Your every-person-for-themselves superhero style trickles down to a bold taste in fashion, music, and films with strong leading characters. You love polarizing characters and reads.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-low agreeableness alone - creating an identity that's uniquely yours."
+        ]
+      },
+      moderate: {
+        paragraphs: [
+          "Lucky you: you're a good team player, but can also work independently. You're easy to get along with, but know how to stand up for yourself. You know when to lead, but are always happy to let others shine. You can argue your point when necessary, but also know which battles are worth picking. You're liked and respected.",
+          "Your style and preferences in this regard tend to be balanced - you don't like music that is super aggressive, nor too saccharine. Your style is pretty middle-of-the-road in the best way.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate agreeableness alone - creating an identity that's uniquely yours."
+        ]
+      },
+      'moderate-high': {
+        paragraphs: [
+          "Friendly and sociable, you know how to be a good team player, like to help others in need, and are able to consider the needs of a group. You don't enjoy competing so much as you generally believe it's better to be happy than to be right.",
+          "As a result, you tend to prefer cheerful, simple fashion that draws people in, non-aggressive music and feel-good films.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-high agreeableness alone - creating an identity that's uniquely yours."
+        ]
+      },
+      high: {
+        paragraphs: [
+          "Warm and sociable, tactful and polite, you're great at empathizing with the needs of other people. A team player, who is modest, and always willing to help someone in need, you're easily able to trust other people and don't get competitive. Better to be happy then be right, right?",
+          "As a result, you like cheerful, friendly fashion that draws people in, such as florals or pastel colors, non-aggressive music, and feel-good films.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from high agreeableness alone - creating an identity that's uniquely yours."
+        ]
+      }
+    },
+    neuroticism: {
+      low: {
+        paragraphs: [
+          "Wow, nothing gets you down. Using a rational approach to life, you're able to keep you emotions in check way better than most people, allowing you to focus on things that really matter.",
+          "Since you're so emotionally balanced, you prefer a simple style, entertaining films, and happy music. To you, fashion is more about looking professional, or in the right context, fun and self-expression, so you're not against a print.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from low neuroticism alone - creating an identity that's uniquely yours."
+        ]
+      },
+      'moderate-low': {
+        paragraphs: [
+          "You're a pretty happy soul, slow to anger, and able to keep calm in emotional situations much better than most people, allowing you to focus on practical matters. Your friends envy your stable nature. Sometimes, you struggle to understand more emotional people, but it's not your problem.",
+          "Since you're fairly emotionally balanced, you prefer a simple style, entertaining films, and happy music. To you, fashion is more about looking professional, or in the right context, fun and self-expression, so you're not against a print.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-low neuroticism alone - creating an identity that's uniquely yours."
+        ]
+      },
+      moderate: {
+        paragraphs: [
+          "Everything in moderation, including emotions, right? You're a balanced personality in terms of neuroticism, the trait responsible for making us feel sensitive and prone to the odd bad mood. This means that you benefit from some of its gifts, like being caring towards others, and being creative, but you're able to keep your emotions in check when it matters.",
+          "Since you're moderate, you can swing towards darker hues or more cheerful colors, depending on your mood, but you also quite like mixing up your style for a contrast of both.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate neuroticism alone - creating an identity that's uniquely yours."
+        ]
+      },
+      'moderate-high': {
+        paragraphs: [
+          "You're on the sensitive side and probably worry a little bit more than most, but hey, you're also caring towards your friends and family, and have a strong creative streak.",
+          "Led by feelings and intuition, you love emotional, meaningful music, film, and art. Your vulnerable nature also makes you love strong design and bold details when it comes to aesthetic. Fashion really is your armor, so you love darker looks and statement features.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-high neuroticism alone - creating an identity that's uniquely yours."
+        ]
+      },
+      high: {
+        paragraphs: [
+          "OK, you're sensitive and probably worry more than necessary, but hey, you're also extremely caring towards your friends, family, and colleagues. You're also powerfully creative. You can't be sensitive to detail, if you're not sensitive, period.",
+          "You love emotional music, film, and art that moves you, and your vulnerable nature also makes you love strong design when it comes to your personal style. Fashion really is your armor, so you love dark, bolder looks and statement features.",
+          "Remember, your preferences and lifestyle come from how your five scores work together - not from high neuroticism alone - creating an identity that's uniquely yours."
+        ]
+      }
+    }
+  };
+
+  // Initialize flip counter
+  function initFlipCounter() {
+    const now = new Date();
+    const startOfYear = new Date(now.getFullYear(), 0, 1, 0, 0, 0, 0);
+    const diffMs = now.getTime() - startOfYear.getTime();
+    const minutes = Math.floor(diffMs / 60000);
+    const count = Math.floor(230000 + minutes / 15);
+    document.getElementById('counter-value').textContent = count.toLocaleString();
+  }
+
+  // Section management
+  function getCurrentSection() {
+    if (state.currentSurveyIndex < surveyQuestions.length) return 'survey';
+    if (state.currentVisualIndex < visualQuestions.length) return 'visual';
+    if (!state.userInfoStep) return 'userInfo';
+    return 'complete';
+  }
+
+  function getCompletedQuestions() {
+    return state.currentSurveyIndex + state.currentVisualIndex;
+  }
+
+  function getTotalQuestions() {
+    return surveyQuestions.length + visualQuestions.length;
+  }
+
+  function canNavigateNext() {
+    const section = getCurrentSection();
+    if (section === 'survey') {
+      return state.surveyResponses[state.currentSurveyIndex] !== null;
+    }
+    if (section === 'visual') {
+      const visualResponse = state.visualResponses[state.currentVisualIndex];
+      return Array.isArray(visualResponse) && visualResponse.length > 0;
+    }
+    return false;
+  }
+
+  function isFirstQuestion() {
+    return state.currentSurveyIndex === 0 && state.currentVisualIndex === 0;
+  }
+
+  // Test flow functions
+  function startTest() {
+    state.disclaimerShown = true;
+    document.getElementById('disclaimer-screen').style.display = 'none';
+    document.getElementById('test-screen').style.display = 'block';
+    showCurrentSection();
+    updateProgress();
+  }
+
+  function showCurrentSection() {
+    // Hide all sections
+    document.getElementById('survey-section').style.display = 'none';
+    document.getElementById('visual-section').style.display = 'none';
+    document.getElementById('user-info-section').style.display = 'none';
+    document.getElementById('results-section').style.display = 'none';
+
+    const section = getCurrentSection();
+    
+    if (section === 'survey') {
+      document.getElementById('survey-section').style.display = '';
+      showSurveyQuestion();
+    } else if (section === 'visual') {
+      document.getElementById('visual-section').style.display = '';
+      showVisualQuestion();
+    } else if (section === 'userInfo') {
+      document.getElementById('user-info-section').style.display = '';
+      document.getElementById('progress-container').style.display = 'none';
+      document.getElementById('bottom-progress').style.display = 'none';
+    } else if (section === 'complete') {
+      document.getElementById('results-section').style.display = '';
+      document.getElementById('progress-container').style.display = 'none';
+      document.getElementById('bottom-progress').style.display = 'none';
+      showResults();
+    }
+
+    updateNavigation();
+  }
+
+  function showSurveyQuestion() {
+    const question = surveyQuestions[state.currentSurveyIndex];
+    const completed = getCompletedQuestions();
+    const total = getTotalQuestions();
+
+    document.getElementById('question-indicator').textContent = `Question ${completed + 1} of ${total}`;
+    document.getElementById('question-text').textContent = question.text;
+    const form = document.getElementById('survey-form');
+    form.innerHTML = question.answers.map(answer => `
+      <div class="survey-question-answer survey-answer mb-0 sm:mb-1 md:mb-3 ${state.surveyResponses[state.currentSurveyIndex] === answer.id ? 'survey-question-answer-selected' : ''}">
+        <input
+          id="survey-${question.id}-${answer.id}"
+          type="radio"
+          value="${answer.id}"
+          ${state.surveyResponses[state.currentSurveyIndex] === answer.id ? 'checked' : ''}
+        />
+        <label for="survey-${question.id}-${answer.id}" class="block w-full py-4 px-5 sm:max-w-[60%] sm:mx-auto md:max-w-none md:mx-0 text-center border border-black bg-white hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white transition-all duration-150 cursor-pointer" onclick="selectSurveyAnswer(${answer.id})">
+          <span class="block w-full text-center">${answer.text}</span>
+        </label>
+      </div>
+    `).join('');
+
+    updateQuestionCircleProgress();
+  }
+
+  function showVisualQuestion() {
+    const question = visualQuestions[state.currentVisualIndex];
+    const completed = getCompletedQuestions();
+    const total = getTotalQuestions();
+
+    document.getElementById('visual-question-indicator').textContent = `Question ${completed + 1} of ${total}`;
+    document.getElementById('visual-question-text').textContent = question.text;
+
+    const form = document.getElementById('visual-form');
+    form.innerHTML = question.answers.map(answer => `
+      <div class="survey-question-answer mb-0 sm:mb-2 md:mb-3.5 ${state.visualResponses[state.currentVisualIndex].includes(answer.id) ? 'survey-question-answer-selected' : ''}">
+        <label for="visual-${question.id}-${answer.id}" class="flex items-center w-full py-3 px-5 sm:max-w-[60%] sm:mx-auto md:max-w-none md:mx-0 border border-black bg-white hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white transition-all duration-150 cursor-pointer min-h-[60px] max-h-[60px] ${question.id === 104 ? 'min-h-[80px] max-h-[80px] py-4' : ''}">
+          <input
+            id="visual-${question.id}-${answer.id}"
+            type="checkbox"
+            value="${answer.id}"
+            class="visual-checkbox mr-4 w-5 h-5 flex-shrink-0"
+            ${state.visualResponses[state.currentVisualIndex].includes(answer.id) ? 'checked' : ''}
+            onchange="toggleVisualAnswer(${answer.id})"
+          />
+          ${answer.icon ? `<img src="${answer.icon}" alt="${answer.text}" class="w-14 h-14 rounded-full object-cover ml-4 mr-3 flex-shrink-0" />` : ''}
+          <span class="flex-1 text-left text-sm leading-tight">${answer.text}</span>
+        </label>
+      </div>
+    `).join('');
+
+    updateQuestionCircleProgress();
+  }
+
+  function selectSurveyAnswer(answerId) {
+    state.surveyResponses[state.currentSurveyIndex] = answerId;
+    showSurveyQuestion(); // Refresh to show selection
+    
+    setTimeout(() => {
+      if (state.currentSurveyIndex < surveyQuestions.length - 1) {
+        navigateNext();
+      } else if (canNavigateNext()) {
+        navigateNext();
+      }
+    }, 300);
+  }
+
+  function toggleVisualAnswer(answerId) {
+    const responses = state.visualResponses[state.currentVisualIndex];
+    const index = responses.indexOf(answerId);
+    
+    if (index > -1) {
+      responses.splice(index, 1);
+    } else {
+      responses.push(answerId);
+    }
+    
+    showVisualQuestion(); // Refresh to show selection
+    updateNavigation();
+  }
+
+  // Progress animation function
+  function animateProgress(targetProgress, currentProgress, callback) {
+    const duration = 600; // 600ms animation duration
+    const startTime = performance.now();
+    const startProgress = currentProgress;
+
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Ease-out cubic easing function
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+
+      const newProgress = startProgress + (targetProgress - startProgress) * easeOutCubic;
+      
+      // Update the progress value
+      callback(newProgress);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        // Ensure final value is exact
+        callback(targetProgress);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }
+
+  // Enhanced progress update with smooth animation
+  function updateQuestionCircleProgress() {
+    const targetProgress = (getCompletedQuestions() / getTotalQuestions()) * 100;
+    const circles = document.querySelectorAll('.question-circle');
+    
+    if (circles.length === 0) return;
+    
+    // Get current progress from the first circle
+    const currentProgress = parseFloat(circles[0].style.getPropertyValue('--progress') || '0');
+    
+    // Animate to target progress
+    animateProgress(targetProgress, currentProgress, (newProgress) => {
+      circles.forEach(circle => {
+        circle.style.setProperty('--progress', newProgress);
+      });
+    });
+  }
+
+  function updateProgress() {
+    const progress = (getCompletedQuestions() / getTotalQuestions()) * 100;
+    const progressElements = document.querySelectorAll('.progress-fill');
+    progressElements.forEach(el => {
+      el.style.width = progress + '%';
+    });
+    
+    // Animate progress
+    animateProgress(getCompletedQuestions());
+  }
+
+  function updateNavigation() {
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    
+    // Show/hide previous button
+    prevBtn.style.display = isFirstQuestion() ? 'none' : 'block';
+    
+    // Always show next button, but enable/disable it based on whether user can proceed
+    nextBtn.style.display = 'block';
+    nextBtn.disabled = !canNavigateNext();
+  }
+
+  function navigateNext() {
+    if (!canNavigateNext()) return;
+
+    const section = getCurrentSection();
+    if (section === 'survey') {
+      state.currentSurveyIndex++;
+    } else if (section === 'visual') {
+      state.currentVisualIndex++;
+    }
+
+    showCurrentSection();
+    updateProgress();
+  }
+
+  function navigatePrevious() {
+    const section = getCurrentSection();
+    
+    if (section === 'visual') {
+      if (state.currentVisualIndex > 0) {
+        state.currentVisualIndex--;
+      } else if (surveyQuestions.length > 0) {
+        state.currentSurveyIndex = surveyQuestions.length - 1;
+      }
+    } else if (section === 'survey') {
+      if (state.currentSurveyIndex > 0) {
+        state.currentSurveyIndex--;
+      }
+    } else if (section === 'userInfo') {
+      if (visualQuestions.length > 0) {
+        state.currentVisualIndex = visualQuestions.length - 1;
+      }
+    }
+
+    showCurrentSection();
+    updateProgress();
+  }
+
+  // User info functions
+  // Simplified form validation
+  function validateUserInfoForm() {
+    const firstName = document.getElementById('firstName');
+    const email = document.getElementById('email');
+    const termsConsent = document.getElementById('termsConsent');
+    
+    const isValid = firstName.value.trim() && 
+                    email.value.trim() && 
+                    isValidEmail(email.value) && 
+                    termsConsent.checked;
+    
+    // Show/hide simple validation hint
+    showValidationHint(!isValid);
+    
+    return isValid; // Make sure to return the validation result
+  }
+
+  function showValidationHint(showHint) {
+    let hintDiv = document.querySelector('.form-validation-hint');
+    
+    if (showHint) {
+      if (!hintDiv) {
+        hintDiv = document.createElement('div');
+        hintDiv.className = 'form-validation-hint';
+        
+        const form = document.querySelector('.user-info-form');
+        const submitButton = document.querySelector('.submit-user-info');
+        
+        // Insert the hint div right before the submit button
+        form.insertBefore(hintDiv, submitButton);
+      }
+      
+      hintDiv.innerHTML = `
+        <span class="hint-icon">⚠️</span>
+        Please complete the required fields
+      `;
+      hintDiv.classList.add('show');
+    } else if (hintDiv) {
+      hintDiv.classList.remove('show');
+    }
+  }
+
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  // Enhanced submit function
+  function submitUserInfo() {
+    if (validateUserInfoForm()) {
+      // Calculate OCEAN scores from survey responses
+      calculateOceanScores();
+      
+      // Get form data
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const retailerNames = document.getElementById('retailerNames').value.trim();
+      const optInUpdate = document.getElementById('optInUpdate').checked;
+      const optInParticipateInRetails = document.getElementById('optInParticipateInRetails').checked;
+      
+      // Store user data in state
+      state.userData = {
+        firstName,
+        lastName,
+        email,
+        retailerNames,
+        optInUpdate,
+        optInParticipateInRetails
+      };
+      
+      console.log('Form is valid, showing results...', state.ocean);
+      
+      // Hide user info section and show results
+      document.getElementById('user-info-section').style.display = 'none';
+      document.getElementById('results-section').style.display = 'block';
+      
+      // Show the results
+      showResults();
+    }
+  }
+
+  function calculateOceanScores() {
+    const traitScores = { O: [], C: [], E: [], A: [], N: [] };
+
+    surveyQuestions.forEach((question, index) => {
+      const response = state.surveyResponses[index];
+      if (response !== null) {
+        traitScores[question.quality].push(response);
+      }
+    });
+
+    // Calculate averages and round
+    Object.keys(traitScores).forEach(trait => {
+      if (traitScores[trait].length > 0) {
+        const sum = traitScores[trait].reduce((total, score) => total + score, 0);
+        const average = sum / traitScores[trait].length;
+        state.ocean[trait] = Math.round(average);
+      }
+    });
+  }
+
+  // Results functions
+  function showResults() {
+    // Hide navigation controls on results page
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const surveyControls = document.querySelector('.survey-controls');
+    
+    if (prevBtn) prevBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
+    if (surveyControls) surveyControls.style.display = 'none';
+    
+    updateProfileTitle();
+    updateTraitBars();
+    updateDesktopTabs();
+    updateCurrentTraitDisplay();
+    showTraitHintIfNeeded();
+  }
+
+  function updateProfileTitle() {
+    const personalityCode = `${state.ocean.O}${state.ocean.C}${state.ocean.E}${state.ocean.A}${state.ocean.N}`;
+    const firstName = state.userData?.firstName || 'there';
+    document.getElementById('profile-title').innerHTML = `
+      <span>Hi ${firstName},</span> your personality code is ${personalityCode}
+      <button
+        class="info-popup-trigger"
+        onmouseover="showInfoPopup()"
+        onmouseleave="hideInfoPopup()"
+      ></button>
+    `;
+  }
+
+  function updateTraitBars() {
+    const traits = [
+      { key: 'O', name: 'openness', label: 'OPENNESS' },
+      { key: 'C', name: 'conscientiousness', label: 'CONSCIENTIOUSNESS' },
+      { key: 'E', name: 'extroversion', label: 'EXTROVERSION' },
+      { key: 'A', name: 'agreeableness', label: 'AGREEABLENESS' },
+      { key: 'N', name: 'neuroticism', label: 'NEUROTICISM' }
+    ];
+
+    const barsHTML = traits.map(trait => `
+      <a class="trait-bar ${state.selectedMobileTrait === trait.name ? 'active' : ''}" onclick="selectMobileTrait('${trait.name}')">
+        <span class="trait-text">${trait.label}: <b>${state.ocean[trait.key]}</b></span>
+        <span class="trait-bar-inner" style="width: ${toPercentage(state.ocean[trait.key])}%; background: linear-gradient(90deg, #0cc0df, #ffde59);"></span>
+      </a>
+    `).join('');
+
+    document.getElementById('mobile-trait-bars').innerHTML = barsHTML;
+  }
+
+  function updateDesktopTabs() {
+    const traits = [
+      { key: 'O', name: 'openness', label: 'Openness' },
+      { key: 'C', name: 'conscientiousness', label: 'Conscientiousness' },
+      { key: 'E', name: 'extroversion', label: 'Extroversion' },
+      { key: 'A', name: 'agreeableness', label: 'Agreeableness' },
+      { key: 'N', name: 'neuroticism', label: 'Neuroticism' }
+    ];
+
+    const tabsHTML = `
+      <div class="nav nav-tabs" role="tablist">
+        ${traits.map((trait, index) => `
+          <div class="nav-item">
+            <a class="nav-link ${index === state.activeTabIndex ? 'active' : ''}" onclick="changeTab(${index})">
+              <span class="block md:hidden">${trait.label}: <strong>${state.ocean[trait.key]}</strong></span>
+              <span class="hidden md:block">${trait.label}: <strong>${state.ocean[trait.key]}</strong></span>
+            </a>
+          </div>
+        `).join('')}
+      </div>
+      <div class="tab-content">
+        <div id="desktop-trait-content" class="tab-pane active">
+          <!-- Desktop trait content will be inserted here -->
+        </div>
+      </div>
+    `;
+
+    document.getElementById('desktop-tabs').innerHTML = tabsHTML;
+    updateCurrentTraitDisplay();
+  }
+
+  function updateCurrentTraitDisplay() {
+    const traits = [
+      { key: 'O', name: 'openness' },
+      { key: 'C', name: 'conscientiousness' },
+      { key: 'E', name: 'extroversion' },
+      { key: 'A', name: 'agreeableness' },
+      { key: 'N', name: 'neuroticism' }
+    ];
+
+    const currentTrait = traits[state.activeTabIndex];
+    const score = state.ocean[currentTrait.key];
+    const level = toHuman(score);
+
+    // Update photo
+    const photoPath = `/media/b2c/personality-test/${currentTrait.name}/${level}.jpg`;
+    document.getElementById('result-photo').src = photoPath;
+    document.getElementById('photo-label').textContent = `${currentTrait.name.toUpperCase()} ${score}`;
+
+    // Update trait content for desktop
+    const desktopTraitContent = document.getElementById('desktop-trait-content');
+    if (desktopTraitContent && traitContent[currentTrait.name] && traitContent[currentTrait.name][level]) {
+      const content = traitContent[currentTrait.name][level];
+      desktopTraitContent.innerHTML = `
+        <div class="profile-trait-section">
+          <div class="tab-pane show profile-tab active" role="tabpanel">
+            <div class="flex flex-wrap -mx-4">
+              <div class="w-full px-4">
+                <h3 class="mob-hide-sm trait-title">You scored ${level} on ${currentTrait.name}</h3>
+                ${content.paragraphs.map(p => `<p>${p}</p>`).join('')}
+              </div>
+            </div>
+          </div>
+          <hr class="border-t border-gray-300 my-4" />
+          <div class="legend">
+            <span>HIGH = 5</span>
+            <span>MODERATE-HIGH = 4</span>
+            <span>MODERATE = 3</span>
+            <span>MODERATE-LOW = 2</span>
+            <span>LOW = 1</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // Update mobile trait content
+    const mobileTraitContent = document.getElementById('mobile-trait-content');
+    if (mobileTraitContent) {
+      const mobileTrait = traits.find(t => t.name === state.selectedMobileTrait);
+      if (mobileTrait && traitContent[mobileTrait.name]) {
+        const mobileScore = state.ocean[mobileTrait.key];
+        const mobileLevel = toHuman(mobileScore);
+        const mobileContent = traitContent[mobileTrait.name][mobileLevel];
+        
+        if (mobileContent) {
+          mobileTraitContent.innerHTML = `
+            <div class="profile-trait-section">
+              ${mobileContent.paragraphs.map(p => `<p>${p}</p>`).join('')}
+              <hr class="border-t border-gray-300 my-4" />
+              <div class="legend">
+                <span>HIGH = 5</span>
+                <span>MODERATE-HIGH = 4</span>
+                <span>MODERATE = 3</span>
+                <span>MODERATE-LOW = 2</span>
+                <span>LOW = 1</span>
+              </div>
+            </div>
+          `;
+        }
+      }
+    }
+
+    // Update mobile header - remove the window width check since CSS handles visibility
+    document.getElementById('mobile-trait-header').textContent = `${state.selectedMobileTrait.toUpperCase()}: ${getCurrentMobileTraitScore()}`;
+
+    // Update navigation arrow state
+    document.getElementById('trait-prev').disabled = state.activeTabIndex === 0;
+  }
+
+  function toHuman(score) {
+    switch (score) {
+      case 1: return 'low';
+      case 2: return 'moderate-low';
+      case 3: return 'moderate';
+      case 4: return 'moderate-high';
+      case 5: return 'high';
+      default: return 'unknown';
+    }
+  }
+
+  function toPercentage(score) {
+    switch (score) {
+      case 1: return '0';
+      case 2: return '25';
+      case 3: return '50';
+      case 4: return '75';
+      case 5: return '100';
+      default: return '0';
+    }
+  }
+
+  function selectMobileTrait(trait) {
+    state.selectedMobileTrait = trait;
+    updateTraitBars();
+    updateCurrentTraitDisplay(); // This will now update the mobile content too
+    dismissTraitHint();
+  }
+
+  function getCurrentMobileTraitScore() {
+    switch (state.selectedMobileTrait) {
+      case 'openness': return state.ocean.O;
+      case 'conscientiousness': return state.ocean.C;
+      case 'extroversion': return state.ocean.E;
+      case 'agreeableness': return state.ocean.A;
+      case 'neuroticism': return state.ocean.N;
+      default: return state.ocean.O;
+    }
+  }
+
+  function changeTab(index) {
+    state.activeTabIndex = index;
+    updateDesktopTabs();
+    updateCurrentTraitDisplay();
+    dismissTraitHint();
+  }
+
+  function navigateTrait(direction) {
+    const newIndex = state.activeTabIndex + direction;
+    
+    if (direction > 0) {
+      state.activeTabIndex = newIndex > 4 ? 0 : newIndex;
+    } else {
+      state.activeTabIndex = newIndex < 0 ? 4 : newIndex;
+    }
+    
+    updateDesktopTabs();
+    updateCurrentTraitDisplay();
+  }
+
+  // Action functions
+  function downloadResults() {
+    showNotification('Feature coming soon!');
+  }
+
+  function shareResults() {
+    const shareMessage = `Hey! I just took this fascinating Big Five personality test that reveals your unique personality profile. 🧠
+It only takes 3 minutes and gives you insights into the 5 key traits psychologists use to understand people and their preferences.
+Take the test here: ${window.location.origin}/big-5-personality-test
+Let me know what you get! 😊`;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(shareMessage)
+        .then(() => showNotification('✅ Test link copied to clipboard! Share it with your friends.'))
+        .catch(() => fallbackCopyToClipboard(shareMessage));
+    } else {
+      fallbackCopyToClipboard(shareMessage);
+    }
+  }
+
+  function fallbackCopyToClipboard(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.select();
+
+    try {
+      document.execCommand('copy');
+      showNotification('✅ Test link copied to clipboard! Share it with your friends.');
+    } catch (err) {
+      showNotification('❌ Failed to copy link. Please try again.');
+    } finally {
+      document.body.removeChild(textArea);
+    }
+  }
+
+  function retakeTest() {
+    window.location.reload();
+  }
+
+  function showNotification(message) {
+    document.getElementById('notification-text').textContent = message;
+    document.getElementById('download-notification').style.display = 'block';
+    
+    setTimeout(() => {
+      document.getElementById('download-notification').style.display = 'none';
+    }, 4000);
+  }
+
+  function showInfoPopup() {
+    document.getElementById('info-popup').style.display = 'block';
+  }
+
+  function hideInfoPopup() {
+    document.getElementById('info-popup').style.display = 'none';
+  }
+
+  function showTraitHintIfNeeded() {
+    setTimeout(() => {
+      document.getElementById('trait-hint').style.display = 'block';
+      
+      setTimeout(() => {
+        document.getElementById('trait-hint').style.display = 'none';
+      }, 15000);
+    }, 1500);
+  }
+
+  function dismissTraitHint() {
+    document.getElementById('trait-hint').style.display = 'none';
+  }
+
+  // Update the showUserInfoSection function to include validation
+  function showUserInfoSection() {
+    // Hide other sections
+    document.getElementById('survey-section').style.display = 'none';
+    document.getElementById('visual-section').style.display = 'none';
+    document.getElementById('results-section').style.display = 'none';
+    
+    // Show user info section
+    document.getElementById('user-info-section').style.display = '';
+    
+    // Set up validation immediately
+    setTimeout(() => {
+      validateUserInfoForm();
+      
+      // Add event listeners if not already added
+      const firstName = document.getElementById('firstName');
+      const email = document.getElementById('email');
+      const termsConsent = document.getElementById('termsConsent');
+      
+      if (firstName && !firstName.hasAttribute('data-validation-added')) {
+        firstName.addEventListener('input', validateUserInfoForm);
+        firstName.addEventListener('keyup', validateUserInfoForm);
+        firstName.setAttribute('data-validation-added', 'true');
+      }
+      
+      if (email && !email.hasAttribute('data-validation-added')) {
+        email.addEventListener('input', validateUserInfoForm);
+        email.addEventListener('keyup', validateUserInfoForm);
+        email.setAttribute('data-validation-added', 'true');
+      }
+      
+      if (termsConsent && !termsConsent.hasAttribute('data-validation-added')) {
+        termsConsent.addEventListener('change', validateUserInfoForm);
+        termsConsent.setAttribute('data-validation-added', 'true');
+      }
+    }, 100);
+  }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    initFlipCounter();
+    
+    // Set up form validation when user info section becomes visible
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+          const userInfoSection = document.getElementById('user-info-section');
+          if (userInfoSection && userInfoSection.style.display !== 'none') {
+            setupFormValidation();
+          }
+        }
+      });
+    });
+    
+    const userInfoSection = document.getElementById('user-info-section');
+    if (userInfoSection) {
+      observer.observe(userInfoSection, { attributes: true });
+    }
+    
+    // Also set up validation immediately if the section is already visible
+    if (userInfoSection && userInfoSection.style.display !== 'none') {
+      setupFormValidation();
+    }
+  });
+
+  function setupFormValidation() {
+    const firstName = document.getElementById('firstName');
+    const email = document.getElementById('email');
+    const termsConsent = document.getElementById('termsConsent');
+    
+    // Remove existing listeners to avoid duplicates
+    if (firstName && !firstName.hasAttribute('data-validation-setup')) {
+      firstName.addEventListener('input', validateUserInfoForm);
+      firstName.addEventListener('blur', validateUserInfoForm);
+      firstName.setAttribute('data-validation-setup', 'true');
+    }
+    
+    if (email && !email.hasAttribute('data-validation-setup')) {
+      email.addEventListener('input', validateUserInfoForm);
+      email.addEventListener('blur', validateUserInfoForm);
+      email.setAttribute('data-validation-setup', 'true');
+    }
+    
+    if (termsConsent && !termsConsent.hasAttribute('data-validation-setup')) {
+      termsConsent.addEventListener('change', validateUserInfoForm);
+      termsConsent.setAttribute('data-validation-setup', 'true');
+    }
+    
+    // Run initial validation
+    setTimeout(validateUserInfoForm, 100);
+  }
+
+  // Make functions globally available
+  window.startTest = startTest;
+  window.navigateNext = navigateNext;
+  window.navigatePrevious = navigatePrevious;
+  window.selectSurveyAnswer = selectSurveyAnswer;
+  window.toggleVisualAnswer = toggleVisualAnswer;
+  window.submitUserInfo = submitUserInfo;
+  window.selectMobileTrait = selectMobileTrait;
+  window.changeTab = changeTab;
+  window.navigateTrait = navigateTrait;
+  window.downloadResults = downloadResults;
+  window.shareResults = shareResults;
+  window.retakeTest = retakeTest;
+  window.showInfoPopup = showInfoPopup;
+  window.hideInfoPopup = hideInfoPopup;
+  window.dismissTraitHint = dismissTraitHint;
+</script>
