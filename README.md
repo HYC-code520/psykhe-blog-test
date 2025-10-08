@@ -1,7 +1,4 @@
 ## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
 ```text
 /
 ├── public/
@@ -17,39 +14,61 @@ Inside of your Astro project, you'll see the following folders and files:
 │       └── index.astro
 └── package.json
 ```
-
 To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
 
-## 🧞 Commands
+## 🔧 Development
 
-All commands are run from the root of the project, from a terminal:
+### [DevContainer](https://code.visualstudio.com/docs/devcontainers/containers)
+This project has a devcontainer to assist in developer setup. You can open this project in vscode and run `cmd/ctrl+P => Rebuild and reopen in Container`
 
-| Command                   | Action                                           |
-|:--------------------------|:-------------------------------------------------|
-| `npm install`             | Installs dependencies                            |
-| `npm run lint`            | Project linting                                  |
-| `npm run lint:fix`        | Fix automatically lint errors                    |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### Standalone
+Vscode and devcontainers are both optional but you will need to [install mise](https://mise.jdx.dev/getting-started.html).
 
-## 🔧 Development Setup
+### Setup
 
-This project uses [Lefthook](https://github.com/evilmartians/lefthook) for git hooks to maintain code quality.
+```bash
+# 1. Install mise tooling
+mise install
 
-### Git Hooks
-- **Pre-commit**: Automatically runs `npm run lint` before each commit
-- Hooks are installed automatically when you run `npm install`
-- If linting fails, the commit will be blocked
-
-### Manual Hook Commands
-```sh
-npx lefthook install    # Install git hooks
-npx lefthook run pre-commit  # Test pre-commit hook manually
+# 2. Setup/Update workspace
+mise initilaize
 ```
 
-### Building Astro sites with AI tools 
+### Tasks
+```bash
+# Print available tasks
+$ mise tasks ls
 
-https://docs.astro.build/en/guides/build-with-ai/ 
+# Print task info (help, arguments, etc r)
+$ mise tasks info [task]
+
+# Examples
+mise build     # Build Project
+mise serve     # Run dev server
+mise lint:fix  # Fix lint errors
+```
+
+### Tooling
+- [astro](https://github.com/withastro/astro) - web framework
+- [biome](https://github.com/biomejs/biome) - js/ts linter/formatter
+- [bun](https://github.com/oven-sh/bun) - javascript runtime.
+- [lefthook](https://github.com/evilmartians/lefthook) - git hook runner
+- [mise](https://github.com/jdx/mise) - tooling management and task runner
+- [tombi](https://github.com/tombi-toml/tombi) - toml formatting
+
+
+## Deployment
+Reqires you be logged into gcp. `gcloud auth login`
+```bash
+# Build
+mise build:production
+
+#Deploy
+mise deploy gs://psykhe.com
+```
+
+
+## Resources
+
+[Building Astro sites with AI tools](https://docs.astro.build/en/guides/build-with-ai/)
+

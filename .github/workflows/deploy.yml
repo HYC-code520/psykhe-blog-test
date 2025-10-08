@@ -1,0 +1,48 @@
+name: ci
+
+on:
+  push:
+    tags: ["*"]
+    branches: ["main"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - uses: jdx/mise-action@v2
+        with:
+           experimental: true
+
+      - uses: "google-github-actions/setup-gcloud@v0"
+
+      - name: lint
+        id: lint
+        run: mise run lint:test
+
+      - name: astro ckeck
+        id: astro ckeck
+        run: mise run astro:check
+
+      - name: build
+        id: build
+        run: mise run build:production
+
+      - name: GCloud Auth
+        id: auth
+        uses: "google-github-actions/auth@v1"
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+
+      - name: deploy
+        id: deploy
+        run: mise run deploy gs://psykhe.com"

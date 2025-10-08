@@ -1,0 +1,175 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+
+# region  Settings
+[settings]
+activate_aggressive = true
+aqua.minisign = true
+aqua.slsa = true
+aqua.baked_registry = true
+auto_install = true
+exec_auto_install = true
+jobs = 8
+lockfile = true
+not_found_auto_install = true
+experimental = true
+disable_backends = ["asdf", "gem", "vfox"]
+use_versions_host = true
+
+[settings.npm]
+bun = true
+
+[settings.pipx]
+uvx = true
+# endregion
+
+# region Tooling
+[tools]
+node = "latest"
+bun = "latest"
+python = "latest"
+#
+'npm:@withgraphite/graphite-cli' = "1.7.0"
+"aqua:biomejs/biome" = "2.2.5"
+"aqua:dotenvx/dotenvx" = "1.51.0"
+"aqua:evilmartians/lefthook" = "1.13.6"
+"aqua:hadolint/hadolint" = "2.14.0"
+"aqua:tombi-toml/tombi" = "0.6.25"
+"aqua:twistedpair/google-cloud-sdk" = "542.0.0"
+"aqua:watchexec/watchexec" = "2.3.2"
+# endregion
+
+# region  Envionment
+[env]
+# _.path = []
+PROJECT_ROOT = "{{config_root}}"
+NODE_ENV = "{{ env.NODE_ENV | default(value='development') }}"
+# endregion
+
+# region Tasks
+
+# region Setup
+[tasks."initilaize"]
+description = "setup/update workspace"
+dir = "{{config_root}}"
+depends = ["lefthook:install", "bun:install"]
+
+[tasks.'lefthook:install']
+description = "Install lefthook hooks."
+dir = "{{config_root}}"
+run = "lefthook install"
+
+[tasks.'bun:install']
+description = "Install node dependencies."
+dir = "{{config_root}}"
+run = "bun install"
+# endregion
+
+# region Project
+[tasks.'serve']
+alias = "s"
+description = "Run dev server."
+dir = "{{config_root}}"
+run = "bun astro dev"
+
+[tasks.'build']
+alias = "b"
+description = "Run dev build."
+dir = "{{config_root}}"
+run = "bun astro build --mode development"
+
+[tasks.'build:production']
+description = "Run production build."
+dir = "{{config_root}}"
+depends = ["astro:check", "lint:test"]
+run = "bun astro build --mode production --force"
+
+[tasks.'preview']
+alias = "p"
+description = ""
+dir = "{{config_root}}"
+run = "bun astro preview"
+
+[tasks.'deploy']
+depends = ["astro:check", "build:production", "lint:test"]
+description = ""
+run = "gsutil -m rsync -d -r {{config_root}}/dist {{arg(name='target')}}"
+# endregion Project
+
+# region Formatters
+[tasks."format:check"]
+description = "Check all formatting"
+depends = ["format:check:*"]
+
+[tasks."format:fix"]
+description = "Fix all formatting"
+depends = ["format:fix:*"]
+
+# region Biome
+[tasks.'format:check:biome']
+description = ""
+dir = "{{config_root}}"
+run = "biome format --error-on-warnings {{arg(name='files', default='.', var=true)}}"
+
+[tasks.'format:fix:biome']
+description = ""
+dir = "{{config_root}}"
+run = "biome format --error-on-warnings --write {{arg(name='files', default='.', var=true)}}"
+# endregion Biome
+
+# region TOML
+[tasks.'format:check:toml']
+description = "Run yaml formater"
+run = "tombi format --check {{arg(name='files', default='.', var=true)}}"
+
+[tasks.'format:fix:toml']
+description = "Run yaml formater"
+run = "tombi format {{arg(name='files', default='.', var=true)}}"
+# endregion TOML
+
+# endregion Formatters
+# region Linters
+[tasks."lint:check"]
+description = "Check all linters"
+depends = ["lint:check:*"]
+
+[tasks."lint:fix"]
+description = "Fix all linters"
+depends = ["lint:fix:*"]
+
+# region YAML
+[tasks.'lint:check:yaml']
+description = "Run yaml linter"
+run = "tombi lint {{arg(name='files', default='.', var=true)}}"
+# endregion YAML
+
+# region Astro
+[tasks."lint:check:astro"]
+description = "Run astro check: https://docs.astro.build/en/reference/cli-reference/#astro-check"
+run = "bun astro check --minimumFailingSeverity=warning {{arg(name='files', default='.', var=true)}}"
+# endregion Astro
+
+# region Biome
+[tasks.'lint:check:biome']
+description = "Run biome linter"
+dir = "{{config_root}}"
+run = "biome lint --error-on-warnings {{arg(name='files', default='.', var=true)}}"
+
+[tasks.'lint:fix:biome']
+description = "Run biome linter w/ fix"
+dir = "{{config_root}}"
+run = "biome lint --error-on-warnings --write {{arg(name='files', default='.', var=true)}}"
+# endregion Biome
+
+# region TOML
+[tasks.'lint:check:toml']
+description = "Run yaml formater"
+run = "tombi lint {{arg(name='files', default='.', var=true)}}"
+# endregion TOML
+
+# endregion Linters
+
+# endregion Tasks
+
+[tasks.'astro']
+description = "Astro wrapper"
+run = "bun astro"

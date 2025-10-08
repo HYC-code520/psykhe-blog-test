@@ -1,5 +1,0 @@
-pre-commit:
-  commands:
-    lint:
-      run: npm run lint
-      fail_text: "Linting failed! Please fix the issues before committing."

@@ -1,0 +1,104 @@
+{
+  //
+  // #region Filetypes
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[toml]": {
+    "editor.defaultFormatter": "tombi-toml.tombi",
+    "editor.formatOnSave": true
+  },
+  "[astro]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  },
+  "[yaml]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "keep",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.defaultColorDecorators": "never",
+    "editor.quickSuggestions": {
+      "strings": true,
+      "other": true,
+      "comments": false
+    },
+    "editor.formatOnPaste": true,
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+  },
+  "[biome]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[json]": {
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.suggest.insertMode": "replace",
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.suggest.insertMode": "replace",
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonl]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  // #endregion
+  // #region Editor
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "always",
+    "source.organizeImports.biome": "always",
+    "source.biome": "always",
+    "source.organizeImports": "always"
+  },
+  // #endregion
+  //
+  // #region Debug
+  "debug.javascript.autoAttachFilter": "disabled",
+  // #endregion
+  //
+  // #region Biome
+  "biome.enabled": true,
+  "biome.suggestInstallingGlobally": false,
+  // #endregion
+  //
+  // #region Mise
+  "mise.autoDetectMiseBinPath": true,
+  "mise.automaticallyTrustMiseConfigFiles": true,
+  "mise.checkForNewMiseVersion": false,
+  "mise.configureExtensionsAutomatically": false,
+  "mise.configureExtensionsUseShims": true,
+  "mise.enable": true,
+  "mise.enableCodeLens": true,
+  "mise.showOutdatedToolGutterDecorations": true,
+  "mise.updateEnvAutomatically": true,
+  "mise.updateOpenTerminalsEnvAutomatically": false,
+  // #endregion
+  //
+  // #region Kiro
+  "kiroAgent.configureMCP": "Disabled",
+  // #endregion
+  //
+  // #region Yaml
+  "yaml.completion": true,
+  "yaml.format.enable": true,
+  "yaml.format.trailingComma": true,
+  // "yaml.keyOrdering": true,
+  "yaml.schemaStore.enable": true,
+  "yaml.validate": true,
+  // #endregion
+  //
+  // #region Json
+  "json.format.enable": true,
+  "json.schemaDownload.enable": true,
+  "json.validate.enable": true,
+  // #endregion
+}

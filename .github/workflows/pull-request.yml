@@ -1,0 +1,34 @@
+name: ci
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - uses: jdx/mise-action@v2
+        with:
+           experimental: true
+
+      - name: lint
+        id: lint
+        run: mise run lint:test
+
+      - name: astro ckeck
+        id: astro ckeck
+        run: mise run astro:check
+
+      - name: build
+        id: build
+        run: mise run build:production
