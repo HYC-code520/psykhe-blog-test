@@ -1,6 +1,6 @@
 ---
 export interface Props {
-	title: string;
+    title: string;
 }
 
 const { title } = Astro.props;
@@ -21,12 +21,9 @@ const { title } = Astro.props;
 </html>
 
 <style lang="scss" is:global>
-	@tailwind base;
-	@tailwind components;
-	@tailwind utilities;
+	@use '../styles/app.scss' as *;
 	
 	@import '../styles/global.css';
-	@import '../styles/app.scss';
 	
 	html, body {
 		margin: 0;

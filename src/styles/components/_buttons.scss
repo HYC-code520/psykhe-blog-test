@@ -1,6 +1,8 @@
+@use '../base/variables' as *;
+
 .btn,
 .btn-line {
-  @extend .animate;
+  @extend .animate !optional;
   margin-bottom: 1ex;
   border: $psykhe-black 1px solid;
   font-size: 14px;
@@ -22,7 +24,7 @@
 }
 
 .btn-primary {
-  @extend .animate;
+  @extend .animate !optional;
   color: $psykhe-white;
   background-color: $psykhe-tan;
   border: $psykhe-tan 1px solid;
@@ -40,7 +42,7 @@
 }
 
 .btn-black {
-  @extend .btn;
+  @extend .btn !optional;
   color: $psykhe-white;
   background-color: $psykhe-black;
   border-color: $psykhe-black;
@@ -57,7 +59,7 @@
 }
 
 .btn-white {
-  @extend .animate;
+  @extend .animate !optional;
   color: $psykhe-black;
   background-color: $psykhe-white;
   border: $psykhe-white 1px solid;
@@ -76,7 +78,7 @@
 }
 
 .btn-white-line {
-  @extend .animate;
+  @extend .animate !optional;
   color: $psykhe-white;
   background: none;
   border: $psykhe-white 1px solid;
@@ -95,7 +97,7 @@
 }
 
 .btn-grey {
-  @extend .animate;
+  @extend .animate !optional;
   color: #000;
   background-color: $psykhe-bluegrey;
   border: $psykhe-bluegrey 1px solid;
@@ -125,11 +127,11 @@
 }
 
 .btn-secondary {
-  @extend .btn-grey;
+  @extend .btn-grey !optional;
 }
 
 .btn-home {
-  @extend .btn;
+  @extend .btn !optional;
   color: $psykhe-white;
   background-color: $psykhe-tan;
   border-color: $psykhe-tan;
@@ -159,7 +161,7 @@
 }
 
 .btn-home-tan {
-  @extend .btn;
+  @extend .btn !optional;
   text-transform: uppercase;
   padding: 1.1em 2.7em;
   font-size: 0.8rem;

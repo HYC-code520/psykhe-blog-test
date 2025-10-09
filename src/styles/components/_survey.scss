@@ -1,4 +1,6 @@
 
+@use '../base/variables' as *;
+
 .page-pt main {
   @media (max-width: 576px) {
     padding-bottom: 0 !important;

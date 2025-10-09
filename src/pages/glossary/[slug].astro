@@ -1,14 +1,14 @@
 ---
-import { glossaryEntries } from '../../data/glossary';
-import Layout from '../../layouts/Layout.astro';
-import Navbar from '../../components/Navbar.astro';
-import Footer from '../../components/Footer.astro';
+import Footer from "../../components/Footer.astro";
+import Navbar from "../../components/Navbar.astro";
+import { glossaryEntries } from "../../data/glossary";
+import Layout from "../../layouts/Layout.astro";
 
 export function getStaticPaths() {
-  return glossaryEntries.map(entry => ({
-    params: { slug: entry.slug },
-    props: { entry }
-  }));
+    return glossaryEntries.map((entry) => ({
+        params: { slug: entry.slug },
+        props: { entry },
+    }));
 }
 
 const { entry } = Astro.props;

@@ -2,7 +2,7 @@
 .page-terms-conditions {
   width: 100%; // Ensure full width
   overflow-x: hidden; // Prevent horizontal overflow at page level
-  
+
   main {
     max-width: 1230px !important;
     margin: 0 auto;
@@ -100,7 +100,7 @@
       overflow-wrap: break-word; // Better word breaking
       
       @media (max-width: 480px) {
-        font-size: 0.75rem !important; // Smaller on very small screens
+        font-size: 0.8rem !important; // Consistent with base font size
         letter-spacing: 0.05em; // Reduced letter spacing on mobile
       }
     }
@@ -179,33 +179,64 @@
       }
     }
 
+    // Table container to prevent overflow
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      
+      @media (min-width: 769px) {
+        overflow-x: visible; // No scroll on desktop
+      }
+      
+    }
+
     table {
       width: 100%;
       margin: 2rem 0;
-      overflow-x: auto; // Allow horizontal scrolling on small screens
-      display: block; // Make table scrollable
-      white-space: nowrap; // Prevent text wrapping in cells
+      border-collapse: collapse;
+      table-layout: fixed; // Fixed layout for better control
+      min-width: 500px; // Reduced minimum width to prevent excess scrolling
       
+      // Only add scrolling on mobile devices
       @media (max-width: 768px) {
-        font-size: 0.7rem !important; // Smaller text on mobile
-        margin: 1rem 0; // Reduced margin on mobile
+        font-size: 0.8rem !important; // Consistent with base font size
+        margin: 1rem 0;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      
+      // Desktop: normal table display
+      @media (min-width: 769px) {
+        display: table;
+        overflow-x: visible;
       }
       
       tr {
-        display: table-row; // Reset display for table rows
-        white-space: normal; // Allow normal text wrapping in rows
+        @media (max-width: 768px) {
+          display: table-row;
+          white-space: normal;
+        }
         
         td {
           border: 1px solid grey;
           vertical-align: top;
-          padding: 0.25em 0.5em;
-          white-space: normal; // Allow text wrapping in cells
-          word-wrap: break-word; // Break long words
-          max-width: 50vw; // Limit cell width on mobile
+          padding: 0.5em 0.75em;
+          word-wrap: break-word;
+          hyphens: auto; // Enable hyphenation for long words
+          
+          // Desktop column widths
+          @media (min-width: 769px) {
+            &:nth-child(1) { width: 35%; } // First column
+            &:nth-child(2) { width: 30%; } // Second column  
+            &:nth-child(3) { width: 35%; } // Third column (if exists)
+          }
           
           @media (max-width: 768px) {
-            padding: 0.2em 0.3em; // Reduced padding on mobile
-            font-size: 0.7rem !important; // Smaller text
+            padding: 0.3em 0.4em;
+            font-size: 0.8rem !important; // Consistent font size
+            max-width: 50vw;
+            white-space: normal;
           }
 
           ol {
@@ -222,13 +253,78 @@
           }
         }
         
-        // Table headers without borders
+        // Table headers
         th {
           border: none !important; // Remove the border/box
           vertical-align: top;
-          padding: 0.25em 0.5em;
+          padding: 0.5em 0.75em;
           text-align: left !important;
           font-weight: bold !important;
+          background-color: transparent !important; // Remove grey background
+          
+          // Desktop column widths
+          @media (min-width: 769px) {
+            &:nth-child(1) { width: 35%; } // First column
+            &:nth-child(2) { width: 30%; } // Second column  
+            &:nth-child(3) { width: 35%; } // Third column (if exists)
+          }
+          
+          @media (max-width: 768px) {
+            padding: 0.3em 0.4em;
+            font-size: 0.8rem !important; // Consistent font size
+          }
+        }
+      }
+    }
+
+    // Cookies table - reduce first column width to prevent mobile scrolling
+    table.cookies-table {
+      // Set consistent font size for all screen sizes
+      font-size: 0.8rem !important;
+      
+      // Ensure no horizontal scrolling on mobile
+      @media (max-width: 768px) {
+        width: 100% !important;
+        display: table !important;
+        overflow-x: visible !important;
+        min-width: auto !important;
+      }
+      
+      td, th {
+        &:nth-child(1) { 
+          width: 20% !important; // Narrower cookie name column
+          
+          // Make first column bigger on mobile
+          @media (max-width: 768px) {
+            width: 30% !important; // Bigger cookie name column on mobile
+          }
+        }
+        &:nth-child(2) { 
+          width: 80% !important; // Wider purpose column
+          
+          // Adjust second column on mobile
+          @media (max-width: 768px) {
+            width: 70% !important; // Adjust purpose column on mobile
+          }
+        }
+        
+        // Consistent font size for all cells
+        font-size: 0.8rem !important;
+        
+        // Ensure all text content has consistent sizing
+        p, ol, ul, li {
+          font-size: 0.8rem !important;
+        }
+        
+        // Make table taller with more padding
+        padding: 1rem 0.75rem !important; // Increased vertical padding for height
+        line-height: 1.5 !important; // Better line spacing
+        
+        // Mobile specific adjustments
+        @media (max-width: 768px) {
+          padding: 0.8rem 0.5rem !important; // Still taller on mobile
+          white-space: normal !important;
+          word-wrap: break-word !important;
         }
       }
     }

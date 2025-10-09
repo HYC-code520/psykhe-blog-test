@@ -8,13 +8,7 @@
   </div>
 </div>
 
-<style lang="scss">
-// Import the variables from the correct new path
-@import '../styles/base/_variables.scss';
-
-// Remove the redundant mixin since it's already in _variables.scss
-// @mixin media-breakpoint-up($breakpoint) { ... } ← Remove this
-
+<style>
 .navbar-wrapper {
   background: white;
   width: 100%;
@@ -27,35 +21,36 @@
   margin: 0 auto;
   padding: 0;
   text-align: left;
+}
 
-  a {
-    font-size: 2rem;
-    background-image: url(/media/brand/logoword-dark-ai.png);
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: 0 5px;
-    color: rgba(0, 0, 0, 0);
-    text-decoration: none;
+.brand a {
+  font-size: 2rem;
+  background-image: url(/media/brand/logoword-dark-ai.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: 0 5px;
+  color: rgba(0, 0, 0, 0);
+  text-decoration: none;
+  padding: 0;
+  display: inline-block;
+  width: 185px;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
 
-    &:active,
-    &:focus,
-    &:hover,
-    &:visited {
-      color: rgba(0, 0, 0, 0);
-    }
+.brand a:active,
+.brand a:focus,
+.brand a:hover,
+.brand a:visited {
+  color: rgba(0, 0, 0, 0);
+}
 
-    padding: 0;
-    display: inline-block;
-    width: 185px;
-
-    margin-left: 1rem;
-    margin-top: 1rem;
-
-    @include media-breakpoint-up(md) {
-      width: 240px;
-      top: -15px !important;
-      background-position: top center;
-    }
+/* Responsive styles using CSS media queries instead of SCSS mixins */
+@media (min-width: 768px) {
+  .brand a {
+    width: 240px;
+    top: -15px !important;
+    background-position: top center;
   }
 }
 </style>

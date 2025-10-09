@@ -1,5 +1,7 @@
+@use '../base/variables' as *;
+
 .about-wrapper {
-  @extend .psykhe-font-b2b;
+  @extend .psykhe-font-b2b !optional;
 
   h1, h2, h3 {
     font-family: 'Roboto', Arial, sans-serif !important;

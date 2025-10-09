@@ -1,18 +1,19 @@
-// Colors
+/* 
+ * PSYKHE DESIGN SYSTEM - TAILWIND-FIRST APPROACH
+ * 
+ * This file contains minimal SCSS variables for legacy components that haven't been migrated yet.
+ * New development should use Tailwind utilities and CSS custom properties from global.css
+ * 
+ * Migration Guide:
+ * - Use theme('colors.psykhe.gold') or var(--color-psykhe-gold) instead of $psykhe-gold
+ * - Use responsive prefixes (sm:, md:, lg:) instead of media-breakpoint mixins
+ * - Use Tailwind spacing/sizing instead of custom variables
+ */
+
+// Colors (Legacy - prefer CSS custom properties in global.css)
 @use "sass:color";
 
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66d9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
-
-// Brand Colors
+// Brand Colors (Legacy support only)
 $psykhe-white: #ffffff;
 $psykhe-lightgrey: #cfcbc7;
 $psykhe-darkgrey: #605c5c;
@@ -24,34 +25,28 @@ $psykhe-tan-dark: #a39072;
 $psykhe-bluegrey: #ebebeb;
 $psykhe-bluegrey-dark: #d9d9d9;
 
-// Borders
+// Typography (Legacy)
+$font-family-sans-serif: 'Roboto', 'Arial', sans-serif;
+$font-size-base: 0.8rem;
+$line-height-base: 1.6;
+
+// Borders (Legacy)
 $psykhe-border-width: 1px;
 $psykhe-border: $psykhe-border-width solid $psykhe-black;
 
-// Theme
-$body-bg: $psykhe-white;
-$theme-colors: (
-  'primary': $psykhe-black,
-  'success': $psykhe-gold
-);
-
-$border-width: $psykhe-border-width;
-$border-radius: 0;
-$border-radius-lg: 0;
-$border-radius-sm: 0;
-
-// Product aspect ratio
+// Product aspect ratio (Legacy)
 $psykhe-product-aspect-x: 532;
 $psykhe-product-aspect-y: 800;
 
-// Breakpoints
+// Breakpoints (Legacy - prefer Tailwind responsive prefixes)
 $screen-xs: 0;
 $screen-sm: 576px;
 $screen-md: 768px;
 $screen-lg: 992px;
 $screen-xl: 1200px;
 
-// Mixins
+// Legacy Mixins (DEPRECATED - Use Tailwind responsive prefixes instead)
+// Example: Instead of @include media-breakpoint-up(md), use md:class-name
 @mixin media-breakpoint-up($breakpoint) {
   @if $breakpoint == xs {
     @media (min-width: #{$screen-xs}) { @content; }
@@ -91,40 +86,3 @@ $screen-xl: 1200px;
     @media (min-width: #{$screen-xl}) { @content; }
   }
 }
-
-@mixin media-breakpoint-between($lower, $upper) {
-  $min: null;
-  $max: null;
-
-  @if $lower == xs {
-    $min: $screen-xs;
-  } @else if $lower == sm {
-    $min: $screen-sm;
-  } @else if $lower == md {
-    $min: $screen-md;
-  } @else if $lower == lg {
-    $min: $screen-lg;
-  } @else if $lower == xl {
-    $min: $screen-xl;
-  }
-
-  @if $upper == sm {
-    $max: $screen-sm - 1;
-  } @else if $upper == md {
-    $max: $screen-md - 1;
-  } @else if $upper == lg {
-    $max: $screen-lg - 1;
-  } @else if $upper == xl {
-    $max: $screen-xl - 1;
-  }
-
-  @if $min != null and $max != null {
-    @media (min-width: #{$min}) and (max-width: #{$max}) { @content; }
-  } @else if $min != null {
-    @media (min-width: #{$min}) { @content; }
-  } @else if $max != null {
-    @media (max-width: #{$max}) { @content; }
-  }
-}
-
-// Add other mixins here...

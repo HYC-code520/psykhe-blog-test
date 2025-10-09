@@ -1,16 +1,16 @@
 ---
 export interface Props {
-  baseValue?: number;
-  incrementRate?: number;
-  updateInterval?: number;
-  label?: string;
+    baseValue?: number;
+    incrementRate?: number;
+    updateInterval?: number;
+    label?: string;
 }
 
 const {
-  baseValue = 230000,
-  incrementRate = 1,
-  updateInterval = 10000, // 10 seconds
-  label = 'TESTS TAKEN'
+    baseValue = 230000,
+    incrementRate = 1,
+    updateInterval = 10000, // 10 seconds
+    label = "TESTS TAKEN",
 } = Astro.props;
 
 // Generate unique ID for this component instance

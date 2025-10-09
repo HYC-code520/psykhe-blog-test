@@ -76,3 +76,6 @@ out
 .nuxt
 .svelte-kit/
 .docusaurus
+
+.cursor/
+.cursor

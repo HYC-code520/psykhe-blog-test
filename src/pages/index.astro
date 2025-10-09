@@ -1,6 +1,6 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Footer from '../components/Footer.astro';
+import Footer from "../components/Footer.astro";
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Psychological Personalization | PSYKHE">
@@ -289,7 +289,7 @@ import Footer from '../components/Footer.astro';
 </Layout>
 
 <style lang="scss">
-@import '../styles/app.scss';
+@use '../styles/app.scss' as *;
 
 .home-wrapper {
   min-height: 100vh;
@@ -330,9 +330,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const anchorLinks = document.querySelectorAll('a[href^="#"]');
   anchorLinks.forEach(link => {
     link.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href');
-      const targetElement = document.querySelector(targetId);
+      const targetId = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+      if (!targetId) return;
       
+      const targetElement = document.querySelector(targetId);
       if (targetElement) {
         e.preventDefault();
         targetElement.scrollIntoView({ 
@@ -341,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Update URL without triggering page reload
-        history.pushState(null, null, targetId);
+        history.pushState(null, '', targetId);
       }
     });
   });
@@ -359,7 +360,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   // Import the subscription service
   // For testing: use MockSubscriptionService if you're having CORS issues
   // For production: use SubscriptionService
-  const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const isDevelopment = import.meta.env.DEV;
   
   let subscriptionService;
   if (isDevelopment) {
@@ -403,14 +404,17 @@ document.addEventListener('DOMContentLoaded', async function() {
       
     } catch (error) {
       console.error('Form submission error:', error);
-      console.error('Error details:', {
-        name: error.name,
-        message: error.message,
-        stack: error.stack
-      });
+      if (error instanceof Error) {
+        console.error('Error details:', {
+          name: error.name,
+          message: error.message,
+          stack: error.stack
+        });
+      }
       
       // Check if it's a CORS error
-      if (error.message.includes('CORS') || error.message.includes('fetch')) {
+      const errorText = error instanceof Error ? error.message : String(error);
+      if (errorText.includes('CORS') || errorText.includes('fetch')) {
         console.error('🚨 CORS Error detected! The API only allows requests from https://psykhe.com');
         console.error('Current origin:', window.location.origin);
         console.error('You need to update AWS API Gateway CORS settings or test from the correct domain');

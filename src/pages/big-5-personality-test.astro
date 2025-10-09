@@ -1,67 +1,66 @@
 ---
 
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import FlipCounter from '../components/FlipCounter.astro';
-import { SurveyQuestions } from '../data/personality-questions';
-
+import FlipCounter from "../components/FlipCounter.astro";
+import Footer from "../components/Footer.astro";
+import Navbar from "../components/Navbar.astro";
+import { SurveyQuestions } from "../data/personality-questions";
+import Layout from "../layouts/Layout.astro";
 
 const visualQuestionSets = [
-  {
-    id: 101,
-    text: 'Which do you primarily buy? (Select all that apply.)',
-    answers: [
-      { id: 1, text: 'Womenswear' },
-      { id: 2, text: 'Menswear' },
-      { id: 3, text: 'Homeware & interiors' },
-      { id: 4, text: 'Beauty & personal care products' }
-    ]
-  },
-  {
-    id: 102,
-    text: 'Which price points do you shop at? (Select all that apply.)',
-    answers: [
-      { id: 1, text: 'Low-range' },
-      { id: 2, text: 'Mid-range' },
-      { id: 3, text: 'High-range' }
-    ]
-  },
-  {
-    id: 103,
-    text: 'Your favorite brands are most like which of the following? (Select all that apply.)',
-    answers: [
-      { id: 1, text: 'Classic all-American labels' },
-      { id: 2, text: 'Sporty athleisure which focus on technical fabrics' },
-      { id: 3, text: 'Mall brands which capture trends' },
-      { id: 4, text: 'Colorful, artisanal brands' },
-      { id: 5, text: 'Quirky, offbeat, different' },
-      { id: 6, text: 'Minimalist, directional high-end fashion' },
-      { id: 7, text: 'Traditional luxury brands' }
-    ]
-  },
-  {
-    id: 104,
-    text: 'How do you feel about prints? (Select all that apply.)',
-    answers: [
-      { id: 1, text: 'Solids only', icon: '/media/b2c/solidprint.png' },
-      { id: 2, text: 'I like tropical prints', icon: '/media/b2c/tropicalprints.png' },
-      { id: 3, text: 'I like floral prints', icon: '/media/b2c/floralprints.png' },
-      { id: 4, text: 'I like cheques and traditional prints', icon: '/media/b2c/chequesprints.png' },
-      { id: 5, text: 'I love prints', icon: '/media/b2c/iloveprints.png' }
-    ]
-  },
-  {
-    id: 105,
-    text: 'Which is your color preference? (Select all that apply.)',
-    answers: [
-      { id: 1, text: 'Black and white' },
-      { id: 2, text: 'Earthy neutrals, gray' },
-      { id: 3, text: 'Pastels and pale colors' },
-      { id: 4, text: 'Bright colors' },
-      { id: 5, text: 'Shiny metallics' }
-    ]
-  }
+    {
+        id: 101,
+        text: "Which do you primarily buy? (Select all that apply.)",
+        answers: [
+            { id: 1, text: "Womenswear" },
+            { id: 2, text: "Menswear" },
+            { id: 3, text: "Homeware & interiors" },
+            { id: 4, text: "Beauty & personal care products" },
+        ],
+    },
+    {
+        id: 102,
+        text: "Which price points do you shop at? (Select all that apply.)",
+        answers: [
+            { id: 1, text: "Low-range" },
+            { id: 2, text: "Mid-range" },
+            { id: 3, text: "High-range" },
+        ],
+    },
+    {
+        id: 103,
+        text: "Your favorite brands are most like which of the following? (Select all that apply.)",
+        answers: [
+            { id: 1, text: "Classic all-American labels" },
+            { id: 2, text: "Sporty athleisure which focus on technical fabrics" },
+            { id: 3, text: "Mall brands which capture trends" },
+            { id: 4, text: "Colorful, artisanal brands" },
+            { id: 5, text: "Quirky, offbeat, different" },
+            { id: 6, text: "Minimalist, directional high-end fashion" },
+            { id: 7, text: "Traditional luxury brands" },
+        ],
+    },
+    {
+        id: 104,
+        text: "How do you feel about prints? (Select all that apply.)",
+        answers: [
+            { id: 1, text: "Solids only", icon: "/media/b2c/solidprint.png" },
+            { id: 2, text: "I like tropical prints", icon: "/media/b2c/tropicalprints.png" },
+            { id: 3, text: "I like floral prints", icon: "/media/b2c/floralprints.png" },
+            { id: 4, text: "I like cheques and traditional prints", icon: "/media/b2c/chequesprints.png" },
+            { id: 5, text: "I love prints", icon: "/media/b2c/iloveprints.png" },
+        ],
+    },
+    {
+        id: 105,
+        text: "Which is your color preference? (Select all that apply.)",
+        answers: [
+            { id: 1, text: "Black and white" },
+            { id: 2, text: "Earthy neutrals, gray" },
+            { id: 3, text: "Pastels and pale colors" },
+            { id: 4, text: "Bright colors" },
+            { id: 5, text: "Shiny metallics" },
+        ],
+    },
 ];
 ---
 

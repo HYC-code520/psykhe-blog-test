@@ -1,3 +1,6 @@
+@use "sass:color";
+@use '../base/variables' as *;
+
 // Add this at the top of your profile.scss file for Tailwind compatibility
 .hidden {
   display: none;
@@ -173,8 +176,8 @@
         padding: 12px 5px;
 
         &:hover {
-          background-color: darken($psykhe-gold, 10%);
-          border-color: darken($psykhe-gold, 10%);
+          background-color: color.adjust($psykhe-gold, $lightness: -10%);
+          border-color: color.adjust($psykhe-gold, $lightness: -10%);
         }
 
         img {
@@ -333,6 +336,7 @@
 
             .page-profile-traits-score-breakdown-item-human {
               // Human readable score label
+              display: block;
             }
           }
         }
@@ -430,8 +434,8 @@
         padding: 12px 40px;
 
         &:hover {
-          background-color: darken($psykhe-gold, 10%);
-          border-color: darken($psykhe-gold, 10%);
+          background-color: color.adjust($psykhe-gold, $lightness: -10%);
+          border-color: color.adjust($psykhe-gold, $lightness: -10%);
         }
 
         @media (max-width: 768px) {
@@ -541,7 +545,7 @@
     outline: none;
 
     &:hover {
-      background-color: darken($psykhe-bluegrey, 5%);
+      background-color: color.adjust($psykhe-bluegrey, $lightness: -5%);
       text-decoration: none;
       color: #000;
     }

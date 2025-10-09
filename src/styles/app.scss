@@ -3,30 +3,30 @@
 // =============================================================================
 
 // 1. BASE STYLES (Variables, mixins, typography, reset)
-@import 'base/variables';
-@import 'base/typography';
-@import 'base/base';
+@use 'base/variables' as *;
+@use 'base/typography' as *;
+@use 'base/base' as *;
 
 // 2. LAYOUT STYLES (Page structure, grid system)
-@import 'layouts/layout';
-@import 'layouts/page';
-@import 'components/grid';
+@use 'layouts/layout' as *;
+@use 'layouts/page' as *;
+@use 'components/grid' as *;
 
 // 3. COMPONENT STYLES (Reusable UI components)
-@import 'components/brand';
-@import 'components/buttons';
-@import 'components/footer';
-@import 'components/forms';
-@import 'components/survey';
-@import 'components/personality-test-core';
-@import 'components/personality-test-forms';
-@import 'components/personality-test-mobile';
-@import 'components/profile';
-@import 'components/participants-counter';
+@use 'components/brand' as *;
+@use 'components/buttons' as *;
+@use 'components/footer' as *;
+@use 'components/forms' as *;
+@use 'components/survey' as *;
+@use 'components/personality-test-core' as *;
+@use 'components/personality-test-forms' as *;
+@use 'components/personality-test-mobile' as *;
+@use 'components/profile' as *;
+@use 'components/participants-counter' as *;
 
 // 4. PAGE-SPECIFIC STYLES (Last, most specific)
-@import 'pages/landing';
-@import 'pages/about';
-@import 'pages/b2b';
-@import 'pages/glossary';
-@import 'pages/legal-pages';
+@use 'pages/landing' as *;
+@use 'pages/about' as *;
+@use 'pages/b2b' as *;
+@use 'pages/glossary' as *;
+@use 'pages/legal-pages' as *;

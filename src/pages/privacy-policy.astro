@@ -1,7 +1,7 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
+import Footer from "../components/Footer.astro";
+import Navbar from "../components/Navbar.astro";
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Privacy Policy | PSYKHE">
@@ -303,12 +303,14 @@ import Footer from '../components/Footer.astro';
               for which we are using your data. Please contact us if you need details about the specific legal ground we are
               relying on to process your personal data where more than one ground has been set out in the table below.
             </p>
-            <table>
-              <tr>
-                <th>Purpose/Activity</th>
-                <th>Type of data</th>
-                <th>Lawful basis for processing including basis of legitimate interest</th>
-              </tr>
+            <div class="table-container">
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Purpose/Activity</th>
+                    <th>Type of data</th>
+                    <th>Lawful basis for processing including basis of legitimate interest</th>
+                  </tr>
               <tr>
                 <td>To register you as a new user</td>
                 <td>
@@ -477,7 +479,9 @@ import Footer from '../components/Footer.astro';
                 </td>
                 <td>Necessary for our legitimate interests (to develop our services and grow our business)</td>
               </tr>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </section>
           <section>
             <h3>Marketing and promotional offers from us</h3>
@@ -748,14 +752,16 @@ import Footer from '../components/Footer.astro';
               You can find more information about the individual cookies we use and the purposes for which we use them in
               the table below:
             </p>
-            <table>
-              <tr>
-                <th>
-                  Cookie Title<br />
-                  Cookie Name
-                </th>
-                <th>Purpose</th>
-              </tr>
+            <div class="table-container">
+              <table class="cookies-table">
+                <tbody>
+                  <tr>
+                    <th>
+                      Cookie Title<br />
+                      Cookie Name
+                    </th>
+                    <th>Purpose</th>
+                  </tr>
               <tr>
                 <td>
                   Session<br />
@@ -859,7 +865,9 @@ import Footer from '../components/Footer.astro';
                   </p>
                 </td>
               </tr>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </section>
         </section>
       </div>

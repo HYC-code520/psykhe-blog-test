@@ -1,479 +1,463 @@
 // Main JavaScript logic extracted from big-5-personality-test.astro
 
-
 function getTraitContent() {
-  return window.traitContent || {};
+    return window.traitContent || {};
 }
 
-
 const state = {
-  disclaimerShown: false,
-  currentSurveyIndex: 0,
-  currentVisualIndex: 0,
-  userInfoStep: false,
-  firstName: '',
-  lastName: '',
-  email: '',
-  retailerNames: '',
-  optInUpdate: false,
-  optInParticipateInRetails: false,
-  agreedToTerms: false,
-  selectedMobileTrait: 'openness',
-  activeTabIndex: 0,
-  ocean: { O: -1, C: -1, E: -1, A: -1, N: -1 },
-  surveyResponses: [],
-  visualResponses: [],
-  showTraitHint: false,
-  animatedProgress: 0
+    disclaimerShown: false,
+    currentSurveyIndex: 0,
+    currentVisualIndex: 0,
+    userInfoStep: false,
+    firstName: "",
+    lastName: "",
+    email: "",
+    retailerNames: "",
+    optInUpdate: false,
+    optInParticipateInRetails: false,
+    agreedToTerms: false,
+    selectedMobileTrait: "openness",
+    activeTabIndex: 0,
+    ocean: { O: -1, C: -1, E: -1, A: -1, N: -1 },
+    surveyResponses: [],
+    visualResponses: [],
+    showTraitHint: false,
+    animatedProgress: 0,
 };
-
 
 let surveyQuestions = [];
 let visualQuestions = [];
 
-
 function initializePersonalityTest(surveyData, visualData) {
-  surveyQuestions = surveyData;
-  visualQuestions = visualData;
-  
+    surveyQuestions = surveyData;
+    visualQuestions = visualData;
 
-  state.surveyResponses = Array(surveyQuestions.length).fill(null);
-  state.visualResponses = Array(visualQuestions.length).fill(null).map(() => []);
+    state.surveyResponses = Array(surveyQuestions.length).fill(null);
+    state.visualResponses = Array(visualQuestions.length)
+        .fill(null)
+        .map(() => []);
 }
 
-
 function initFlipCounter() {
-  const now = new Date();
-  const startOfYear = new Date(now.getFullYear(), 0, 1, 0, 0, 0, 0);
-  const diffMs = now.getTime() - startOfYear.getTime();
-  const minutes = Math.floor(diffMs / 60000);
-  const count = Math.floor(230000 + minutes / 15);
-  const counterElement = document.getElementById('counter-value');
-  if (counterElement) {
-    counterElement.textContent = count.toLocaleString();
-  }
+    const now = new Date();
+    const startOfYear = new Date(now.getFullYear(), 0, 1, 0, 0, 0, 0);
+    const diffMs = now.getTime() - startOfYear.getTime();
+    const minutes = Math.floor(diffMs / 60000);
+    const count = Math.floor(230000 + minutes / 15);
+    const counterElement = document.getElementById("counter-value");
+    if (counterElement) {
+        counterElement.textContent = count.toLocaleString();
+    }
 }
 
 function getCurrentSection() {
-  if (state.currentSurveyIndex < surveyQuestions.length) return 'survey';
-  if (state.currentVisualIndex < visualQuestions.length) return 'visual';
-  if (!state.userInfoStep) return 'userInfo';
-  return 'complete';
+    if (state.currentSurveyIndex < surveyQuestions.length) return "survey";
+    if (state.currentVisualIndex < visualQuestions.length) return "visual";
+    if (!state.userInfoStep) return "userInfo";
+    return "complete";
 }
 
 function getCompletedQuestions() {
-  return state.currentSurveyIndex + state.currentVisualIndex;
+    return state.currentSurveyIndex + state.currentVisualIndex;
 }
 
 function getTotalQuestions() {
-  return surveyQuestions.length + visualQuestions.length;
+    return surveyQuestions.length + visualQuestions.length;
 }
 
 function canNavigateNext() {
-  const section = getCurrentSection();
-  if (section === 'survey') {
-    return state.surveyResponses[state.currentSurveyIndex] !== null;
-  }
-  if (section === 'visual') {
-    const visualResponse = state.visualResponses[state.currentVisualIndex];
-    return Array.isArray(visualResponse) && visualResponse.length > 0;
-  }
-  return false;
+    const section = getCurrentSection();
+    if (section === "survey") {
+        return state.surveyResponses[state.currentSurveyIndex] !== null;
+    }
+    if (section === "visual") {
+        const visualResponse = state.visualResponses[state.currentVisualIndex];
+        return Array.isArray(visualResponse) && visualResponse.length > 0;
+    }
+    return false;
 }
 
 function isFirstQuestion() {
-  return state.currentSurveyIndex === 0 && state.currentVisualIndex === 0;
+    return state.currentSurveyIndex === 0 && state.currentVisualIndex === 0;
 }
 
-
 function startTest() {
-  state.disclaimerShown = true;
-  document.getElementById('disclaimer-screen').style.display = 'none';
-  document.getElementById('test-screen').style.display = 'block';
-  showCurrentSection();
-  updateProgress();
+    state.disclaimerShown = true;
+    document.getElementById("disclaimer-screen").style.display = "none";
+    document.getElementById("test-screen").style.display = "block";
+    showCurrentSection();
+    updateProgress();
 }
 
 function showCurrentSection() {
+    document.getElementById("survey-section").style.display = "none";
+    document.getElementById("visual-section").style.display = "none";
+    document.getElementById("user-info-section").style.display = "none";
+    document.getElementById("results-section").style.display = "none";
 
-  document.getElementById('survey-section').style.display = 'none';
-  document.getElementById('visual-section').style.display = 'none';
-  document.getElementById('user-info-section').style.display = 'none';
-  document.getElementById('results-section').style.display = 'none';
+    const section = getCurrentSection();
 
-  const section = getCurrentSection();
-  
-  if (section === 'survey') {
-    document.getElementById('survey-section').style.display = '';
-    showSurveyQuestion();
-  } else if (section === 'visual') {
-    document.getElementById('visual-section').style.display = '';
-    showVisualQuestion();
-  } else if (section === 'userInfo') {
-    document.getElementById('user-info-section').style.display = '';
-    document.getElementById('progress-container').style.display = 'none';
-    document.getElementById('bottom-progress').style.display = 'none';
-  } else if (section === 'complete') {
-    document.getElementById('results-section').style.display = '';
-    document.getElementById('progress-container').style.display = 'none';
-    document.getElementById('bottom-progress').style.display = 'none';
-    showResults();
-  }
+    if (section === "survey") {
+        document.getElementById("survey-section").style.display = "";
+        showSurveyQuestion();
+    } else if (section === "visual") {
+        document.getElementById("visual-section").style.display = "";
+        showVisualQuestion();
+    } else if (section === "userInfo") {
+        document.getElementById("user-info-section").style.display = "";
+        document.getElementById("progress-container").style.display = "none";
+        document.getElementById("bottom-progress").style.display = "none";
+    } else if (section === "complete") {
+        document.getElementById("results-section").style.display = "";
+        document.getElementById("progress-container").style.display = "none";
+        document.getElementById("bottom-progress").style.display = "none";
+        showResults();
+    }
 
-  updateNavigation();
+    updateNavigation();
 }
 
 function showSurveyQuestion() {
-  const question = surveyQuestions[state.currentSurveyIndex];
-  const completed = getCompletedQuestions();
-  const total = getTotalQuestions();
+    const question = surveyQuestions[state.currentSurveyIndex];
+    const completed = getCompletedQuestions();
+    const total = getTotalQuestions();
 
-  document.getElementById('question-indicator').textContent = `Question ${completed + 1} of ${total}`;
-  document.getElementById('question-text').textContent = question.text;
-  const form = document.getElementById('survey-form');
-  form.innerHTML = question.answers.map(answer => `
-    <div class="survey-question-answer survey-answer mb-0 sm:mb-1 md:mb-3 ${state.surveyResponses[state.currentSurveyIndex] === answer.id ? 'survey-question-answer-selected' : ''}">
+    document.getElementById("question-indicator").textContent = `Question ${completed + 1} of ${total}`;
+    document.getElementById("question-text").textContent = question.text;
+    const form = document.getElementById("survey-form");
+    form.innerHTML = question.answers
+        .map(
+            (answer) => `
+    <div class="survey-question-answer survey-answer mb-0 sm:mb-1 md:mb-3 ${state.surveyResponses[state.currentSurveyIndex] === answer.id ? "survey-question-answer-selected" : ""}">
       <input
         id="survey-${question.id}-${answer.id}"
         type="radio"
         value="${answer.id}"
-        ${state.surveyResponses[state.currentSurveyIndex] === answer.id ? 'checked' : ''}
+        ${state.surveyResponses[state.currentSurveyIndex] === answer.id ? "checked" : ""}
       />
       <label for="survey-${question.id}-${answer.id}" class="block w-full py-4 px-5 sm:max-w-[60%] sm:mx-auto md:max-w-none md:mx-0 text-center border border-black bg-white hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white transition-all duration-150 cursor-pointer" onclick="selectSurveyAnswer(${answer.id})">
         <span class="block w-full text-center">${answer.text}</span>
       </label>
     </div>
-  `).join('');
+  `,
+        )
+        .join("");
 
-  updateQuestionCircleProgress();
+    updateQuestionCircleProgress();
 }
 
 function showVisualQuestion() {
-  const question = visualQuestions[state.currentVisualIndex];
-  const completed = getCompletedQuestions();
-  const total = getTotalQuestions();
+    const question = visualQuestions[state.currentVisualIndex];
+    const completed = getCompletedQuestions();
+    const total = getTotalQuestions();
 
-  document.getElementById('visual-question-indicator').textContent = `Question ${completed + 1} of ${total}`;
-  document.getElementById('visual-question-text').textContent = question.text;
+    document.getElementById("visual-question-indicator").textContent = `Question ${completed + 1} of ${total}`;
+    document.getElementById("visual-question-text").textContent = question.text;
 
-  const form = document.getElementById('visual-form');
-  form.innerHTML = question.answers.map(answer => `
-    <div class="survey-question-answer mb-0 sm:mb-2 md:mb-3.5 ${state.visualResponses[state.currentVisualIndex].includes(answer.id) ? 'survey-question-answer-selected' : ''}">
-      <label for="visual-${question.id}-${answer.id}" class="flex items-center w-full py-3 px-5 sm:max-w-[60%] sm:mx-auto md:max-w-none md:mx-0 border border-black bg-white hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white transition-all duration-150 cursor-pointer min-h-[60px] max-h-[60px] ${question.id === 104 ? 'min-h-[80px] max-h-[80px] py-4' : ''}">
+    const form = document.getElementById("visual-form");
+    form.innerHTML = question.answers
+        .map(
+            (answer) => `
+    <div class="survey-question-answer mb-0 sm:mb-2 md:mb-3.5 ${state.visualResponses[state.currentVisualIndex].includes(answer.id) ? "survey-question-answer-selected" : ""}">
+      <label for="visual-${question.id}-${answer.id}" class="flex items-center w-full py-3 px-5 sm:max-w-[60%] sm:mx-auto md:max-w-none md:mx-0 border border-black bg-white hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white transition-all duration-150 cursor-pointer min-h-[60px] max-h-[60px] ${question.id === 104 ? "min-h-[80px] max-h-[80px] py-4" : ""}">
         <input
           id="visual-${question.id}-${answer.id}"
           type="checkbox"
           value="${answer.id}"
           class="visual-checkbox mr-4 w-5 h-5 flex-shrink-0"
-          ${state.visualResponses[state.currentVisualIndex].includes(answer.id) ? 'checked' : ''}
+          ${state.visualResponses[state.currentVisualIndex].includes(answer.id) ? "checked" : ""}
           onchange="toggleVisualAnswer(${answer.id})"
         />
-        ${answer.icon ? `<img src="${answer.icon}" alt="${answer.text}" class="w-14 h-14 rounded-full object-cover ml-4 mr-3 flex-shrink-0" />` : ''}
+        ${answer.icon ? `<img src="${answer.icon}" alt="${answer.text}" class="w-14 h-14 rounded-full object-cover ml-4 mr-3 flex-shrink-0" />` : ""}
         <span class="flex-1 text-left text-sm leading-tight">${answer.text}</span>
       </label>
     </div>
-  `).join('');
+  `,
+        )
+        .join("");
 
-  updateQuestionCircleProgress();
+    updateQuestionCircleProgress();
 }
 
 function selectSurveyAnswer(answerId) {
-  state.surveyResponses[state.currentSurveyIndex] = answerId;
-  showSurveyQuestion(); 
-  
-  setTimeout(() => {
-    if (state.currentSurveyIndex < surveyQuestions.length - 1) {
-      navigateNext();
-    } else if (canNavigateNext()) {
-      navigateNext();
-    }
-  }, 300);
+    state.surveyResponses[state.currentSurveyIndex] = answerId;
+    showSurveyQuestion();
+
+    setTimeout(() => {
+        if (state.currentSurveyIndex < surveyQuestions.length - 1) {
+            navigateNext();
+        } else if (canNavigateNext()) {
+            navigateNext();
+        }
+    }, 300);
 }
 
 function toggleVisualAnswer(answerId) {
-  const responses = state.visualResponses[state.currentVisualIndex];
-  const index = responses.indexOf(answerId);
-  
-  if (index > -1) {
-    responses.splice(index, 1);
-  } else {
-    responses.push(answerId);
-  }
-  
-  showVisualQuestion(); 
-  updateNavigation();
-}
+    const responses = state.visualResponses[state.currentVisualIndex];
+    const index = responses.indexOf(answerId);
 
+    if (index > -1) {
+        responses.splice(index, 1);
+    } else {
+        responses.push(answerId);
+    }
+
+    showVisualQuestion();
+    updateNavigation();
+}
 
 function animateProgress(targetProgress, currentProgress, callback) {
-  const duration = 600; 
-  const startTime = performance.now();
-  const startProgress = currentProgress;
+    const duration = 600;
+    const startTime = performance.now();
+    const startProgress = currentProgress;
 
-  const animate = (currentTime) => {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
+    const animate = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
 
+        const easeOutCubic = 1 - (1 - progress) ** 3;
 
-    const easeOutCubic = 1 - (1 - progress) ** 3;
+        const newProgress = startProgress + (targetProgress - startProgress) * easeOutCubic;
 
-    const newProgress = startProgress + (targetProgress - startProgress) * easeOutCubic;
-    
+        callback(newProgress);
 
-    callback(newProgress);
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        } else {
+            callback(targetProgress);
+        }
+    };
 
-    if (progress < 1) {
-      requestAnimationFrame(animate);
-    } else {
-
-      callback(targetProgress);
-    }
-  };
-
-  requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
 }
 
-
 function updateQuestionCircleProgress() {
-  const targetProgress = (getCompletedQuestions() / getTotalQuestions()) * 100;
-  const circles = document.querySelectorAll('.question-circle');
-  
-  if (circles.length === 0) return;
-  
+    const targetProgress = (getCompletedQuestions() / getTotalQuestions()) * 100;
+    const circles = document.querySelectorAll(".question-circle");
 
-  const currentProgress = parseFloat(circles[0].style.getPropertyValue('--progress') || '0');
-  
+    if (circles.length === 0) return;
 
-  animateProgress(targetProgress, currentProgress, (newProgress) => {
-    circles.forEach(circle => {
-      circle.style.setProperty('--progress', newProgress);
+    const currentProgress = parseFloat(circles[0].style.getPropertyValue("--progress") || "0");
+
+    animateProgress(targetProgress, currentProgress, (newProgress) => {
+        circles.forEach((circle) => {
+            circle.style.setProperty("--progress", newProgress);
+        });
     });
-  });
 }
 
 function updateProgress() {
-  const progress = (getCompletedQuestions() / getTotalQuestions()) * 100;
-  const progressElements = document.querySelectorAll('.progress-fill');
-  progressElements.forEach(el => {
-    el.style.width = `${progress}%`;
-  });
+    const progress = (getCompletedQuestions() / getTotalQuestions()) * 100;
+    const progressElements = document.querySelectorAll(".progress-fill");
+    progressElements.forEach((el) => {
+        el.style.width = `${progress}%`;
+    });
 }
 
 function updateNavigation() {
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
 
-  if (prevBtn) prevBtn.style.display = isFirstQuestion() ? 'none' : 'block';
-  
+    if (prevBtn) prevBtn.style.display = isFirstQuestion() ? "none" : "block";
 
-  if (nextBtn) {
-    nextBtn.style.display = 'block';
-    nextBtn.disabled = !canNavigateNext();
-  }
+    if (nextBtn) {
+        nextBtn.style.display = "block";
+        nextBtn.disabled = !canNavigateNext();
+    }
 }
 
 function navigateNext() {
-  if (!canNavigateNext()) return;
+    if (!canNavigateNext()) return;
 
-  const section = getCurrentSection();
-  if (section === 'survey') {
-    state.currentSurveyIndex++;
-  } else if (section === 'visual') {
-    state.currentVisualIndex++;
-  }
+    const section = getCurrentSection();
+    if (section === "survey") {
+        state.currentSurveyIndex++;
+    } else if (section === "visual") {
+        state.currentVisualIndex++;
+    }
 
-  showCurrentSection();
-  updateProgress();
+    showCurrentSection();
+    updateProgress();
 }
 
 function navigatePrevious() {
-  const section = getCurrentSection();
-  
-  if (section === 'visual') {
-    if (state.currentVisualIndex > 0) {
-      state.currentVisualIndex--;
-    } else if (surveyQuestions.length > 0) {
-      state.currentSurveyIndex = surveyQuestions.length - 1;
-    }
-  } else if (section === 'survey') {
-    if (state.currentSurveyIndex > 0) {
-      state.currentSurveyIndex--;
-    }
-  } else if (section === 'userInfo') {
-    if (visualQuestions.length > 0) {
-      state.currentVisualIndex = visualQuestions.length - 1;
-    }
-  }
+    const section = getCurrentSection();
 
-  showCurrentSection();
-  updateProgress();
+    if (section === "visual") {
+        if (state.currentVisualIndex > 0) {
+            state.currentVisualIndex--;
+        } else if (surveyQuestions.length > 0) {
+            state.currentSurveyIndex = surveyQuestions.length - 1;
+        }
+    } else if (section === "survey") {
+        if (state.currentSurveyIndex > 0) {
+            state.currentSurveyIndex--;
+        }
+    } else if (section === "userInfo") {
+        if (visualQuestions.length > 0) {
+            state.currentVisualIndex = visualQuestions.length - 1;
+        }
+    }
+
+    showCurrentSection();
+    updateProgress();
 }
 
-
 function validateUserInfoForm(showHint = false) {
-  const firstName = document.getElementById('firstName');
-  const email = document.getElementById('email');
-  const termsConsent = document.getElementById('termsConsent');
-  
-  const isValid = firstName.value.trim() && 
-                  email.value.trim() && 
-                  isValidEmail(email.value) && 
-                  termsConsent.checked;
-  
+    const firstName = document.getElementById("firstName");
+    const email = document.getElementById("email");
+    const termsConsent = document.getElementById("termsConsent");
 
-  if (showHint) {
-    showValidationHint(!isValid);
-  }
-  
-  return isValid;
+    const isValid = firstName.value.trim() && email.value.trim() && isValidEmail(email.value) && termsConsent.checked;
+
+    if (showHint) {
+        showValidationHint(!isValid);
+    }
+
+    return isValid;
 }
 
 function showValidationHint(showHint) {
-  let hintDiv = document.querySelector('.form-validation-hint');
-  
-  if (showHint) {
-    if (!hintDiv) {
-      hintDiv = document.createElement('div');
-      hintDiv.className = 'form-validation-hint';
-      
-      const form = document.querySelector('.user-info-form');
-      const submitButton = document.querySelector('.submit-user-info');
-      
+    let hintDiv = document.querySelector(".form-validation-hint");
 
-      form.insertBefore(hintDiv, submitButton);
-    }
-    
-    hintDiv.innerHTML = `
+    if (showHint) {
+        if (!hintDiv) {
+            hintDiv = document.createElement("div");
+            hintDiv.className = "form-validation-hint";
+
+            const form = document.querySelector(".user-info-form");
+            const submitButton = document.querySelector(".submit-user-info");
+
+            form.insertBefore(hintDiv, submitButton);
+        }
+
+        hintDiv.innerHTML = `
       <span class="hint-icon">⚠️</span>
       Please complete the required fields
     `;
-    hintDiv.classList.add('show');
-  } else if (hintDiv) {
-    hintDiv.classList.remove('show');
-  }
+        hintDiv.classList.add("show");
+    } else if (hintDiv) {
+        hintDiv.classList.remove("show");
+    }
 }
 
 function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
 
 async function submitUserInfo() {
-  if (validateUserInfoForm(true)) {
-    const submitButton = document.getElementById('submit-user-info');
-    
-    // Show loading state
-    if (submitButton) {
-      submitButton.classList.add('processing');
-      submitButton.disabled = true;
-    }
-    
-    try {
-      // Calculate scores first
-      calculateOceanScores();
-      
-      // Get form data
-      const firstName = document.getElementById('firstName').value.trim();
-      const lastName = document.getElementById('lastName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const retailerNames = document.getElementById('retailerNames').value.trim();
-      const optInUpdate = document.getElementById('optInUpdate').checked;
-      const optInParticipateInRetails = document.getElementById('optInParticipateInRetails').checked;
-      
-      // Store user data with personality scores
-      state.userData = {
-        firstName,
-        lastName,
-        email,
-        retailerNames,
-        optInUpdate,
-        optInParticipateInRetails,
-        oceanScores: state.ocean // Include personality scores
-      };
-      
-      try {
-        // Import and use the appropriate service based on environment
-        const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        
-        let subscriptionService;
-        if (isDevelopment) {
-          console.log('🧪 Development mode: Using mock service for personality test');
-          const { MockSubscriptionService } = await import('../services/mock-subscription.service');
-          subscriptionService = new MockSubscriptionService();
-        } else {
-          console.log('🚀 Production mode: Using real API service for personality test');
-          const { SubscriptionService } = await import('../services/subscription.service');
-          subscriptionService = new SubscriptionService();
+    if (validateUserInfoForm(true)) {
+        const submitButton = document.getElementById("submit-user-info");
+
+        // Show loading state
+        if (submitButton) {
+            submitButton.classList.add("processing");
+            submitButton.disabled = true;
         }
-        
-        // Submit personality test data to API
-        await subscriptionService.submitPersonalityTest(state.userData);
-        
-        console.log('Personality test data submitted successfully');
-      } catch (error) {
-        console.error('Failed to submit personality test data:', error);
-        // Continue showing results even if submission fails
-      }
-      
-      // Show results regardless of submission success/failure
-      document.getElementById('user-info-section').style.display = 'none';
-      document.getElementById('results-section').style.display = 'block';
-      
-      showResults();
-      
-    } finally {
-      // Remove loading state
-      if (submitButton) {
-        submitButton.classList.remove('processing');
-        submitButton.disabled = false;
-      }
+
+        try {
+            // Calculate scores first
+            calculateOceanScores();
+
+            // Get form data
+            const firstName = document.getElementById("firstName").value.trim();
+            const lastName = document.getElementById("lastName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const retailerNames = document.getElementById("retailerNames").value.trim();
+            const optInUpdate = document.getElementById("optInUpdate").checked;
+            const optInParticipateInRetails = document.getElementById("optInParticipateInRetails").checked;
+
+            // Store user data with personality scores
+            state.userData = {
+                firstName,
+                lastName,
+                email,
+                retailerNames,
+                optInUpdate,
+                optInParticipateInRetails,
+                oceanScores: state.ocean, // Include personality scores
+            };
+
+            try {
+                // Import and use the appropriate service based on environment
+                const isDevelopment =
+                    window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+
+                let subscriptionService;
+                if (isDevelopment) {
+                    console.log("🧪 Development mode: Using mock service for personality test");
+                    const { MockSubscriptionService } = await import("../services/mock-subscription.service");
+                    subscriptionService = new MockSubscriptionService();
+                } else {
+                    console.log("🚀 Production mode: Using real API service for personality test");
+                    const { SubscriptionService } = await import("../services/subscription.service");
+                    subscriptionService = new SubscriptionService();
+                }
+
+                // Submit personality test data to API
+                await subscriptionService.submitPersonalityTest(state.userData);
+
+                console.log("Personality test data submitted successfully");
+            } catch (error) {
+                console.error("Failed to submit personality test data:", error);
+                // Continue showing results even if submission fails
+            }
+
+            // Show results regardless of submission success/failure
+            document.getElementById("user-info-section").style.display = "none";
+            document.getElementById("results-section").style.display = "block";
+
+            showResults();
+        } finally {
+            // Remove loading state
+            if (submitButton) {
+                submitButton.classList.remove("processing");
+                submitButton.disabled = false;
+            }
+        }
     }
-  }
 }
 
 function calculateOceanScores() {
-  const traitScores = { O: [], C: [], E: [], A: [], N: [] };
+    const traitScores = { O: [], C: [], E: [], A: [], N: [] };
 
-  surveyQuestions.forEach((question, index) => {
-    const response = state.surveyResponses[index];
-    if (response !== null) {
-      traitScores[question.quality].push(response);
-    }
-  });
+    surveyQuestions.forEach((question, index) => {
+        const response = state.surveyResponses[index];
+        if (response !== null) {
+            traitScores[question.quality].push(response);
+        }
+    });
 
-
-  Object.keys(traitScores).forEach(trait => {
-    if (traitScores[trait].length > 0) {
-      const sum = traitScores[trait].reduce((total, score) => total + score, 0);
-      const average = sum / traitScores[trait].length;
-      state.ocean[trait] = Math.round(average);
-    }
-  });
+    Object.keys(traitScores).forEach((trait) => {
+        if (traitScores[trait].length > 0) {
+            const sum = traitScores[trait].reduce((total, score) => total + score, 0);
+            const average = sum / traitScores[trait].length;
+            state.ocean[trait] = Math.round(average);
+        }
+    });
 }
 
-
 function showResults() {
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const surveyControls = document.querySelector(".survey-controls");
 
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  const surveyControls = document.querySelector('.survey-controls');
-  
-  if (prevBtn) prevBtn.style.display = 'none';
-  if (nextBtn) nextBtn.style.display = 'none';
-  if (surveyControls) surveyControls.style.display = 'none';
-  
-  updateProfileTitle();
-  updateTraitBars();
-  updateDesktopTabs();
-  updateCurrentTraitDisplay();
-  showTraitHintIfNeeded();
+    if (prevBtn) prevBtn.style.display = "none";
+    if (nextBtn) nextBtn.style.display = "none";
+    if (surveyControls) surveyControls.style.display = "none";
+
+    updateProfileTitle();
+    updateTraitBars();
+    updateDesktopTabs();
+    updateCurrentTraitDisplay();
+    showTraitHintIfNeeded();
 }
 
 function updateProfileTitle() {
-  const personalityCode = `${state.ocean.O}${state.ocean.C}${state.ocean.E}${state.ocean.A}${state.ocean.N}`;
-  const firstName = state.userData?.firstName || 'there';
-  document.getElementById('profile-title').innerHTML = `
+    const personalityCode = `${state.ocean.O}${state.ocean.C}${state.ocean.E}${state.ocean.A}${state.ocean.N}`;
+    const firstName = state.userData?.firstName || "there";
+    document.getElementById("profile-title").innerHTML = `
     <span>Hi ${firstName},</span> your personality code is ${personalityCode}
     <button
       class="info-popup-trigger"
@@ -484,43 +468,51 @@ function updateProfileTitle() {
 }
 
 function updateTraitBars() {
-  const traits = [
-    { key: 'O', name: 'openness', label: 'OPENNESS' },
-    { key: 'C', name: 'conscientiousness', label: 'CONSCIENTIOUSNESS' },
-    { key: 'E', name: 'extroversion', label: 'EXTROVERSION' },
-    { key: 'A', name: 'agreeableness', label: 'AGREEABLENESS' },
-    { key: 'N', name: 'neuroticism', label: 'NEUROTICISM' }
-  ];
+    const traits = [
+        { key: "O", name: "openness", label: "OPENNESS" },
+        { key: "C", name: "conscientiousness", label: "CONSCIENTIOUSNESS" },
+        { key: "E", name: "extroversion", label: "EXTROVERSION" },
+        { key: "A", name: "agreeableness", label: "AGREEABLENESS" },
+        { key: "N", name: "neuroticism", label: "NEUROTICISM" },
+    ];
 
-  const barsHTML = traits.map(trait => `
-    <a class="trait-bar ${state.selectedMobileTrait === trait.name ? 'active' : ''}" onclick="selectMobileTrait('${trait.name}')">
+    const barsHTML = traits
+        .map(
+            (trait) => `
+    <a class="trait-bar ${state.selectedMobileTrait === trait.name ? "active" : ""}" onclick="selectMobileTrait('${trait.name}')">
       <span class="trait-text">${trait.label}: <b>${state.ocean[trait.key]}</b></span>
       <span class="trait-bar-inner" style="width: ${toPercentage(state.ocean[trait.key])}%; background: linear-gradient(90deg, #0cc0df, #ffde59);"></span>
     </a>
-  `).join('');
+  `,
+        )
+        .join("");
 
-  document.getElementById('mobile-trait-bars').innerHTML = barsHTML;
+    document.getElementById("mobile-trait-bars").innerHTML = barsHTML;
 }
 
 function updateDesktopTabs() {
-  const traits = [
-    { key: 'O', name: 'openness', label: 'Openness' },
-    { key: 'C', name: 'conscientiousness', label: 'Conscientiousness' },
-    { key: 'E', name: 'extroversion', label: 'Extroversion' },
-    { key: 'A', name: 'agreeableness', label: 'Agreeableness' },
-    { key: 'N', name: 'neuroticism', label: 'Neuroticism' }
-  ];
+    const traits = [
+        { key: "O", name: "openness", label: "Openness" },
+        { key: "C", name: "conscientiousness", label: "Conscientiousness" },
+        { key: "E", name: "extroversion", label: "Extroversion" },
+        { key: "A", name: "agreeableness", label: "Agreeableness" },
+        { key: "N", name: "neuroticism", label: "Neuroticism" },
+    ];
 
-  const tabsHTML = `
+    const tabsHTML = `
     <div class="nav nav-tabs" role="tablist">
-      ${traits.map((trait, index) => `
+      ${traits
+          .map(
+              (trait, index) => `
         <div class="nav-item">
-          <a class="nav-link ${index === state.activeTabIndex ? 'active' : ''}" onclick="changeTab(${index})">
+          <a class="nav-link ${index === state.activeTabIndex ? "active" : ""}" onclick="changeTab(${index})">
             <span class="block md:hidden">${trait.label}: <strong>${state.ocean[trait.key]}</strong></span>
             <span class="hidden md:block">${trait.label}: <strong>${state.ocean[trait.key]}</strong></span>
           </a>
         </div>
-      `).join('')}
+      `,
+          )
+          .join("")}
     </div>
     <div class="tab-content">
       <div id="desktop-trait-content" class="tab-pane active">
@@ -529,42 +521,39 @@ function updateDesktopTabs() {
     </div>
   `;
 
-  document.getElementById('desktop-tabs').innerHTML = tabsHTML;
-  updateCurrentTraitDisplay();
+    document.getElementById("desktop-tabs").innerHTML = tabsHTML;
+    updateCurrentTraitDisplay();
 }
 
 function updateCurrentTraitDisplay() {
-  const traits = [
-    { key: 'O', name: 'openness' },
-    { key: 'C', name: 'conscientiousness' },
-    { key: 'E', name: 'extroversion' },
-    { key: 'A', name: 'agreeableness' },
-    { key: 'N', name: 'neuroticism' }
-  ];
+    const traits = [
+        { key: "O", name: "openness" },
+        { key: "C", name: "conscientiousness" },
+        { key: "E", name: "extroversion" },
+        { key: "A", name: "agreeableness" },
+        { key: "N", name: "neuroticism" },
+    ];
 
-  const currentTrait = traits[state.activeTabIndex];
-  const score = state.ocean[currentTrait.key];
-  const level = toHuman(score);
+    const currentTrait = traits[state.activeTabIndex];
+    const score = state.ocean[currentTrait.key];
+    const level = toHuman(score);
 
+    const photoPath = `/media/b2c/personality-test/${currentTrait.name}/${level}.jpg`;
+    document.getElementById("result-photo").src = photoPath;
+    document.getElementById("photo-label").textContent = `${currentTrait.name.toUpperCase()} ${score}`;
 
-  const photoPath = `/media/b2c/personality-test/${currentTrait.name}/${level}.jpg`;
-  document.getElementById('result-photo').src = photoPath;
-  document.getElementById('photo-label').textContent = `${currentTrait.name.toUpperCase()} ${score}`;
+    const traitContent = getTraitContent();
 
-
-  const traitContent = getTraitContent();
-  
-
-  const desktopTraitContent = document.getElementById('desktop-trait-content');
-  if (desktopTraitContent && traitContent[currentTrait.name] && traitContent[currentTrait.name][level]) {
-    const content = traitContent[currentTrait.name][level];
-    desktopTraitContent.innerHTML = `
+    const desktopTraitContent = document.getElementById("desktop-trait-content");
+    if (desktopTraitContent && traitContent[currentTrait.name] && traitContent[currentTrait.name][level]) {
+        const content = traitContent[currentTrait.name][level];
+        desktopTraitContent.innerHTML = `
       <div class="profile-trait-section">
         <div class="tab-pane show profile-tab active" role="tabpanel">
           <div class="flex flex-wrap -mx-4">
             <div class="w-full px-4">
               <h3 class="mob-hide-sm trait-title">You scored ${level} on ${currentTrait.name}</h3>
-              ${content.paragraphs.map(p => `<p>${p}</p>`).join('')}
+              ${content.paragraphs.map((p) => `<p>${p}</p>`).join("")}
             </div>
           </div>
         </div>
@@ -578,23 +567,22 @@ function updateCurrentTraitDisplay() {
         </div>
       </div>
     `;
-  } else {
-    console.error('Trait content not found for:', currentTrait.name, level, traitContent);
-  }
+    } else {
+        console.error("Trait content not found for:", currentTrait.name, level, traitContent);
+    }
 
+    const mobileTraitContent = document.getElementById("mobile-trait-content");
+    if (mobileTraitContent) {
+        const mobileTrait = traits.find((t) => t.name === state.selectedMobileTrait);
+        if (mobileTrait && traitContent[mobileTrait.name]) {
+            const mobileScore = state.ocean[mobileTrait.key];
+            const mobileLevel = toHuman(mobileScore);
+            const mobileContent = traitContent[mobileTrait.name][mobileLevel];
 
-  const mobileTraitContent = document.getElementById('mobile-trait-content');
-  if (mobileTraitContent) {
-    const mobileTrait = traits.find(t => t.name === state.selectedMobileTrait);
-    if (mobileTrait && traitContent[mobileTrait.name]) {
-      const mobileScore = state.ocean[mobileTrait.key];
-      const mobileLevel = toHuman(mobileScore);
-      const mobileContent = traitContent[mobileTrait.name][mobileLevel];
-      
-      if (mobileContent) {
-        mobileTraitContent.innerHTML = `
+            if (mobileContent) {
+                mobileTraitContent.innerHTML = `
           <div class="profile-trait-section">
-            ${mobileContent.paragraphs.map(p => `<p>${p}</p>`).join('')}
+            ${mobileContent.paragraphs.map((p) => `<p>${p}</p>`).join("")}
             <hr class="border-t border-gray-300 my-4" />
             <div class="legend">
               <span>HIGH = 5</span>
@@ -605,194 +593,211 @@ function updateCurrentTraitDisplay() {
             </div>
           </div>
         `;
-      }
+            }
+        }
     }
-  }
 
+    document.getElementById("mobile-trait-header").textContent =
+        `${state.selectedMobileTrait.toUpperCase()}: ${getCurrentMobileTraitScore()}`;
 
-  document.getElementById('mobile-trait-header').textContent = `${state.selectedMobileTrait.toUpperCase()}: ${getCurrentMobileTraitScore()}`;
-
-
-  const traitPrevBtn = document.getElementById('trait-prev');
-  if (traitPrevBtn) {
-    traitPrevBtn.disabled = state.activeTabIndex === 0;
-  }
+    const traitPrevBtn = document.getElementById("trait-prev");
+    if (traitPrevBtn) {
+        traitPrevBtn.disabled = state.activeTabIndex === 0;
+    }
 }
 
 function toHuman(score) {
-  switch (score) {
-    case 1: return 'low';
-    case 2: return 'moderate-low';
-    case 3: return 'moderate';
-    case 4: return 'moderate-high';
-    case 5: return 'high';
-    default: return 'unknown';
-  }
+    switch (score) {
+        case 1:
+            return "low";
+        case 2:
+            return "moderate-low";
+        case 3:
+            return "moderate";
+        case 4:
+            return "moderate-high";
+        case 5:
+            return "high";
+        default:
+            return "unknown";
+    }
 }
 
 function toPercentage(score) {
-  switch (score) {
-    case 1: return '0';
-    case 2: return '25';
-    case 3: return '50';
-    case 4: return '75';
-    case 5: return '100';
-    default: return '0';
-  }
+    switch (score) {
+        case 1:
+            return "0";
+        case 2:
+            return "25";
+        case 3:
+            return "50";
+        case 4:
+            return "75";
+        case 5:
+            return "100";
+        default:
+            return "0";
+    }
 }
 
 function selectMobileTrait(trait) {
-  state.selectedMobileTrait = trait;
-  updateTraitBars();
-  updateCurrentTraitDisplay();
-  dismissTraitHint();
+    state.selectedMobileTrait = trait;
+    updateTraitBars();
+    updateCurrentTraitDisplay();
+    dismissTraitHint();
 }
 
 function getCurrentMobileTraitScore() {
-  switch (state.selectedMobileTrait) {
-    case 'openness': return state.ocean.O;
-    case 'conscientiousness': return state.ocean.C;
-    case 'extroversion': return state.ocean.E;
-    case 'agreeableness': return state.ocean.A;
-    case 'neuroticism': return state.ocean.N;
-    default: return state.ocean.O;
-  }
+    switch (state.selectedMobileTrait) {
+        case "openness":
+            return state.ocean.O;
+        case "conscientiousness":
+            return state.ocean.C;
+        case "extroversion":
+            return state.ocean.E;
+        case "agreeableness":
+            return state.ocean.A;
+        case "neuroticism":
+            return state.ocean.N;
+        default:
+            return state.ocean.O;
+    }
 }
 
 function changeTab(index) {
-  state.activeTabIndex = index;
-  updateDesktopTabs();
-  updateCurrentTraitDisplay();
-  dismissTraitHint();
+    state.activeTabIndex = index;
+    updateDesktopTabs();
+    updateCurrentTraitDisplay();
+    dismissTraitHint();
 }
 
 function navigateTrait(direction) {
-  const newIndex = state.activeTabIndex + direction;
-  
-  if (direction > 0) {
-    state.activeTabIndex = newIndex > 4 ? 0 : newIndex;
-  } else {
-    state.activeTabIndex = newIndex < 0 ? 4 : newIndex;
-  }
-  
-  updateDesktopTabs();
-  updateCurrentTraitDisplay();
+    const newIndex = state.activeTabIndex + direction;
+
+    if (direction > 0) {
+        state.activeTabIndex = newIndex > 4 ? 0 : newIndex;
+    } else {
+        state.activeTabIndex = newIndex < 0 ? 4 : newIndex;
+    }
+
+    updateDesktopTabs();
+    updateCurrentTraitDisplay();
 }
 
-
 function shareResults() {
-  const shareMessage = `Hey! I just took this fascinating Big Five personality test that reveals your unique personality profile. 🧠
+    const shareMessage = `Hey! I just took this fascinating Big Five personality test that reveals your unique personality profile. 🧠
 It only takes 3 minutes and gives you insights into the 5 key traits psychologists use to understand people and their preferences.
 Take the test here: ${window.location.origin}/big-5-personality-test
 Let me know what you get! 😊`;
 
-  if (navigator.clipboard?.writeText) {
-    navigator.clipboard.writeText(shareMessage)
-      .then(() => showNotification('✅ Test link copied to clipboard! Share it with your friends.'))
-      .catch(() => fallbackCopyToClipboard(shareMessage));
-  } else {
-    fallbackCopyToClipboard(shareMessage);
-  }
+    if (navigator.clipboard?.writeText) {
+        navigator.clipboard
+            .writeText(shareMessage)
+            .then(() => showNotification("✅ Test link copied to clipboard! Share it with your friends."))
+            .catch(() => fallbackCopyToClipboard(shareMessage));
+    } else {
+        fallbackCopyToClipboard(shareMessage);
+    }
 }
 
 function fallbackCopyToClipboard(text) {
-  const textArea = document.createElement('textarea');
-  textArea.value = text;
-  textArea.style.position = 'fixed';
-  textArea.style.left = '-999999px';
-  document.body.appendChild(textArea);
-  textArea.select();
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-999999px";
+    document.body.appendChild(textArea);
+    textArea.select();
 
-  try {
-    document.execCommand('copy');
-    showNotification('✅ Test link copied to clipboard! Share it with your friends.');
-  } catch (_err) {
-    showNotification('❌ Failed to copy link. Please try again.');
-  } finally {
-    document.body.removeChild(textArea);
-  }
+    try {
+        document.execCommand("copy");
+        showNotification("✅ Test link copied to clipboard! Share it with your friends.");
+    } catch (_err) {
+        showNotification("❌ Failed to copy link. Please try again.");
+    } finally {
+        document.body.removeChild(textArea);
+    }
 }
 
 function retakeTest() {
-  window.location.reload();
+    window.location.reload();
 }
 
 function showNotification(message) {
-  document.getElementById('notification-text').textContent = message;
-  document.getElementById('download-notification').style.display = 'block';
-  
-  setTimeout(() => {
-    document.getElementById('download-notification').style.display = 'none';
-  }, 4000);
+    document.getElementById("notification-text").textContent = message;
+    document.getElementById("download-notification").style.display = "block";
+
+    setTimeout(() => {
+        document.getElementById("download-notification").style.display = "none";
+    }, 4000);
 }
 
 function showInfoPopup() {
-  document.getElementById('info-popup').style.display = 'block';
+    document.getElementById("info-popup").style.display = "block";
 }
 
 function hideInfoPopup() {
-  document.getElementById('info-popup').style.display = 'none';
+    document.getElementById("info-popup").style.display = "none";
 }
 
 function showTraitHintIfNeeded() {
-  setTimeout(() => {
-    document.getElementById('trait-hint').style.display = 'block';
-    
     setTimeout(() => {
-      document.getElementById('trait-hint').style.display = 'none';
-    }, 15000);
-  }, 1500);
+        document.getElementById("trait-hint").style.display = "block";
+
+        setTimeout(() => {
+            document.getElementById("trait-hint").style.display = "none";
+        }, 15000);
+    }, 1500);
 }
 
 function dismissTraitHint() {
-  document.getElementById('trait-hint').style.display = 'none';
+    document.getElementById("trait-hint").style.display = "none";
 }
 
 function setupFormValidation() {
-  const firstName = document.getElementById('firstName');
-  const email = document.getElementById('email');
-  const termsConsent = document.getElementById('termsConsent');
-  
-  if (firstName && !firstName.hasAttribute('data-validation-setup')) {
-    firstName.addEventListener('input', () => validateUserInfoForm(false));
-    firstName.addEventListener('blur', () => validateUserInfoForm(false));
-    firstName.setAttribute('data-validation-setup', 'true');
-  }
-  
-  if (email && !email.hasAttribute('data-validation-setup')) {
-    email.addEventListener('input', () => validateUserInfoForm(false));
-    email.addEventListener('blur', () => validateUserInfoForm(false));
-    email.setAttribute('data-validation-setup', 'true');
-  }
-  
-  if (termsConsent && !termsConsent.hasAttribute('data-validation-setup')) {
-    termsConsent.addEventListener('change', () => validateUserInfoForm(false));
-    termsConsent.setAttribute('data-validation-setup', 'true');
-  }
+    const firstName = document.getElementById("firstName");
+    const email = document.getElementById("email");
+    const termsConsent = document.getElementById("termsConsent");
+
+    if (firstName && !firstName.hasAttribute("data-validation-setup")) {
+        firstName.addEventListener("input", () => validateUserInfoForm(false));
+        firstName.addEventListener("blur", () => validateUserInfoForm(false));
+        firstName.setAttribute("data-validation-setup", "true");
+    }
+
+    if (email && !email.hasAttribute("data-validation-setup")) {
+        email.addEventListener("input", () => validateUserInfoForm(false));
+        email.addEventListener("blur", () => validateUserInfoForm(false));
+        email.setAttribute("data-validation-setup", "true");
+    }
+
+    if (termsConsent && !termsConsent.hasAttribute("data-validation-setup")) {
+        termsConsent.addEventListener("change", () => validateUserInfoForm(false));
+        termsConsent.setAttribute("data-validation-setup", "true");
+    }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  initFlipCounter();
-  
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-        const userInfoSection = document.getElementById('user-info-section');
-        if (userInfoSection && userInfoSection.style.display !== 'none') {
-          setupFormValidation();
-        }
-      }
+document.addEventListener("DOMContentLoaded", () => {
+    initFlipCounter();
+
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === "attributes" && mutation.attributeName === "style") {
+                const userInfoSection = document.getElementById("user-info-section");
+                if (userInfoSection && userInfoSection.style.display !== "none") {
+                    setupFormValidation();
+                }
+            }
+        });
     });
-  });
-  
-  const userInfoSection = document.getElementById('user-info-section');
-  if (userInfoSection) {
-    observer.observe(userInfoSection, { attributes: true });
-  }
-  
-  if (userInfoSection && userInfoSection.style.display !== 'none') {
-    setupFormValidation();
-  }
+
+    const userInfoSection = document.getElementById("user-info-section");
+    if (userInfoSection) {
+        observer.observe(userInfoSection, { attributes: true });
+    }
+
+    if (userInfoSection && userInfoSection.style.display !== "none") {
+        setupFormValidation();
+    }
 });
 
 window.startTest = startTest;

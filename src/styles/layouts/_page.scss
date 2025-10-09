@@ -1,7 +1,9 @@
+@use '../base/variables' as *;
+
 .page {
   h2.fancy {
-    @extend .psykhe-large-heading;
-    @extend .psykhe-double-line-heading;
+    @extend .psykhe-large-heading !optional;
+    @extend .psykhe-double-line-heading !optional;
   }
 }
 
@@ -21,22 +23,22 @@
 }
 
 .psykhe-font-b2c {
-  @extend .psykhe-font-standard;
+  @extend .psykhe-font-standard !optional;
   font-family: $font-family-sans-serif;
 }
 
 .psykhe-font-b2b {
-  @extend .psykhe-font-nav;
+  @extend .psykhe-font-nav !optional;
   font-family: $font-family-sans-serif;
 }
 
 .psykhe-font-b2c-nav {
-  @extend .psykhe-font-nav;
+  @extend .psykhe-font-nav !optional;
   font-family: $font-family-sans-serif;
 }
 
 .psykhe-font-b2b-nav {
-  @extend .psykhe-font-nav;
+  @extend .psykhe-font-nav !optional;
   font-family: $font-family-sans-serif;
 }
 
@@ -117,15 +119,7 @@ body {
   }
 }
 
-.mob-vis {
-  @include media-breakpoint-up(md) {
-    display: none;
-  }
-
-  @include media-breakpoint-down(md) {
-    display: block;
-  }
-}
+/* .mob-vis is now defined in global.css using Tailwind utilities */
 
 .mob-hide-sm {
   @include media-breakpoint-down(sm) {

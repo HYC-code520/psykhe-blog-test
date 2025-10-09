@@ -1,2 +1,86 @@
 @import "tailwindcss";
 
+/* Tailwind v4 CSS-based configuration */
+/* Note: @theme directive is processed by Tailwind build process */
+
+:root {
+    /* PSYKHE Brand Colors */
+    --color-psykhe-white: #ffffff;
+    --color-psykhe-lightgrey: #cfcbc7;
+    --color-psykhe-darkgrey: #605c5c;
+    --color-psykhe-black: #000000;
+    --color-psykhe-gold: #c1b096;
+    --color-psykhe-darkgold: #af8c64;
+    --color-psykhe-tan: #c1b096;
+    --color-psykhe-tan-dark: #a39072;
+    --color-psykhe-bluegrey: #ebebeb;
+    --color-psykhe-bluegrey-dark: #d9d9d9;
+    
+    /* Typography */
+    --font-family-sans: "Roboto", "Arial", sans-serif;
+    --font-family-display: "Montserrat", "Arial", sans-serif;
+    --font-size-base: 0.8rem;
+    --line-height-base: 1.6;
+    
+    /* Responsive Breakpoints */
+    --breakpoint-xs: 0px;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    
+    /* Spacing & Layout */
+    --max-width-container: 1500px;
+    
+    /* Borders */
+    --border-width: 1px;
+    --border-radius: 0px;
+}
+
+/* Custom utilities to bridge Bootstrap -> Tailwind migration */
+.mob-vis {
+    display: block;
+}
+
+.desktop-vis {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .mob-vis {
+        display: none;
+    }
+    
+    .desktop-vis {
+        display: block;
+    }
+}
+
+/* Custom components for complex layouts */
+.psykhe-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.psykhe-grid-item {
+    flex: 1;
+    min-width: 0;
+}
+
+@media (min-width: 768px) {
+    .psykhe-grid-2 .psykhe-grid-item {
+        flex: 0 0 calc(50% - 5px);
+        max-width: calc(50% - 5px);
+    }
+    
+    .psykhe-grid-3 .psykhe-grid-item {
+        flex: 0 0 calc(33.333% - 7px);
+        max-width: calc(33.333% - 7px);
+    }
+    
+    .psykhe-grid-4 .psykhe-grid-item {
+        flex: 0 0 calc(25% - 8px);
+        max-width: calc(25% - 8px);
+    }
+}

@@ -1,17 +1,6 @@
-@mixin psykhe-grid-2-item {
-  flex: 1 0 calc(50% - 10px);
-  max-width: calc(50% - 10px);
-}
+@use '../base/variables' as *;
 
-@mixin psykhe-grid-3-item {
-  flex: 1 0 calc(33.33333% - 10px);
-  max-width: calc(33.33333% - 10px);
-}
-
-@mixin psykhe-grid-4-item {
-  flex: 1 0 calc(25% - 10px);
-  max-width: calc(25% - 10px);
-}
+/* Grid mixins moved to Tailwind utilities in global.css */
 
 .psykhe-grid {
   display: flex;
@@ -26,7 +15,8 @@
   }
 
   .psykhe-grid-item {
-    @include psykhe-grid-2-item;
+    flex: 1 0 calc(50% - 10px);
+    max-width: calc(50% - 10px);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -280,34 +270,13 @@
     }
   }
 
-  &.psykhe-grid-2 {
-    .psykhe-grid-item {
-      @include media-breakpoint-up(md) {
-        @include psykhe-grid-2-item;
-      }
-    }
-  }
-
-  &.psykhe-grid-3 {
-    .psykhe-grid-item {
-      @include media-breakpoint-up(md) {
-        @include psykhe-grid-3-item;
-      }
-    }
-  }
-
-  &.psykhe-grid-4 {
-    .psykhe-grid-item {
-      @include media-breakpoint-up(md) {
-        @include psykhe-grid-4-item;
-      }
-    }
-  }
+  /* Grid responsive behavior is now handled by Tailwind utilities in global.css */
 
   &.psykhe-grid-3 {
     .psykhe-grid-item {
       @media (min-width: 2100px) {
-        @include psykhe-grid-4-item;
+        flex: 1 0 calc(25% - 10px);
+        max-width: calc(25% - 10px);
       }
     }
   }

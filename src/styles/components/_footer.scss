@@ -1,3 +1,5 @@
+@use '../base/variables' as *;
+
 .main-footer {
   font-family: $font-family-sans-serif;
   background: linear-gradient(89.21deg, #ca43d7 0.54%, #3773f2 49.86%, #c0f771 95.21%);

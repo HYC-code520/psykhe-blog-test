@@ -1,23 +1,24 @@
 ---
-import { glossaryEntries } from '../../data/glossary';
-import Layout from '../../layouts/Layout.astro';
-import Navbar from '../../components/Navbar.astro';
-import Footer from '../../components/Footer.astro';
+import Footer from "../../components/Footer.astro";
+import Navbar from "../../components/Navbar.astro";
+import { glossaryEntries } from "../../data/glossary";
+import Layout from "../../layouts/Layout.astro";
 
-
-const groupedEntries = glossaryEntries.reduce((acc, entry) => {
-  const firstLetter = entry.title.charAt(0).toUpperCase();
-  if (!acc[firstLetter]) {
-    acc[firstLetter] = [];
-  }
-  acc[firstLetter].push(entry);
-  return acc;
-}, {} as Record<string, typeof glossaryEntries>);
-
+const groupedEntries = glossaryEntries.reduce(
+    (acc, entry) => {
+        const firstLetter = entry.title.charAt(0).toUpperCase();
+        if (!acc[firstLetter]) {
+            acc[firstLetter] = [];
+        }
+        acc[firstLetter].push(entry);
+        return acc;
+    },
+    {} as Record<string, typeof glossaryEntries>,
+);
 
 const sortedLetters = Object.keys(groupedEntries).sort();
-sortedLetters.forEach(letter => {
-  groupedEntries[letter].sort((a, b) => a.title.localeCompare(b.title));
+sortedLetters.forEach((letter) => {
+    groupedEntries[letter].sort((a, b) => a.title.localeCompare(b.title));
 });
 ---
 
