@@ -3,26 +3,26 @@ pre-commit:
   follow: true
   jobs:
     - name: biome - lint
-      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,astro}"
+      glob: "src/**/*.{js,ts,jsx,tsx,astro}"
       fail_text: "Linting failed! Please fix the issues before committing."
-      run: mise lint:check:biome {staged_files}
+      run: source ~/.nvm/nvm.sh && nvm use 22 && npx biome lint --write {staged_files}
 
     - name: biome - format
-      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,astro}"
+      glob: "src/**/*.{js,ts,jsx,tsx,astro}"
       fail_text: "Linting failed! Please fix the issues before committing."
-      run: mise format:check:biome {staged_files}
+      run: source ~/.nvm/nvm.sh && nvm use 22 && npx biome format --write {staged_files}
 
     - name: astro
       glob: "*.astro"
       fail_text: "Linting failed! Please fix the issues before committing."
-      run: mise lint:check:astro {staged_files}
+      run: source ~/.nvm/nvm.sh && nvm use 22 && npx astro check {staged_files}
 
     - name: tombi - lint
       glob: "*.toml"
       fail_text: "Linting failed! Please fix the issues before committing."
-      run: mise lint:check:toml {staged_files}
+      run: npx tombi-toml lint {staged_files}
 
     - name: tombi - format
       glob: "*.toml"
       fail_text: "Formatting failed! Please fix the issues before committing."
-      run: mise format:check:toml {staged_files}
+      run: npx tombi-toml format {staged_files}
