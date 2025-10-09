@@ -1,0 +1,110 @@
+---
+// Openness.astro - Converted from Vue component
+export interface Props {
+  range: 'low' | 'moderate-low' | 'moderate' | 'moderate-high' | 'high';
+}
+
+const { range } = Astro.props;
+---
+
+<div>
+  {range === 'low' && (
+    <div>
+      <p>
+        You're a classicist, and not a big fan of abstract ideas and new theories. You find people who are always
+        flaunting intellectualism a bit pretentious. You're more analytical than imaginative, prefer real, tangible
+        solutions, and opt for the tried-and-tested. You value traditions and tend to keep a social circle that you've
+        cultivated over time.
+      </p>
+      <p>
+        Your style is similarly conservative and traditional. You prefer time-tested brands, and like to look to classic
+        style icons of the past. You're politically fairly conservative, and value routine and order in your lifestyle.
+      </p>
+      <p>
+        Remember, your preferences and lifestyle come from how your five scores work together - not from low openness
+        alone - creating an identity that's uniquely yours.
+      </p>
+    </div>
+  )}
+
+  {range === 'moderate-low' && (
+    <div>
+      <p>
+        You're somewhat of a classicist, and not always a big fan of abstract ideas and new theories. You find people
+        who are always flaunting intellectualism a bit pretentious. You're more analytical than imaginative, prefer
+        real, tangible solutions, and opt for the tried-and-tested. You value traditions and tend to keep a social
+        circle that you've cultivated over time.
+      </p>
+      <p>
+        Your style is similarly conservative and traditional. You prefer time-tested brands, and like to look to classic
+        style icons of the past. You're politically fairly conservative, and value routine and order in your lifestyle.
+      </p>
+      <p>
+        Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-low
+        openness alone - creating an identity that's uniquely yours.
+      </p>
+    </div>
+  )}
+
+  {range === 'moderate' && (
+    <div>
+      <p>
+        At times, you can feel highly creative, curious, and adventurous. At other times, you prefer routine, structure,
+        and tradition. You are able to find a good balance between new ideas and simply being practical. When you are
+        faced with a problem, you are able to consider tried-and true methods, but can also think outside the box. This
+        equilibrium allows you to thoughtfully consider both innovative and established methods when addressing
+        challenges, making you a versatile and effective problem-solver.
+      </p>
+      <p>
+        As such, your style has a good balance of both classic staples and more directional, trendier pieces. You like
+        to mix it up when it comes to most things. When planning trips, you strike a balance between scheduled
+        activities and spontaneous exploration, ensuring both structure and freedom. In the realm of politics, you
+        maintain a centrist perspective, valuing diverse viewpoints and fostering balanced discussions.
+      </p>
+      <p>
+        Remember, your preferences and lifestyle come from how your five scores work together - not from moderate
+        openness alone - creating an identity that's uniquely yours.
+      </p>
+    </div>
+  )}
+
+  {range === 'moderate-high' && (
+    <div>
+      <p>
+        You're forward-thinking, not big on traditional theories, prefer to challenge the status quo, and are more
+        liberal in your values. You're worldly, intellectually curious, and are generally receptive to abstract ideas
+        and new cultures. Well-read and well-travelled, you're eager to know everything about everything.
+      </p>
+
+      <p>
+        As you're creative and intellectual, you love designs that are a little bit distinctive. You crave novelty, love
+        innovative new brands, and cherish your Gold status. If you're not already living in California, you should be.
+        Style-wise, you tend to do wither minimalist or maximalist extremes.
+      </p>
+      <p>
+        Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-high
+        openness alone - creating an identity that's uniquely yours.
+      </p>
+    </div>
+  )}
+
+  {range === 'high' && (
+    <div>
+      <p>
+        You have a strong disdain for convention, are liberal in your values, and tend to be avant-garde in the way you
+        live, work and think. You're worldly, intellectually curious, and love exploring abstract ideas and immersing
+        yourself in new cultures. Highly well-read and well-travelled, you tend to know a little bit of everything about
+        everything.
+      </p>
+      <p>
+        As you're creative and intellectual, you tend to either dress very simply - think Steve Jobs or or Joan Didion -
+        or with very out-there flair. You crave novelty, love innovative new brands, and cherish your Gold status. If
+        you're not already living in California, you should be.
+      </p>
+      <p>
+        Remember, your preferences and lifestyle come from how your five scores work together - not from high openness
+        alone - creating an identity that's uniquely yours.
+      </p>
+    </div>
+  )}
+</div>

@@ -13,12 +13,13 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.12",
-    "astro": "^5.13.3",
-    "tailwindcss": "^4.1.12"
+    "astro": "^5.13.3"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.2",
+    "@tailwindcss/typography": "^0.5.16",
     "lefthook": "^1.12.3",
-    "sass": "^1.91.0"
+    "sass": "^1.91.0",
+    "tailwindcss": "^4.1.13"
   }
 }

@@ -1,0 +1,100 @@
+---
+// Agreeableness.astro - Converted from Vue component
+export interface Props {
+  range: 'low' | 'moderate-low' | 'moderate' | 'moderate-high' | 'high';
+}
+
+const { range } = Astro.props;
+---
+
+<div>
+  {range === 'low' && (
+    <div>
+      <p>
+        Hello, contrarian. With a very strong sense of self, and a keen competitive streak, you generally like to focus
+        on you, work best alone, believe modesty is overrated, and aren't into the whole group thing. Never afraid to
+        voice an opinion, you love a good debate, whether on social media or at dinner.
+      </p>
+      <p>
+        Your every-person-for-themselves superhero style trickles down to a bold taste in fashion, music, and films with
+        strong leading characters. You love manifesto-style reads.
+      </p>
+      <p>
+        Remember, your preferences and lifestyle come from how your five scores work together - not from low
+        agreeableness alone - creating an identity that's uniquely yours.
+      </p>
+    </div>
+  )}
+
+  {range === 'moderate-low' && (
+    <div>
+      <p>
+        Hello, contrarian. With a strong sense of self and a slight competitive streak, you mostly like to focus on you,
+        prefer to work alone, and aren't super into the whole group thing. It's easy for you to voice an opinion, and
+        you love a good debate on topics you care about, whether on social media or at dinner.
+      </p>
+      <p>
+        Your every-person-for-themselves superhero style trickles down to a bold taste in fashion, music, and films with
+        strong leading characters. You love polarizing characters and reads.
+      </p>
+      <p>
+        Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-low
+        agreeableness alone - creating an identity that's uniquely yours.
+      </p>
+    </div>
+  )}
+
+  {range === 'moderate' && (
+    <div>
+      <p>
+        Lucky you: you're a good team player, but can also work independently. You're easy to get along with, but know
+        how to stand up for yourself. You know when to lead, but are always happy to let others shine. You can argue
+        your point when necessary, but also know which battles are worth picking. You're liked and respected.
+      </p>
+      <p>
+        Your style and preferences in this regard tend to be balanced - you don't like music that is super aggressive,
+        nor too saccharine. Your style is pretty middle-of-the road in the best way.
+      </p>
+      <p>
+        Remember, your preferences and lifestyle come from how your five scores work together - not from moderate
+        agreeableness alone - creating an identity that's uniquely yours.
+      </p>
+    </div>
+  )}
+
+  {range === 'moderate-high' && (
+    <div>
+      <p>
+        Friendly and sociable, you know how to be a good team player, like to help others in need, and are able to
+        consider the needs of a group. You don't enjoy competing so much as you generally believe it's better to be
+        happy than to be right.
+      </p>
+      <p>
+        As a result, you tend to prefer cheerful, simple fashion that draws people in, non-aggressive music and
+        feel-good films.
+      </p>
+      <p>
+        Remember, your preferences and lifestyle come from how your five scores work together - not from moderate-high
+        agreeableness alone - creating an identity that's uniquely yours.
+      </p>
+    </div>
+  )}
+
+  {range === 'high' && (
+    <div>
+      <p>
+        Warm and sociable, tactful and polite, you're great at empathizing with the needs of other people. A team
+        player, who is modest, and always willing to help someone in need, you're easily able to trust other people and
+        don't get competitive. Better to be happy then be right, right?
+      </p>
+      <p>
+        As a result, you like cheerful, friendly fashion that draws people in, such as florals or pastel colors,
+        non-aggressive music, and feel-good films.
+      </p>
+      <p>
+        Remember, your preferences and lifestyle come from how your five scores work together - not from high
+        agreeableness alone - creating an identity that's uniquely yours.
+      </p>
+    </div>
+  )}
+</div>
