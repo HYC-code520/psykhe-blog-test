@@ -1,17 +1,12 @@
 ---
 export interface Props {
-  baseValue?: number;
-  incrementRate?: number;
-  updateInterval?: number;
-  label?: string;
+    baseValue?: number;
+    incrementRate?: number;
+    updateInterval?: number;
+    label?: string;
 }
 
-const {
-  baseValue = 230000,
-  incrementRate = 1,
-  updateInterval = 10000,
-  label = "TESTS TAKEN",
-} = Astro.props;
+const { baseValue = 230000, incrementRate = 1, updateInterval = 10000, label = "TESTS TAKEN" } = Astro.props;
 
 const componentId = `flip-counter-${Math.random().toString(36).substr(2, 9)}`;
 ---

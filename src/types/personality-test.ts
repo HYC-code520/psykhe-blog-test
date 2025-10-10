@@ -1,4 +1,3 @@
-
 export interface SurveyAnswer {
     id: number;
     text: string;
@@ -6,7 +5,7 @@ export interface SurveyAnswer {
 
 export interface SurveyQuestion {
     id: number;
-    quality: "O" | "C" | "E" | "A" | "N"; 
+    quality: "O" | "C" | "E" | "A" | "N";
     text: string;
     answers: SurveyAnswer[];
 }
@@ -17,10 +16,9 @@ export interface VisualQuestion {
     answers: Array<{
         id: number;
         text: string;
-        icon?: string; 
+        icon?: string;
     }>;
 }
-
 
 export interface SurveyResponse {
     questionId: number;
@@ -29,14 +27,13 @@ export interface SurveyResponse {
 
 export interface VisualResponse {
     questionId: number;
-    answerIds: number[]; 
+    answerIds: number[];
 }
 
-
 export interface PersonalityResult {
-    O: number; 
-    C: number; 
-    E: number; 
-    A: number; 
-    N: number; 
+    O: number;
+    C: number;
+    E: number;
+    A: number;
+    N: number;
 }
