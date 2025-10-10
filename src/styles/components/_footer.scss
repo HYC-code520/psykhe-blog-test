@@ -14,12 +14,12 @@
   }
 
   .container {
-    max-width: 1500px; // Changed from 1450px to match signup section
+    max-width: 1500px; 
     margin-top: 2.5rem;
     margin-right: auto;
     margin-left: auto;
-    padding-right: 3rem; // Changed to match contact form padding
-    padding-left: 3rem; // Changed to match contact form padding
+    padding-right: 3rem; 
+    padding-left: 3rem; 
   }
 
   @include media-breakpoint-down(sm) {

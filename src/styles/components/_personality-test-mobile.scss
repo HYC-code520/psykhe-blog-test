@@ -1,8 +1,3 @@
-// =============================================================================
-// PERSONALITY TEST - BUTTONS, NAVIGATION & MOBILE
-// =============================================================================
-
-
 .floating-action-buttons {
     position: fixed;
     bottom: 4rem;
@@ -17,10 +12,10 @@
     }
       
     @media (max-width: 767px) {
-      display: flex !important; 
-      bottom: 2rem; 
-      right: 1rem; 
-      gap: 0.8rem; 
+      display: flex !important;
+      bottom: 2rem;
+      right: 1rem;
+      gap: 0.8rem;
     }
     
     @media (min-width: 1118px) and (max-width: 1200px) {
@@ -47,9 +42,9 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
       
       @media (max-width: 767px) {
-        width: 45px; 
-        height: 45px; 
-        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2); 
+        width: 45px;
+        height: 45px;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
       }
       
       img {
@@ -136,44 +131,44 @@
     .gradient-button {
       flex: 1;
       font-family: 'Montserrat', 'Arial', sans-serif;
-      font-weight: 270; 
+      font-weight: 270;
       font-style: normal;
       letter-spacing: 0;
       font-size: 0.85rem;
       padding: 0.75rem 1.5rem;
-      border: 1px solid #000; 
-      border-radius: 0; 
+      border: 1px solid #000;
+      border-radius: 0;
       color: black;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
       max-width: 200px;
-      text-transform: uppercase; 
+      text-transform: uppercase;
       white-space: nowrap; 
       
       background-image: url('/media/b2c/button-bg-gradient1.png');
-      background-size: 150% 150%; 
-      background-position: right calc(100% + 20px); 
+      background-size: 150% 150%;
+      background-position: right calc(100% + 20px);
       background-repeat: no-repeat;
       
       @media (min-width: 768px) {
-        font-weight: 400; 
+        font-weight: 400;
       }
       
       @media (min-width: 768px) and (max-width: 991px) {
-        max-width: 195px; 
+        max-width: 195px;
         font-size: 0.75rem;
-        font-weight: 400; 
+        font-weight: 400;
       }
       
       @media (min-width: 991px) and (max-width: 1200px) {
         max-width: 220px;
-        font-weight: 400; 
+        font-weight: 400;
       }
       
       @media (min-width: 1201px) {
         max-width: 250px;
-        font-weight: 400; 
+        font-weight: 400;
       }
       
       &:hover {
@@ -193,7 +188,7 @@
 
   .trait-navigation-arrows {
     position: relative;
-    z-index: 10001; // Increased z-index to appear above all other content
+    z-index: 10001;
     
     @media (max-width: 767px) {
       display: none;
@@ -206,7 +201,7 @@
       background: transparent;
       border: none;
       cursor: pointer;
-      z-index: 10001; // Ensure individual arrows also have high z-index
+      z-index: 10001;
       padding: 0;
       outline: none;
       transition: all 0.3s ease;
@@ -327,7 +322,7 @@
     padding: 1rem 1.5rem;
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    z-index: 10002; // Increased z-index to appear above all other content including trait arrows
+    z-index: 10002;
     max-width: 400px;
     width: 90%;
     animation: hintFadeIn 0.5s ease-out;

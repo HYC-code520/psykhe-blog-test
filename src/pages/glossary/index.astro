@@ -5,73 +5,82 @@ import { glossaryEntries } from "../../data/glossary";
 import Layout from "../../layouts/Layout.astro";
 
 const groupedEntries = glossaryEntries.reduce(
-    (acc, entry) => {
-        const firstLetter = entry.title.charAt(0).toUpperCase();
-        if (!acc[firstLetter]) {
-            acc[firstLetter] = [];
-        }
-        acc[firstLetter].push(entry);
-        return acc;
-    },
-    {} as Record<string, typeof glossaryEntries>,
+  (acc, entry) => {
+    const firstLetter = entry.title.charAt(0).toUpperCase();
+    if (!acc[firstLetter]) {
+      acc[firstLetter] = [];
+    }
+    acc[firstLetter].push(entry);
+    return acc;
+  },
+  {} as Record<string, typeof glossaryEntries>,
 );
 
 const sortedLetters = Object.keys(groupedEntries).sort();
 sortedLetters.forEach((letter) => {
-    groupedEntries[letter].sort((a, b) => a.title.localeCompare(b.title));
+  groupedEntries[letter].sort((a, b) => a.title.localeCompare(b.title));
 });
 ---
 
 <Layout title="Personalization Glossary | PSYKHE">
   <div class="glossary-wrapper">
     <div class="glossary-content">
-  <Navbar />
-  
-  <div class="page-b2b-glossary">
-    <div class="header-container">
-      <div class="max-w-7xl mx-auto px-4 header">
-        <div class="message">
-          <p class="header-title">Personalization Glossary</p>
-          <p class="header-message">
-            At PSYKHE, we're obsessed with the why: Why do we like the things we like? Why does one person like a pair
-            of shoes, a sofa, a travel destination, or a song, while someone else does not? Understanding all the
-            factors that drive individual taste, including personality and psychographic data, enables us to create
-            the world's most sophisticated recommendation engine. After all, you can't personalize without
-            personality. Shaping a stellar recommendation strategy is a big job, so to help you grasp what a complete
-            AI personalization blueprint for your business entails, we've collated definitions related to
-            personalization here.
-          </p>
-        </div>
-        <figure>
+      <Navbar />
 
-          <img src="/media/b2b/ww/hero_banner.png" alt="" style="opacity: 0; visibility: hidden;" />
-        </figure>
-      </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="sections">
-        {sortedLetters.map(letter => (
-          <div class="section">
-            <p class="letter">{letter}</p>
-            {groupedEntries[letter].map(entry => (
-              <div class="entry" id={entry.slug}>
-                <a href={`/glossary/${entry.slug}/`}>
-                  <h1 class="entry-title">{entry.title}</h1>
-                </a>
-                {entry.paragraphs.map(paragraph => (
-                  <p class="entry-paragraph">{paragraph}</p>
-                ))}
-              </div>
-            ))}
+      <div class="page-b2b-glossary">
+        <div class="header-container">
+          <div class="max-w-7xl mx-auto px-4 header">
+            <div class="message">
+              <p class="header-title">Personalization Glossary</p>
+              <p class="header-message">
+                At PSYKHE, we're obsessed with the why: Why do we like the
+                things we like? Why does one person like a pair of shoes, a
+                sofa, a travel destination, or a song, while someone else does
+                not? Understanding all the factors that drive individual taste,
+                including personality and psychographic data, enables us to
+                create the world's most sophisticated recommendation engine.
+                After all, you can't personalize without personality. Shaping a
+                stellar recommendation strategy is a big job, so to help you
+                grasp what a complete AI personalization blueprint for your
+                business entails, we've collated definitions related to
+                personalization here.
+              </p>
+            </div>
+            <figure>
+              <img
+                src="/media/b2b/ww/hero_banner.png"
+                alt=""
+                style="opacity: 0; visibility: hidden;"
+              />
+            </figure>
           </div>
-        ))}
-      </div>
-    </div>
-    
-    <div class="take-test-row">
-      <a class="btn-home-tan" href="/">FIND OUT MORE</a>
-    </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4">
+          <div class="sections">
+            {
+              sortedLetters.map((letter) => (
+                <div class="section">
+                  <p class="letter">{letter}</p>
+                  {groupedEntries[letter].map((entry) => (
+                    <div class="entry" id={entry.slug}>
+                      <a href={`/glossary/${entry.slug}/`}>
+                        <h1 class="entry-title">{entry.title}</h1>
+                      </a>
+                      {entry.paragraphs.map((paragraph) => (
+                        <p class="entry-paragraph">{paragraph}</p>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="take-test-row">
+          <a class="btn-home-tan" href="/">FIND OUT MORE</a>
+        </div>
       </div>
     </div>
     <Footer />
@@ -79,15 +88,15 @@ sortedLetters.forEach((letter) => {
 </Layout>
 
 <style lang="scss">
-@import '../../styles/app.scss';
+  @use "../../styles/app.scss";
 
-.glossary-wrapper {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+  .glossary-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 
-.glossary-content {
-  flex: 1;
-}
+  .glossary-content {
+    flex: 1;
+  }
 </style>

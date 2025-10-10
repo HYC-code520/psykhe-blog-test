@@ -13,8 +13,8 @@
   margin: 0 auto;
   padding-left: 15px;
   padding-right: 15px;
-  min-height: 80vh; // Set minimum height to push footer lower
-  margin-bottom: 4rem; // Add space between survey and footer
+  min-height: 80vh; 
+  margin-bottom: 4rem; 
   
   overflow-x: visible;
   position: relative;
@@ -23,15 +23,14 @@
     width: 100%;
   }
 
-  // Mobile adjustments for footer spacing
   @media (max-width: 767px) {
-    min-height: 75vh; // Slightly less height on mobile
-    margin-bottom: 3rem; // Reduced margin on mobile
+    min-height: 75vh; 
+    margin-bottom: 3rem; 
   }
 
   @media (max-width: 480px) {
-    min-height: 70vh; // Even less height on small mobile
-    margin-bottom: 2rem; // Smaller margin on very small screens
+    min-height: 70vh; 
+    margin-bottom: 2rem; 
   }
 
   &.survey-beginning {
@@ -71,7 +70,7 @@
       
       & + .survey-question,
       & + .visual-question {
-        margin-top: 0; // This is overridden by padding-top in .survey-question
+        margin-top: 0; 
       }
     }
   }
@@ -117,7 +116,6 @@
       }
     }
 
-    // Increase the minimum width to cover the problematic range
     @media (min-width: 1280px) {
       &.survey-control-prev {
         left: -2rem; 
@@ -218,19 +216,19 @@
     right: 0;
     opacity: 1;
 
-    // Add max-width container for mobile
+    
     @media (max-width: 767px) {
       max-width: 540px;
       margin: 0 auto;
       padding-left: 40px;
       padding-right: 40px;
-      padding-top: 4rem; // Add top spacing to prevent overlap with navbar
+      padding-top: 4rem; 
     }
 
     @media (max-width: 576px) {
       padding-left: 32px;
       padding-right: 32px;
-      padding-top: 4rem; // Ensure visual questions also have top spacing
+      padding-top: 4rem; 
     }
 
     @media (min-width: 768px) { 
@@ -291,7 +289,7 @@
             #c0f771 360deg
           );
           
-          // Remove CSS transitions - let JavaScript handle the animation
+          
           mask: conic-gradient(
             from 0deg,  
             black 0deg,
@@ -320,7 +318,7 @@
           z-index: 1;
         }
 
-        // Content positioned above the progress
+        
         span, .question-number-indicator {
           position: relative;
           z-index: 2;
@@ -606,7 +604,7 @@
 
   .survey-disclaimer {
     position: fixed;
-    z-index: 1100; // Increased from 500 to 1100 to appear above navbar (which has z-index: 1000)
+    z-index: 1100; 
     top: 0;
     left: 0;
     width: 100vw;
@@ -807,17 +805,17 @@
     padding-left: 15px;
     padding-right: 15px;
     margin-top: 1.5rem;
-    margin-bottom: 2rem; // Add bottom margin to create space from footer
+    margin-bottom: 2rem; 
     
     display: none;
 
     @media (max-width: 767px) {
       display: block;
-      margin-bottom: 1.5rem; // Slightly less margin on mobile
+      margin-bottom: 1.5rem; 
     }
 
     @media (max-width: 480px) {
-      margin-bottom: 1rem; // Even less margin on very small screens
+      margin-bottom: 1rem; 
     }
 
     .progress-bar {
@@ -980,28 +978,28 @@
 }
 
   @media (max-width: 575px) {
-    // Only target survey questions (1-25), not visual questions (26-30)
+   
     #survey-section .survey-question-answer {
       margin-bottom: 0 !important;
     }
     
-    // Only target the survey form, not visual form
+   
     #survey-form.survey-form {
       gap: 0.5rem !important;
     }
     
-    // Add proper spacing for visual questions (26-30)
+   
     #visual-section .survey-question-answer {
-      margin-bottom: 0.5rem !important; // 8px spacing
+      margin-bottom: 0.5rem !important; 
     }
     
-    // Ensure visual form has proper gap
+   
     #visual-form {
       gap: 1rem !important;
     }
   }
 
-  // Add spacing for visual questions in the 576-767px range
+  
   @media (min-width: 576px) and (max-width: 767px) {
     #visual-section .survey-question-answer {
       margin-bottom: 0.5rem !important;

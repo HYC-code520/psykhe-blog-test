@@ -15,23 +15,23 @@
     --color-psykhe-tan-dark: #a39072;
     --color-psykhe-bluegrey: #ebebeb;
     --color-psykhe-bluegrey-dark: #d9d9d9;
-    
+
     /* Typography */
     --font-family-sans: "Roboto", "Arial", sans-serif;
     --font-family-display: "Montserrat", "Arial", sans-serif;
     --font-size-base: 0.8rem;
     --line-height-base: 1.6;
-    
+
     /* Responsive Breakpoints */
     --breakpoint-xs: 0px;
     --breakpoint-sm: 576px;
     --breakpoint-md: 768px;
     --breakpoint-lg: 992px;
     --breakpoint-xl: 1200px;
-    
+
     /* Spacing & Layout */
     --max-width-container: 1500px;
-    
+
     /* Borders */
     --border-width: 1px;
     --border-radius: 0px;
@@ -50,7 +50,7 @@
     .mob-vis {
         display: none;
     }
-    
+
     .desktop-vis {
         display: block;
     }
@@ -73,12 +73,12 @@
         flex: 0 0 calc(50% - 5px);
         max-width: calc(50% - 5px);
     }
-    
+
     .psykhe-grid-3 .psykhe-grid-item {
         flex: 0 0 calc(33.333% - 7px);
         max-width: calc(33.333% - 7px);
     }
-    
+
     .psykhe-grid-4 .psykhe-grid-item {
         flex: 0 0 calc(25% - 8px);
         max-width: calc(25% - 8px);

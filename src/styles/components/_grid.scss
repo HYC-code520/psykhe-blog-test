@@ -1,6 +1,6 @@
 @use '../base/variables' as *;
 
-/* Grid mixins moved to Tailwind utilities in global.css */
+
 
 .psykhe-grid {
   display: flex;
@@ -270,7 +270,7 @@
     }
   }
 
-  /* Grid responsive behavior is now handled by Tailwind utilities in global.css */
+
 
   &.psykhe-grid-3 {
     .psykhe-grid-item {

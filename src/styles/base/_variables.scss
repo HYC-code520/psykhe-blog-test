@@ -1,16 +1,4 @@
-/* 
- * PSYKHE DESIGN SYSTEM - TAILWIND-FIRST APPROACH
- * 
- * This file contains minimal SCSS variables for legacy components that haven't been migrated yet.
- * New development should use Tailwind utilities and CSS custom properties from global.css
- * 
- * Migration Guide:
- * - Use theme('colors.psykhe.gold') or var(--color-psykhe-gold) instead of $psykhe-gold
- * - Use responsive prefixes (sm:, md:, lg:) instead of media-breakpoint mixins
- * - Use Tailwind spacing/sizing instead of custom variables
- */
 
-// Colors (Legacy - prefer CSS custom properties in global.css)
 @use "sass:color";
 
 // Brand Colors (Legacy support only)
@@ -46,7 +34,7 @@ $screen-lg: 992px;
 $screen-xl: 1200px;
 
 // Legacy Mixins (DEPRECATED - Use Tailwind responsive prefixes instead)
-// Example: Instead of @include media-breakpoint-up(md), use md:class-name
+
 @mixin media-breakpoint-up($breakpoint) {
   @if $breakpoint == xs {
     @media (min-width: #{$screen-xs}) { @content; }

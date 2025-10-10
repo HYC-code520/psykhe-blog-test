@@ -1,7 +1,6 @@
 @use "sass:color";
 @use '../base/variables' as *;
 
-// Add this at the top of your profile.scss file for Tailwind compatibility
 .hidden {
   display: none;
 }
@@ -30,12 +29,8 @@
   }
 }
 
-// Complete profile styles converted from Bootstrap to Tailwind-compatible CSS
-
-// Main profile page styles
 .page.page-profile {
   .page-profile-hero {
-    // Bootstrap .col-3 -> Flexbox equivalent
     flex: 0 0 25%;
     max-width: 25%;
 
@@ -72,12 +67,10 @@
   }
 
   .page-profile-intro {
-    // Bootstrap .col-9 -> Flexbox equivalent
     flex: 0 0 75%;
     max-width: 75%;
 
     &.with-avatar {
-      // Bootstrap .col-6 -> Flexbox equivalent
       flex: 0 0 50%;
       max-width: 50%;
     }
@@ -100,7 +93,6 @@
     }
 
     h3 {
-      // Replace Bootstrap .psykhe-font-heading-fancy
       font-family: 'Montserrat', serif;
       font-weight: 400;
       font-size: 2.2rem;
@@ -136,7 +128,6 @@
   }
 
   .page-profile-actions {
-    // Bootstrap .col-3 -> Flexbox equivalent
     flex: 0 0 25%;
     max-width: 25%;
     padding: 0.5em 2em 1em;
@@ -148,7 +139,6 @@
     }
 
     a {
-      // Basic button styles replacing Bootstrap .btn
       display: inline-block;
       padding: 0.375rem 0.75rem;
       margin-bottom: 0;
@@ -167,7 +157,6 @@
       padding: 12px 5px;
 
       &.page-profile-actions-saved {
-        // Primary button styles replacing Bootstrap .btn-primary
         color: #fff;
         background-color: $psykhe-gold;
         border-color: $psykhe-gold;
@@ -190,7 +179,6 @@
       }
 
       &.page-profile-actions-insights {
-        // Black button styles replacing Bootstrap .btn-black
         color: #fff;
         background-color: #000;
         border-color: #000;
@@ -209,7 +197,6 @@
   }
 
   .page-profile-traits {
-    // Bootstrap .row -> Flexbox equivalent
     display: flex;
     flex-wrap: wrap;
     margin-right: -15px;
@@ -288,7 +275,6 @@
       }
 
       .page-profile-traits-score {
-        // Bootstrap .row -> Flexbox equivalent
         display: flex;
         flex-wrap: wrap;
         margin-right: -15px;
@@ -301,7 +287,6 @@
         }
 
         .page-profile-traits-score-breakdown {
-          // Bootstrap .col -> Flexbox equivalent
           position: relative;
           width: 100%;
           padding-right: 15px;
@@ -335,7 +320,6 @@
             }
 
             .page-profile-traits-score-breakdown-item-human {
-              // Human readable score label
               display: block;
             }
           }
@@ -358,7 +342,6 @@
           }
 
           .page-profile-traits-score-hero-percentage {
-            // Replace Bootstrap .psykhe-font-heading-fancy
             font-family: 'Montserrat', serif;
             font-weight: 400;
             text-align: right;
@@ -400,7 +383,6 @@
     }
 
     h3 {
-      // Replace Bootstrap .psykhe-large-heading
       font-size: 2.5rem;
       font-weight: bold;
       color: #000;
@@ -413,7 +395,6 @@
       margin-bottom: 2rem;
 
       a {
-        // Primary button styles replacing Bootstrap .btn-primary
         display: inline-block;
         padding: 0.375rem 0.75rem;
         margin-bottom: 0;
@@ -480,7 +461,6 @@
     margin-top: 4rem;
 
     p {
-      // Replace Bootstrap .psykhe-font-heading-fancy
       font-family: 'Montserrat', serif;
       font-weight: 400;
       font-size: 1.35rem;
@@ -489,56 +469,53 @@
   }
 }
 
-// Navigation tabs styles
 .nav.nav-tabs {
   width: 100%;
   border: none;
-  border-bottom: 1px solid black; // Single underline across all tabs
+  border-bottom: 1px solid black; 
   display: flex;
-  flex-wrap: nowrap; // Never wrap - always keep tabs in one line on desktop
+  flex-wrap: nowrap; 
   margin: 0;
   padding: 0;
   list-style: none;
-  gap: 0; // No gap between tabs for cleaner underline
-  justify-content: space-evenly; // Spread tabs evenly across container
+  gap: 0; 
+  justify-content: space-evenly; 
   
-  // Ensure tabs container doesn't cause overflow
   max-width: 100%;
   overflow: visible;
 
   @media (max-width: 767px) {
     border-bottom: none;
-    flex-direction: column; // Stack vertically ONLY on mobile (below 768px)
-    gap: 0.15rem; // Smaller gap on mobile
-    justify-content: flex-start; // Reset justify on mobile
+    flex-direction: column; 
+    gap: 0.15rem; 
+    justify-content: flex-start; 
   }
 
   @media (min-width: 768px) {
-    flex-wrap: nowrap; // Keep in one line - don't stack on tablets and desktop
-    gap: 0; // Remove gap, use justify-content for spacing
-    border-bottom: 1px solid black; // Single underline
-    justify-content: space-evenly; // Spread tabs evenly
+    flex-wrap: nowrap; 
+    gap: 0; 
+    border-bottom: 1px solid black; 
+    justify-content: space-evenly; 
     
-    // Make tabs sticky so underline stays in place
     position: sticky;
     top: 0;
     background-color: white;
     z-index: 100;
-    padding-bottom: 1.8rem; // Increased padding to push underline lower
+    padding-bottom: 1.8rem; 
     margin-bottom: 2rem;
   }
   
   @media (min-width: 1200px) {
-    flex-wrap: nowrap; // Keep in one line on very large screens
-    gap: 0; // Remove gap, use justify-content for spacing
-    justify-content: space-evenly; // Spread tabs evenly with more space
+    flex-wrap: nowrap; 
+    gap: 0; 
+    justify-content: space-evenly; 
   }
 
   .nav-item {
-    flex: 1 1 auto; // Allow tabs to grow and share space evenly
+    flex: 1 1 auto; 
     margin: 0;
-    min-width: 60px; // Minimum width for short tab text
-    max-width: 150px; // Maximum width to prevent tabs from being too wide
+    min-width: 60px; 
+    max-width: 150px; 
     
     @media (min-width: 992px) and (max-width: 1199px) {
       font-size: 0.58rem;
@@ -547,7 +524,6 @@
       flex: 1 1 auto;
     }
     
-    // Specific handling for the problematic 1118px-1197px range
     @media (min-width: 1118px) and (max-width: 1197px) {
       min-width: 60px;
       max-width: 130px;
@@ -562,7 +538,6 @@
       max-width: none;
     }
     
-    // For tablets (768px-991px), keep horizontal layout
     @media (min-width: 768px) and (max-width: 991px) {
       flex: 1 1 auto;
       min-width: 50px;
@@ -576,26 +551,26 @@
   }
 
   .nav-link {
-    display: flex; // Changed to flex for full width
-    flex-direction: row; // Changed to row for horizontal layout
-    justify-content: center; // Center horizontally
-    align-items: center; // Center vertically
-    text-align: center; // Center text alignment
-    background-color: transparent; // Transparent by default
+    display: flex; 
+    flex-direction: row; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
+    background-color: transparent; 
     color: #000;
     text-transform: uppercase;
     font-weight: 400;
-    padding: 0.5rem 1rem; // More horizontal padding since tabs are now short
-    border: none; // No border by default
+    padding: 0.5rem 1rem; 
+    border: none; 
     text-decoration: none;
     cursor: pointer;
     transition: all 0.15s ease-in-out;
-    width: 100%; // Full width to fill the whole container
-    height: 100%; // Full height to fill container
-    font-size: 0.85rem; // Slightly larger font since tabs are now short
-    white-space: nowrap; // Keep text on one line
+    width: 100%; 
+    height: 100%; 
+    font-size: 0.85rem; 
+    white-space: nowrap; 
 
-    // Remove default button/link styles
+    
     border-radius: 0;
     outline: none;
 
@@ -615,14 +590,14 @@
     }
 
     &:hover {
-      background-color: #f5f5f5; // Light grey on hover, fills whole container
+      background-color: #f5f5f5; 
       text-decoration: none;
       color: #000;
     }
 
     &.active {
-      background-color: #e8e8e8; // Lighter grey fill for active/selected tab, fills whole container
-      border: none; // No border for cleaner look
+      background-color: #e8e8e8; 
+      border: none; 
       position: relative;
       color: #000;
 
@@ -630,7 +605,7 @@
         border: none;
       }
 
-      // Remove the white extension
+      
       &:after {
         display: none;
       }
@@ -638,16 +613,16 @@
 
     span {
       line-height: 1.2;
-      white-space: nowrap; // Ensure span content stays on one line
+      white-space: nowrap; 
       
-      // Keep strong tags inline
+      
       strong {
         display: inline;
         margin-left: 0.25rem;
       }
       
       &.block {
-        display: inline; // Changed to inline for one-line layout
+        display: inline; 
       }
       
       &.hidden {
@@ -656,7 +631,7 @@
       
       @media (min-width: 768px) {
         &.md\:block {
-          display: inline !important; // Changed to inline
+          display: inline !important; 
         }
         
         &.block.md\:hidden {
@@ -667,18 +642,16 @@
   }
 }
 
-// Desktop specific overrides - updated for better responsiveness
 @media (min-width: 768px) {
   .nav.nav-tabs {
-    flex-wrap: nowrap !important; // Force no wrapping on all desktop screens
+    flex-wrap: nowrap !important; 
     
     .nav-item {
-      flex: 1 1 auto; // Share space evenly, no stretching beyond max-width
+      flex: 1 1 auto; 
     }
   }
 }
 
-// Hide mobile elements on desktop and vice versa
 @media (max-width: 767px) {
   .hidden {
     display: none !important;
@@ -703,7 +676,6 @@
   }
 }
 
-// Profile content that works with your personality test page structure
 .profile-top {
   @media (max-width: 576px) {
     background: transparent;
@@ -724,14 +696,11 @@
     width: 100%;
   }
 
-  // Additional styles for personality test page structure
   .page-profile-intro {
-    // Bootstrap .col-9 -> Flexbox equivalent
     flex: 0 0 75%;
     max-width: 75%;
 
     &.with-avatar {
-      // Bootstrap .col-6 -> Flexbox equivalent
       flex: 0 0 50%;
       max-width: 50%;
     }
@@ -754,19 +723,19 @@
     }
 
     h3, .profile-title {
-      // Replace Bootstrap .psykhe-font-heading-fancy with custom styles
+      
       font-family: 'Montserrat', serif;
       font-weight: 400;
       font-size: 2.2rem;
       letter-spacing: 0;
 
-      // Standardize all mobile screens under 767px to have the same styling
+      
       @media (max-width: 767px) {
         font-size: 1.6rem !important;
       }
 
       span {
-        // Keep spans inline for mobile screens - remove display: block
+        
         @media (max-width: 767px) {
           font-size: 1.6rem !important;
           display: inline !important;
@@ -776,9 +745,8 @@
   }
 }
 
-// Page profile traits for personality test page
+
 .page-profile-traits {
-  // Bootstrap .row -> Flexbox equivalent
   display: flex;
   flex-wrap: wrap;
   margin-right: -15px;
@@ -847,7 +815,7 @@
   }
 }
 
-// Profile trait bars
+
 .profile-trait-bars {
   width: 100%;
 
@@ -917,9 +885,9 @@
   }
 }
 
-// Profile trait section
+
 .profile-trait-section {
-  padding-top: 1.5rem; // Reduced from 2.8rem to move content up and reduce space
+  padding-top: 1.5rem; 
 
   .trait-title {
     padding-bottom: 1rem;
@@ -961,7 +929,7 @@
   }
 }
 
-// Summary section background
+
 .summary-section {
   max-width: 100%;
   
@@ -975,7 +943,7 @@
   }
 }
 
-// Camera roll message
+
 .camera-roll-message {
   display: none;
 
@@ -984,7 +952,7 @@
   }
 }
 
-// UI Autocomplete styles
+
 .ui-autocomplete {
   position: absolute;
   z-index: 1000;
@@ -1011,7 +979,7 @@
   }
 }
 
-// Box sizing reset for profile content
+
 .profile-top,
 .profile-top *,
 .profile-top::before,

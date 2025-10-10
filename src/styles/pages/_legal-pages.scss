@@ -1,19 +1,19 @@
 .page-privacy-policy,
 .page-terms-conditions {
-  width: 100%; // Ensure full width
-  overflow-x: hidden; // Prevent horizontal overflow at page level
+  width: 100%; 
+  overflow-x: hidden; 
 
   main {
     max-width: 1230px !important;
     margin: 0 auto;
     padding: 2rem 1rem;
-    width: 100%; // Ensure full width usage
-    box-sizing: border-box; // Include padding in width calculation
-    overflow-x: hidden; // Prevent horizontal overflow
+    width: 100%; 
+    box-sizing: border-box; 
+    overflow-x: hidden; 
     
     @media (max-width: 480px) {
-      padding: 1.5rem 0.75rem; // Reduced padding on very small screens
-      max-width: 100vw; // Ensure it doesn't exceed viewport width
+      padding: 1.5rem 0.75rem; 
+      max-width: 100vw; 
     }
     
     @media (min-width: 640px) {
@@ -37,10 +37,10 @@
       margin-bottom: 1rem !important;
       line-height: 1.2;
       color: #000;
-      word-wrap: break-word; // Prevent overflow
+      word-wrap: break-word; 
       
       @media (max-width: 480px) {
-        font-size: 2rem !important; // Smaller on very small screens
+        font-size: 2rem !important; 
       }
     }
 
@@ -52,10 +52,10 @@
       margin-bottom: 0.5rem !important;
       line-height: 1.3;
       color: #000;
-      word-wrap: break-word; // Prevent overflow
+      word-wrap: break-word; 
       
       @media (max-width: 480px) {
-        font-size: 1.5rem !important; // Smaller on very small screens
+        font-size: 1.5rem !important; 
       }
     }
 
@@ -66,10 +66,10 @@
       margin-top: 1rem !important;
       margin-bottom: 0.4rem !important;
       color: #000;
-      word-wrap: break-word; // Prevent overflow
+      word-wrap: break-word; 
       
       @media (max-width: 480px) {
-        font-size: 1.2rem !important; // Smaller on very small screens
+        font-size: 1.2rem !important; 
       }
     }
 
@@ -80,10 +80,10 @@
       margin-top: 0.8rem !important;
       margin-bottom: 0.3rem !important;
       color: #000;
-      word-wrap: break-word; // Prevent overflow
+      word-wrap: break-word; 
       
       @media (max-width: 480px) {
-        font-size: 1.1rem !important; // Smaller on very small screens
+        font-size: 1.1rem !important; 
       }
     }
 
@@ -96,12 +96,12 @@
       color: #000;
       margin-bottom: 0.8rem !important;
       margin-top: 0 !important;
-      word-wrap: break-word; // Prevent overflow
-      overflow-wrap: break-word; // Better word breaking
+      word-wrap: break-word; 
+      overflow-wrap: break-word; 
       
       @media (max-width: 480px) {
-        font-size: 0.8rem !important; // Consistent with base font size
-        letter-spacing: 0.05em; // Reduced letter spacing on mobile
+        font-size: 0.8rem !important; 
+        letter-spacing: 0.05em; 
       }
     }
 
@@ -159,33 +159,31 @@
         }
       }
       
-      // Reduce spacing for navigation lists (first ul in the page)
+
       &:first-of-type {
         li {
-          margin-bottom: 0.2rem !important; // Much tighter spacing
-          line-height: 1.4 !important; // Tighter line height
+          margin-bottom: 0.2rem !important; 
+          line-height: 1.4 !important; 
         }
       }
     }
 
-    // Regular ordered lists outside tables - make them use a. b. c. format
     ol {
       padding-left: 1.5rem;
       margin-bottom: 1.2rem;
-      list-style-type: lower-alpha !important; // This makes a. b. c. d.
+      list-style-type: lower-alpha !important; 
       
       li {
         margin-bottom: 0.5rem;
       }
     }
 
-    // Table container to prevent overflow
     .table-container {
       width: 100%;
       overflow-x: auto;
       
       @media (min-width: 769px) {
-        overflow-x: visible; // No scroll on desktop
+        overflow-x: visible; 
       }
       
     }
@@ -194,19 +192,18 @@
       width: 100%;
       margin: 2rem 0;
       border-collapse: collapse;
-      table-layout: fixed; // Fixed layout for better control
-      min-width: 500px; // Reduced minimum width to prevent excess scrolling
+      table-layout: fixed; 
+      min-width: 500px; 
       
-      // Only add scrolling on mobile devices
+      
       @media (max-width: 768px) {
-        font-size: 0.8rem !important; // Consistent with base font size
+        font-size: 0.8rem !important; 
         margin: 1rem 0;
         display: block;
         overflow-x: auto;
         white-space: nowrap;
       }
       
-      // Desktop: normal table display
       @media (min-width: 769px) {
         display: table;
         overflow-x: visible;
@@ -223,18 +220,17 @@
           vertical-align: top;
           padding: 0.5em 0.75em;
           word-wrap: break-word;
-          hyphens: auto; // Enable hyphenation for long words
+          hyphens: auto; 
           
-          // Desktop column widths
           @media (min-width: 769px) {
-            &:nth-child(1) { width: 35%; } // First column
-            &:nth-child(2) { width: 30%; } // Second column  
-            &:nth-child(3) { width: 35%; } // Third column (if exists)
+            &:nth-child(1) { width: 35%; } 
+            &:nth-child(2) { width: 30%; }  
+            &:nth-child(3) { width: 35%; } 
           }
           
           @media (max-width: 768px) {
             padding: 0.3em 0.4em;
-            font-size: 0.8rem !important; // Consistent font size
+            font-size: 0.8rem !important; 
             max-width: 50vw;
             white-space: normal;
           }
@@ -242,47 +238,46 @@
           ol {
             padding: 0;
             padding-left: 2em;
-            list-style-type: lower-alpha !important; // This makes a. b. c. d.
+            list-style-type: lower-alpha !important; 
           }
           
-          // Also target any ul lists inside tables to use letters
+          
           ul {
             padding: 0;
             padding-left: 2em;
-            list-style-type: lower-alpha !important; // This makes a. b. c. d.
+            list-style-type: lower-alpha !important; 
           }
         }
         
-        // Table headers
+        
         th {
-          border: none !important; // Remove the border/box
+          border: none !important; 
           vertical-align: top;
           padding: 0.5em 0.75em;
           text-align: left !important;
           font-weight: bold !important;
-          background-color: transparent !important; // Remove grey background
+          background-color: transparent !important; 
           
-          // Desktop column widths
+          
           @media (min-width: 769px) {
-            &:nth-child(1) { width: 35%; } // First column
-            &:nth-child(2) { width: 30%; } // Second column  
-            &:nth-child(3) { width: 35%; } // Third column (if exists)
+            &:nth-child(1) { width: 35%; } 
+            &:nth-child(2) { width: 30%; }  
+            &:nth-child(3) { width: 35%; } 
           }
           
           @media (max-width: 768px) {
             padding: 0.3em 0.4em;
-            font-size: 0.8rem !important; // Consistent font size
+            font-size: 0.8rem !important; 
           }
         }
       }
     }
 
-    // Cookies table - reduce first column width to prevent mobile scrolling
     table.cookies-table {
-      // Set consistent font size for all screen sizes
+      
       font-size: 0.8rem !important;
       
-      // Ensure no horizontal scrolling on mobile
+      
       @media (max-width: 768px) {
         width: 100% !important;
         display: table !important;
@@ -292,37 +287,36 @@
       
       td, th {
         &:nth-child(1) { 
-          width: 20% !important; // Narrower cookie name column
+          width: 20% !important; 
           
-          // Make first column bigger on mobile
+          
           @media (max-width: 768px) {
-            width: 30% !important; // Bigger cookie name column on mobile
+            width: 30% !important; 
           }
         }
         &:nth-child(2) { 
-          width: 80% !important; // Wider purpose column
+          width: 80% !important; 
           
-          // Adjust second column on mobile
+          
           @media (max-width: 768px) {
-            width: 70% !important; // Adjust purpose column on mobile
+            width: 70% !important; 
           }
         }
         
-        // Consistent font size for all cells
+        
         font-size: 0.8rem !important;
         
-        // Ensure all text content has consistent sizing
+        
         p, ol, ul, li {
           font-size: 0.8rem !important;
         }
         
-        // Make table taller with more padding
-        padding: 1rem 0.75rem !important; // Increased vertical padding for height
-        line-height: 1.5 !important; // Better line spacing
         
-        // Mobile specific adjustments
+        padding: 1rem 0.75rem !important; 
+        line-height: 1.5 !important; 
+        
         @media (max-width: 768px) {
-          padding: 0.8rem 0.5rem !important; // Still taller on mobile
+          padding: 0.8rem 0.5rem !important; 
           white-space: normal !important;
           word-wrap: break-word !important;
         }
@@ -375,7 +369,7 @@
       color: #000;
     }
 
-    // Target the navigation section specifically
+    
     section:first-of-type ul {
       li {
         margin-bottom: 0.2rem !important;

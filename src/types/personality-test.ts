@@ -1,4 +1,4 @@
-// src/types/personality-test.ts
+
 export interface SurveyAnswer {
     id: number;
     text: string;
@@ -6,7 +6,7 @@ export interface SurveyAnswer {
 
 export interface SurveyQuestion {
     id: number;
-    quality: "O" | "C" | "E" | "A" | "N"; // OCEAN traits
+    quality: "O" | "C" | "E" | "A" | "N"; 
     text: string;
     answers: SurveyAnswer[];
 }
@@ -17,11 +17,11 @@ export interface VisualQuestion {
     answers: Array<{
         id: number;
         text: string;
-        icon?: string; // For image-based answers
+        icon?: string; 
     }>;
 }
 
-// Response tracking
+
 export interface SurveyResponse {
     questionId: number;
     answerId: number;
@@ -29,14 +29,14 @@ export interface SurveyResponse {
 
 export interface VisualResponse {
     questionId: number;
-    answerIds: number[]; // Array for multiple selections
+    answerIds: number[]; 
 }
 
-// Final personality results
+
 export interface PersonalityResult {
-    O: number; // Openness (1-5)
-    C: number; // Conscientiousness (1-5)
-    E: number; // Extroversion (1-5)
-    A: number; // Agreeableness (1-5)
-    N: number; // Neuroticism (1-5)
+    O: number; 
+    C: number; 
+    E: number; 
+    A: number; 
+    N: number; 
 }
