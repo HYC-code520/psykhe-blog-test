@@ -23,6 +23,14 @@
       gap: 0.8rem; 
     }
     
+    @media (min-width: 1118px) and (max-width: 1200px) {
+      right: calc(0.5vw + 1.5rem) !important;
+    }
+    
+    @media (min-width: 1201px) {
+      right: calc(0.5vw + 1.5rem) !important;
+    }
+    
     .fab-button {
       width: 48px;
       height: 48px;
@@ -107,9 +115,17 @@
       flex-direction: row;
     }
     
-    @media (min-width: 991px) and (max-width: 1200px) {
+    @media (min-width: 991px) and (max-width: 1117px) {
       gap: 5rem;
       max-width: 60rem;
+    }
+    
+    @media (min-width: 1118px) and (max-width: 1200px) {
+      gap: 3rem;
+      max-width: 95vw;
+      padding: 0 1rem;
+      margin-left: auto;
+      margin-right: auto;
     }
     
     @media (min-width: 1201px) {
@@ -177,7 +193,7 @@
 
   .trait-navigation-arrows {
     position: relative;
-    z-index: 100;
+    z-index: 10001; // Increased z-index to appear above all other content
     
     @media (max-width: 767px) {
       display: none;
@@ -190,7 +206,7 @@
       background: transparent;
       border: none;
       cursor: pointer;
-      z-index: 1000;
+      z-index: 10001; // Ensure individual arrows also have high z-index
       padding: 0;
       outline: none;
       transition: all 0.3s ease;
@@ -311,7 +327,7 @@
     padding: 1rem 1.5rem;
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
+    z-index: 10002; // Increased z-index to appear above all other content including trait arrows
     max-width: 400px;
     width: 90%;
     animation: hintFadeIn 0.5s ease-out;

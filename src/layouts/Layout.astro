@@ -1,6 +1,6 @@
 ---
 export interface Props {
-    title: string;
+	title: string;
 }
 
 const { title } = Astro.props;
@@ -21,11 +21,12 @@ const { title } = Astro.props;
 </html>
 
 <style lang="scss" is:global>
-	@use '../styles/app.scss' as *;
-	
-	@import '../styles/global.css';
-	
-	html, body {
+	@use "../styles/app.scss" as *;
+
+	@import "../styles/global.css";
+
+	html,
+	body {
 		margin: 0;
 		padding: 0;
 		width: 100%;
@@ -43,5 +44,37 @@ const { title } = Astro.props;
 	.signup-outer,
 	#signup {
 		scroll-margin-top: 30px;
+	}
+
+	/* Custom Scrollbar Styling - Override any existing styles */
+	/* Webkit browsers (Chrome, Safari, Edge) */
+	::-webkit-scrollbar {
+		width: 12px !important;
+		height: 12px !important;
+	}
+
+	::-webkit-scrollbar-track {
+		background: transparent !important;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background-color: #ffffff !important;
+		border: 1px solid #605c5c !important;
+		border-radius: 6px !important;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background-color: #ffffff !important;
+		border-color: #000000 !important;
+	}
+
+	::-webkit-scrollbar-corner {
+		background: transparent !important;
+	}
+
+	/* Firefox */
+	html {
+		scrollbar-width: thin !important;
+		scrollbar-color: #ffffff transparent !important;
 	}
 </style>

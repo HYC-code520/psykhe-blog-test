@@ -9,48 +9,53 @@
 </div>
 
 <style>
-.navbar-wrapper {
-  background: white;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.brand {
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 0;
-  text-align: left;
-}
-
-.brand a {
-  font-size: 2rem;
-  background-image: url(/media/brand/logoword-dark-ai.png);
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: 0 5px;
-  color: rgba(0, 0, 0, 0);
-  text-decoration: none;
-  padding: 0;
-  display: inline-block;
-  width: 185px;
-  margin-left: 1rem;
-  margin-top: 1rem;
-}
-
-.brand a:active,
-.brand a:focus,
-.brand a:hover,
-.brand a:visited {
-  color: rgba(0, 0, 0, 0);
-}
-
-/* Responsive styles using CSS media queries instead of SCSS mixins */
-@media (min-width: 768px) {
-  .brand a {
-    width: 240px;
-    top: -15px !important;
-    background-position: top center;
+  .navbar-wrapper {
+    background: white;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1000; /* Ensure navbar stays on top of other elements */
   }
-}
+
+  .brand {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: left;
+  }
+
+  .brand a {
+    font-size: 2rem;
+    background-image: url(/media/brand/logoword-dark-ai.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 0 5px;
+    color: rgba(0, 0, 0, 0);
+    text-decoration: none;
+    padding: 0;
+    display: inline-block;
+    width: 185px;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    cursor: pointer; /* Ensure cursor shows as clickable */
+    position: relative;
+    z-index: 1001; /* Higher z-index than wrapper */
+  }
+
+  .brand a:active,
+  .brand a:focus,
+  .brand a:hover,
+  .brand a:visited {
+    color: rgba(0, 0, 0, 0);
+  }
+
+  /* Responsive styles using CSS media queries instead of SCSS mixins */
+  @media (min-width: 768px) {
+    .brand a {
+      width: 240px;
+      top: -15px !important;
+      background-position: top center;
+    }
+  }
 </style>

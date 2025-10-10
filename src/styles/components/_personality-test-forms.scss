@@ -9,19 +9,19 @@
   
   @media (max-width: 767px) {
     max-width: 500px; 
-    padding: 1.5rem 1rem;
+    padding: 3rem 1rem 1.5rem 1rem; // Increased top padding from 1.5rem to 3rem for more space from nav
     padding-left: 30px; 
     padding-right: 30px; 
     
     .survey-question-title {
       text-align: center !important;
-      margin-top: 0.1rem !important; 
+      margin-top: 1rem !important; // Increased from 0.1rem to 1rem for additional spacing
       margin-bottom: 1.5rem !important;
     }
   }
 
   @media (max-width: 480px) {
-    padding: 1rem 30px; 
+    padding: 3rem 30px 1rem 30px; // Increased top padding to match larger mobile breakpoint
   }
 
   @media (min-width: 768px) {
@@ -90,11 +90,11 @@
       
       input {
         width: 100% !important;
-        padding: 0.75rem 1rem !important;
+        padding: 0.5rem 1rem !important; // Reduced from 0.75rem to make input boxes shorter
         border: 1px solid #000 !important;
         border-radius: 0 !important;
         font-size: 1rem !important;
-        line-height: 1.5 !important;
+        line-height: 1.3 !important; // Reduced from 1.5 to make input boxes shorter
         background-color: white !important;
         color: #333 !important;
         box-sizing: border-box !important;
@@ -107,7 +107,7 @@
         }
         
         &::placeholder {
-          color: #9ca3af;
+          color: #555; // Changed from #9ca3af (light grey) to #555 (darker grey)
         }
         
         &.error {

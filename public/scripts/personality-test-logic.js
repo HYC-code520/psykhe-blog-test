@@ -99,9 +99,15 @@ function showCurrentSection() {
 
     if (section === "survey") {
         document.getElementById("survey-section").style.display = "";
+        // Restore progress bars for survey section
+        document.getElementById("progress-container").style.display = "";
+        document.getElementById("bottom-progress").style.display = "";
         showSurveyQuestion();
     } else if (section === "visual") {
         document.getElementById("visual-section").style.display = "";
+        // Restore progress bars for visual section
+        document.getElementById("progress-container").style.display = "";
+        document.getElementById("bottom-progress").style.display = "";
         showVisualQuestion();
     } else if (section === "userInfo") {
         document.getElementById("user-info-section").style.display = "";
@@ -506,8 +512,8 @@ function updateDesktopTabs() {
               (trait, index) => `
         <div class="nav-item">
           <a class="nav-link ${index === state.activeTabIndex ? "active" : ""}" onclick="changeTab(${index})">
-            <span class="block md:hidden">${trait.label}: <strong>${state.ocean[trait.key]}</strong></span>
-            <span class="hidden md:block">${trait.label}: <strong>${state.ocean[trait.key]}</strong></span>
+            <span class="block md:hidden">${trait.key}:${state.ocean[trait.key]}</span>
+            <span class="hidden md:block">${trait.key}:${state.ocean[trait.key]}</span>
           </a>
         </div>
       `,
@@ -731,12 +737,39 @@ function showNotification(message) {
     }, 4000);
 }
 
+let popupTimeout = null;
+let popupHideTimeout = null;
+
 function showInfoPopup() {
-    document.getElementById("info-popup").style.display = "block";
+    // Clear any pending hide timeout
+    if (popupHideTimeout) {
+        clearTimeout(popupHideTimeout);
+        popupHideTimeout = null;
+    }
+    
+    // Show with a small delay to prevent accidental triggers
+    popupTimeout = setTimeout(() => {
+        const popup = document.getElementById("info-popup");
+        if (popup) {
+            popup.style.display = "block";
+        }
+    }, 200); // 200ms delay before showing
 }
 
 function hideInfoPopup() {
-    document.getElementById("info-popup").style.display = "none";
+    // Clear any pending show timeout
+    if (popupTimeout) {
+        clearTimeout(popupTimeout);
+        popupTimeout = null;
+    }
+    
+    // Hide with a small delay to allow moving to the popup
+    popupHideTimeout = setTimeout(() => {
+        const popup = document.getElementById("info-popup");
+        if (popup) {
+            popup.style.display = "none";
+        }
+    }, 100); // 100ms delay before hiding
 }
 
 function showTraitHintIfNeeded() {

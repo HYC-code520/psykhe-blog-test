@@ -84,3 +84,35 @@
         max-width: calc(25% - 8px);
     }
 }
+
+/* Custom Scrollbar Styling */
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 12px !important;
+    height: 12px !important;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ffffff !important;
+    border: 1px solid #605c5c !important;
+    border-radius: 6px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #ffffff !important;
+    border-color: #000000 !important;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent !important;
+}
+
+/* Firefox */
+html {
+    scrollbar-width: thin !important;
+    scrollbar-color: #ffffff transparent !important;
+}

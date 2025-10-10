@@ -493,101 +493,161 @@
 .nav.nav-tabs {
   width: 100%;
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid black; // Single underline across all tabs
   display: flex;
-  flex-wrap: nowrap; // Keep tabs in one line
+  flex-wrap: nowrap; // Never wrap - always keep tabs in one line on desktop
   margin: 0;
   padding: 0;
   list-style: none;
-  gap: 0.5rem; // Add small gap between tabs
+  gap: 0; // No gap between tabs for cleaner underline
+  justify-content: space-evenly; // Spread tabs evenly across container
+  
+  // Ensure tabs container doesn't cause overflow
+  max-width: 100%;
+  overflow: visible;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     border-bottom: none;
-    flex-direction: column; // Stack vertically on mobile
+    flex-direction: column; // Stack vertically ONLY on mobile (below 768px)
     gap: 0.15rem; // Smaller gap on mobile
+    justify-content: flex-start; // Reset justify on mobile
+  }
+
+  @media (min-width: 768px) {
+    flex-wrap: nowrap; // Keep in one line - don't stack on tablets and desktop
+    gap: 0; // Remove gap, use justify-content for spacing
+    border-bottom: 1px solid black; // Single underline
+    justify-content: space-evenly; // Spread tabs evenly
+    
+    // Make tabs sticky so underline stays in place
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 100;
+    padding-bottom: 1.8rem; // Increased padding to push underline lower
+    margin-bottom: 2rem;
+  }
+  
+  @media (min-width: 1200px) {
+    flex-wrap: nowrap; // Keep in one line on very large screens
+    gap: 0; // Remove gap, use justify-content for spacing
+    justify-content: space-evenly; // Spread tabs evenly with more space
   }
 
   .nav-item {
-    flex: 1; // Equal width tabs
-    margin: 0; // Remove margin since we're using gap now
+    flex: 1 1 auto; // Allow tabs to grow and share space evenly
+    margin: 0;
+    min-width: 60px; // Minimum width for short tab text
+    max-width: 150px; // Maximum width to prevent tabs from being too wide
     
     @media (min-width: 992px) and (max-width: 1199px) {
       font-size: 0.58rem;
+      min-width: 55px;
+      max-width: 120px;
+      flex: 1 1 auto;
+    }
+    
+    // Specific handling for the problematic 1118px-1197px range
+    @media (min-width: 1118px) and (max-width: 1197px) {
+      min-width: 60px;
+      max-width: 130px;
+      font-size: 0.65rem;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
       flex: none;
       width: 100%;
-      margin: 0; // Remove margin since we're using gap
+      margin: 0;
+      min-width: auto;
+      max-width: none;
+    }
+    
+    // For tablets (768px-991px), keep horizontal layout
+    @media (min-width: 768px) and (max-width: 991px) {
+      flex: 1 1 auto;
+      min-width: 50px;
+      max-width: 110px;
+    }
+    
+    @media (min-width: 1200px) {
+      min-width: 70px;
+      max-width: 180px;
     }
   }
 
   .nav-link {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: $psykhe-bluegrey; // Grey background
+    display: flex; // Changed to flex for full width
+    flex-direction: row; // Changed to row for horizontal layout
+    justify-content: center; // Center horizontally
+    align-items: center; // Center vertically
+    text-align: center; // Center text alignment
+    background-color: transparent; // Transparent by default
     color: #000;
     text-transform: uppercase;
     font-weight: 400;
-    padding: 0.25em 0.4em; // Further reduced padding
-    border: 1px solid transparent;
+    padding: 0.5rem 1rem; // More horizontal padding since tabs are now short
+    border: none; // No border by default
     text-decoration: none;
     cursor: pointer;
     transition: all 0.15s ease-in-out;
-    min-height: 28px; // Further reduced from 35px
-    width: 100%;
+    width: 100%; // Full width to fill the whole container
+    height: 100%; // Full height to fill container
+    font-size: 0.85rem; // Slightly larger font since tabs are now short
+    white-space: nowrap; // Keep text on one line
 
     // Remove default button/link styles
     border-radius: 0;
     outline: none;
 
+    @media (min-width: 768px) and (max-width: 991px) {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.8rem;
+    }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+      font-size: 0.8rem;
+      padding: 0.5rem 1rem;
+    }
+
+    @media (min-width: 1200px) {
+      font-size: 0.9rem;
+      padding: 0.6rem 1.2rem;
+    }
+
     &:hover {
-      background-color: color.adjust($psykhe-bluegrey, $lightness: -5%);
+      background-color: #f5f5f5; // Light grey on hover, fills whole container
       text-decoration: none;
       color: #000;
     }
 
     &.active {
-      background-color: white;
-      border: 1px solid black;
-      border-bottom: none;
+      background-color: #e8e8e8; // Lighter grey fill for active/selected tab, fills whole container
+      border: none; // No border for cleaner look
       position: relative;
       color: #000;
 
       @media (max-width: 768px) {
-        border-bottom: 1px solid black;
+        border: none;
       }
 
-      // Create white extension below active tab on desktop
+      // Remove the white extension
       &:after {
-        content: ' ';
-        display: block;
-        width: calc(100% + 2px);
-        height: 0.8rem; // Reduced extension height
-        position: absolute;
-        left: -1px;
-        bottom: -4px;
-        background-color: white;
-        border: none;
-        border-left: 1px solid black;
-        border-right: 1px solid black;
-        z-index: 1;
-
-        @media (max-width: 768px) {
-          display: none;
-        }
+        display: none;
       }
     }
 
     span {
-      line-height: 1; // Further reduced line height
-      font-size: 0.85em; // Slightly smaller text
+      line-height: 1.2;
+      white-space: nowrap; // Ensure span content stays on one line
+      
+      // Keep strong tags inline
+      strong {
+        display: inline;
+        margin-left: 0.25rem;
+      }
       
       &.block {
-        display: block;
+        display: inline; // Changed to inline for one-line layout
       }
       
       &.hidden {
@@ -596,7 +656,7 @@
       
       @media (min-width: 768px) {
         &.md\:block {
-          display: block !important;
+          display: inline !important; // Changed to inline
         }
         
         &.block.md\:hidden {
@@ -607,22 +667,13 @@
   }
 }
 
-// Desktop specific overrides
+// Desktop specific overrides - updated for better responsiveness
 @media (min-width: 768px) {
   .nav.nav-tabs {
-    .nav-item {
-      flex: 1;
-      max-width: none;
-    }
+    flex-wrap: nowrap !important; // Force no wrapping on all desktop screens
     
-    .nav-link {
-      padding: 0.35em 0.6em; // Further reduced padding
-      font-size: 0.9rem; // Slightly smaller font
-      
-      @media (min-width: 992px) {
-        font-size: 1rem; // Reduced from 1rem
-        padding: 0.4em 0.8em; // Further reduced from 0.8em 1em
-      }
+    .nav-item {
+      flex: 1 1 auto; // Share space evenly, no stretching beyond max-width
     }
   }
 }
@@ -872,6 +923,18 @@
 
   .trait-title {
     padding-bottom: 1rem;
+    font-size: 1.4rem !important;
+    font-weight: 300 !important;
+    margin-bottom: 2rem !important;
+    text-transform: capitalize !important;
+    
+    @media (min-width: 992px) {
+      font-size: 1.5rem !important;
+    }
+    
+    @media (min-width: 1200px) {
+      font-size: 1.6rem !important;
+    }
   }
 
   .profile-tab {

@@ -4,7 +4,7 @@
 
 .big-5-personality-test {
   @media (max-width: 767px) {
-    margin-top: -2.5rem; 
+    margin-top: 0; // Changed from -2.5rem to 0 to prevent covering the navbar
   }
   
 
@@ -32,20 +32,38 @@
 
 
   .profile-top {
+    overflow: visible !important; // Force overflow visible
+    padding-top: 0 !important; // Remove top padding so tabs can go to the very top
+    
     .page-profile-intro {
       flex: 0 0 100% !important;
       max-width: 100% !important;
+      overflow: visible !important; // Ensure icon is not clipped by container
+      position: relative !important; // Ensure proper positioning context
       
       @media (max-width: 767px) {
         margin-top: 2rem;
         margin-bottom: 2rem;
       }
       
+      // Make profile intro section wider on screens 1117px and larger to match trait content
+      @media (min-width: 1117px) {
+        max-width: none; // Remove width restrictions
+        width: 100%; // Use full available width
+        
+        .profile-title {
+          max-width: none; // Remove any width restrictions
+          width: 100%; // Use full width to match trait content
+        }
+      }
+      
       .profile-title {
         margin-bottom: 1rem;
-        position: relative;
+        position: relative !important;
         text-align: center;
         justify-content: center;
+        overflow: visible !important; // Ensure icon is not clipped
+        z-index: auto !important; // Don't interfere with button's z-index
         
         @media (max-width: 767px) {
           margin-top: 1.5rem;
@@ -111,10 +129,110 @@
   }
 
   .title-section {
-    position: relative;
-    width: 100%;
+    position: relative !important;
+    width: 100% !important;
+    overflow: visible !important; // Ensure icon is not clipped by container
+    z-index: auto !important; // Don't create stacking context that could interfere
+    
+    // Ensure any child elements don't hide the button
+    * {
+      overflow: visible !important;
+    }
   }
   
+
+  // NUCLEAR-LEVEL OVERRIDES FOR INFO POPUP TRIGGER - ABSOLUTELY FORCE VISIBILITY
+  .info-popup-trigger,
+  button.info-popup-trigger,
+  .profile-title .info-popup-trigger,
+  .title-section .info-popup-trigger,
+  .page-profile-intro .info-popup-trigger,
+  h3 .info-popup-trigger,
+  [class*="profile"] .info-popup-trigger,
+  [class*="title"] .info-popup-trigger {
+    // FORCE EVERY POSSIBLE VISIBILITY PROPERTY
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    
+    // POSITIONING - MOVED UP SLIGHTLY AND MORE CENTERED
+    position: absolute !important;
+    top: 5px !important; // MOVED UP from 10px to 5px
+    right: -5px !important; // MOVED CLOSER TO CENTER from -10px to -5px
+    
+    // SIZE AND APPEARANCE - REMOVED DEBUG COLORS
+    width: 32px !important; 
+    height: 32px !important; 
+    background-color: transparent !important; // REMOVED RED DEBUG COLOR
+    background-image: url('/media/icon/infopopup.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    border: none !important; // REMOVED RED DEBUG BORDER
+    border-radius: 50% !important;
+    
+    // INTERACTION
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    
+    // Z-INDEX - MAXIMUM POSSIBLE
+    z-index: 999999 !important;
+    
+    // PREVENT ANY CLIPPING OR HIDING
+    overflow: visible !important;
+    clip: auto !important;
+    clip-path: none !important;
+    mask: none !important;
+    -webkit-mask: none !important;
+    transform: none !important;
+    filter: none !important;
+    
+    // SPACING
+    margin: 0 !important;
+    padding: 0 !important;
+    
+    // PREVENT INHERITANCE ISSUES
+    font-size: 0 !important;
+    line-height: 0 !important;
+    text-indent: 0 !important;
+    
+    // RESPONSIVE ADJUSTMENTS
+    @media (max-width: 767px) {
+      display: none !important;
+    }
+    
+    @media (min-width: 768px) {
+      display: block !important;
+      visibility: visible !important;
+      top: 8px !important; // MOVED UP SLIGHTLY on medium screens
+      right: -8px !important; // MORE CENTERED on medium screens
+      width: 32px !important;
+      height: 32px !important;
+    }
+
+    &:hover {
+      background-color: transparent !important; // REMOVED BLUE DEBUG COLOR
+      background-image: url('/media/icon/infopopup-hover.png') !important;
+      width: 40px !important; 
+      height: 40px !important; 
+      top: 1px !important; // ADJUSTED HOVER POSITION (moved up slightly)
+      right: -12px !important; // ADJUSTED HOVER POSITION (more centered)
+      border: none !important; // REMOVED BLUE DEBUG BORDER
+    }
+  }
+
+  // ADDITIONAL GLOBAL NUCLEAR OVERRIDE
+  body .info-popup-trigger,
+  html .info-popup-trigger,
+  * .info-popup-trigger {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 999999 !important;
+    position: absolute !important;
+    background-color: transparent !important; // REMOVED RED DEBUG COLOR
+    border: none !important; // REMOVED RED DEBUG BORDER
+  }
 
   .info-popup-trigger {
     position: absolute;
@@ -130,7 +248,19 @@
     border: none;
     cursor: pointer;
     transition: all 0.2s ease; 
-    z-index: 1001; 
+    z-index: 9999 !important; // Maximum z-index to be on top of everything
+    
+    // Ensure icon is not covered by container boundaries
+    overflow: visible;
+    
+    // Force the button to be visible and interactable
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    
+    // Additional properties to ensure it's always on top
+    position: absolute !important;
+    display: block !important;
     
     @media (max-width: 767px) {
       display: none !important;
@@ -139,6 +269,15 @@
     @media (min-width: 768px) and (max-width: 991px) {
       display: block !important;
       visibility: visible !important;
+      top: -25px; // Adjusted positioning
+      right: -8px; // Move further out to avoid white space
+      z-index: 9999 !important;
+    }
+    
+    @media (min-width: 992px) {
+      // Ensure icon is positioned outside any container boundaries
+      right: max(-8px, calc((100vw - 100%) / -2 - 8px)); // Dynamic positioning to avoid cutoff
+      z-index: 9999 !important;
     }
 
     &:hover {
@@ -147,38 +286,100 @@
       height: 36px; 
       top: -25px; 
       right: -5px; 
+      z-index: 9999 !important; // Maintain maximum z-index on hover
+      
+      @media (min-width: 768px) and (max-width: 991px) {
+        right: -10px; // Adjust hover position for medium screens
+      }
+      
+      @media (min-width: 992px) {
+        right: max(-10px, calc((100vw - 100%) / -2 - 10px)); // Dynamic hover positioning
+      }
     }
+  }
+
+  // Global override to ensure info popup trigger is always on top
+  .info-popup-trigger {
+    z-index: 9999 !important;
   }
 
   .info-popup {
     position: absolute;
-    top: 8px; 
-    right: 18px;
     color: #fff;
     background: rgb(0, 0, 0);
     border-radius: 15px;
     padding: 1rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    max-width: 900px;
-    z-index: 1002; 
+    z-index: 999998 !important; // High z-index but lower than trigger button
+    
+    // SMOOTH TRANSITIONS TO PREVENT GLITCHING
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+    pointer-events: none; // Prevent popup from interfering with mouse events
+    
+    // ADJUSTED POSITIONING - ALIGN WITH NEW TRIGGER POSITION
+    top: 30px !important; // ADJUSTED for new trigger position (moved up slightly)
+    right: -5px !important; // ALIGNED with new centered trigger position
+    
+    // STANDARDIZED SIZING ACROSS ALL SCREENS
+    width: 350px !important;
+    max-width: 350px !important;
+    min-width: 300px !important;
+    
+    // Ensure popup doesn't get cut off by viewport
+    max-width: min(350px, calc(100vw - 40px)) !important;
+    
+    // Show popup when visible
+    &[style*="display: block"] {
+      opacity: 1;
+      visibility: visible;
+    }
     
     @media (max-width: 767px) {
       display: none !important;
     }
     
     @media (min-width: 768px) and (max-width: 991px) {
-      max-width: 400px; 
-      right: 10px; 
-      top: 35px; 
+      // Medium screens - smaller popup
+      width: 300px !important;
+      max-width: min(300px, calc(100vw - 40px)) !important;
+      top: 33px !important; // ADJUSTED for medium screens
+      right: -8px !important; // ALIGNED with trigger position
+    }
+    
+    @media (min-width: 992px) and (max-width: 1199px) {
+      // Large screens - standard size
+      width: 350px !important;
+      max-width: min(350px, calc(100vw - 60px)) !important;
+      top: 30px !important; // ADJUSTED for large screens
+      right: -5px !important;
+    }
+    
+    @media (min-width: 1200px) {
+      // Extra large screens - larger popup
+      width: 400px !important;
+      max-width: min(400px, calc(100vw - 80px)) !important;
+      top: 25px !important; // ADJUSTED for extra large screens
+      right: -5px !important;
     }
     
     p {
-      margin: 0 0 0.5rem 0;
-      font-size: 0.9rem;
-      line-height: 1.4;
+      margin: 0 0 0.75rem 0 !important;
+      font-size: 0.9rem !important;
+      line-height: 1.4 !important;
+      color: #fff !important;
       
       &:last-child {
-        margin-bottom: 0;
+        margin-bottom: 0 !important;
+      }
+      
+      @media (min-width: 768px) and (max-width: 991px) {
+        font-size: 0.8rem !important;
+      }
+      
+      @media (min-width: 1200px) {
+        font-size: 1rem !important;
       }
     }
   }
@@ -186,20 +387,27 @@
 
   @media (min-width: 768px) {
     .summary-section {
+      // Ensure container doesn't cause horizontal overflow
+      max-width: 100vw;
+      overflow-x: hidden;
+      
       .result-page-desktop-layout {
         display: grid;
-        grid-template-columns: 364px 1fr;
+        grid-template-columns: 300px 1fr; // Further reduced photo width to prevent cutoff
         grid-template-rows: auto auto;
         grid-template-areas: 
           "photo content"
           "legend content";
-        gap: 2rem;
+        gap: 1rem; // Reduced gap to save space
         align-items: start;
+        max-width: calc(100vw - 2rem); // Use calc to prevent overflow without padding
+        margin: 0 auto; // Center the layout
       }
       
       .result-photo-container {
         grid-area: photo;
         position: relative; 
+        max-width: 300px; // Match the grid column width
         
         .photo-label {
           position: absolute;
@@ -231,6 +439,8 @@
       .result-content-container {
         grid-area: content;
         min-width: 0; 
+        overflow: visible; // Changed from hidden to visible to prevent clipping of info-popup-trigger
+        padding-left: 0; // Remove any padding that might cover content
         
         .profile-trait-section .legend {
           display: none;
@@ -242,110 +452,251 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
-        margin-top: 1rem;
-        font-size: 0.85rem;
-        font-weight: 500;
+        margin-top: -3rem; // Strong negative margin to pull legend much closer to photo
+        font-size: 0.8rem;
+        font-weight: 400;
+        
+        // Center the legend within its container - spans full width of page
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
         
         span {
-          color: #333;
+          color: #999;
           letter-spacing: 0.5px;
         }
       }
 
 
       @media (min-width: 768px) and (max-width: 991px) {
-        width: calc(100% + 6rem); 
-        margin-left: -3rem;  
-        margin-right: -3rem; 
-        max-width: none; 
+        // Remove excessive padding and use max-width approach instead
+        width: 100%; 
+        margin-left: 0;  
+        margin-right: 0; 
+        max-width: calc(100vw - 1rem); // Prevent cutoff without padding
+        margin: 0 auto; // Center the content
       
         .result-page-desktop-layout {
-          grid-template-columns: 280px 1fr; 
-          gap: 0.6rem; 
+          grid-template-columns: 240px 1fr; // Further reduced photo width
+          grid-template-rows: auto auto;
+          grid-template-areas: 
+            "photo content"
+            "legend content";
+          gap: 0.75rem; // Smaller gap for medium screens
         }
         
         .result-photo-container {
-          margin-top: 10rem; 
+          margin-top: 6rem; 
+          max-width: 240px; // Match grid column
           
           .result-photo {
-            width: 280px; 
-            max-width: 280px;
+            width: 240px; 
+            max-width: 240px;
           }
         }
         
         .desktop-legend {
           font-size: 0.75rem;
-          justify-content: center; 
-          text-align: center; 
-          margin-top: -6rem; 
+          justify-content: center; // Center vertically
+          text-align: center; // Center text
+          margin-top: -2.5rem; // Strong negative margin to pull legend much closer
+          flex-direction: column; // Stack vertically to prevent cutoff
+          gap: 0.3rem;
+          align-items: center; // Center horizontally
+          width: 100%;
         }
       }
       
-      @media (min-width: 992px) and (max-width: 1199px) {
+      @media (min-width: 992px) and (max-width: 1117px) {
+        max-width: calc(100vw - 2rem); // More space for content in this range
+        margin: 0 auto; // Center the content
+        
         .result-page-desktop-layout {
-          grid-template-columns: 380px 1fr; 
-          gap: 2rem; 
+          grid-template-columns: 280px 1fr; // Further reduced photo width for more content space
+          grid-template-rows: auto auto;
+          grid-template-areas: 
+            "photo content"
+            "legend content";
+          gap: 1rem; // Smaller gap to maximize content space
         }
         
         .result-photo-container {
-          margin-left: 2rem; 
-          margin-top: 8rem; 
+          margin-left: 0.25rem; // Minimal margin
+          margin-top: 4rem; // Reduced margin
+          max-width: 280px; // Match grid column
+          
+          .result-photo {
+            width: 260px; // Smaller photo to give more space to content
+            max-width: 260px;
+          }
+        }
+        
+        .result-content-container {
+          // Ensure content has maximum available space
+          min-width: 0;
+          overflow: visible; // Changed from hidden to visible to prevent clipping of info-popup-trigger
+          padding-right: 1.5rem; // More padding to prevent cutoff
         }
         
         .desktop-legend {
-          flex-direction: row;
-          gap: 0.5rem;
-          flex-wrap: wrap;
+          flex-direction: column; // Stack vertically to prevent cutoff
+          gap: 0.3rem; // Smaller gap
+          flex-wrap: nowrap;
           font-size: 0.7rem;
-          justify-content: center; 
-          text-align: center; 
-          margin-top: -2rem; 
+          justify-content: center; // Center vertically
+          text-align: center; // Center text
+          margin-top: -2.5rem; // Strong negative margin to pull legend much closer
+          align-items: center; // Center horizontally
+          width: 100%;
         }
       }
       
-      @media (min-width: 1200px) {
-        width: calc(100% + 8rem); 
-        margin-left: -4rem;  
-        margin-right: -4rem; 
-        max-width: none; 
-        
+      
+      
+      // Special handling for screens 1118px and larger - make trait content much wider and center legend
+      @media (min-width: 1118px) {
         .result-page-desktop-layout {
-          grid-template-columns: 500px 1fr; 
-          gap: 1.5rem; 
+          grid-template-columns: 420px 1fr; // Large photo column for proper desktop image size
+          grid-template-rows: auto auto auto;
+          grid-template-areas: 
+            "photo content"
+            "photo content"
+            "legend legend";
+          gap: 2rem; // Reduced gap to give more space to content
+          max-width: 99vw; // Use almost all viewport width
+          padding: 0 0.5rem; // Minimal padding to maximize space
+          margin: 0; // Remove any margin that might restrict width
         }
         
         .result-photo-container {
-          margin-left: 3rem; 
-          margin-top: 5rem; 
+          max-width: 420px;
+          margin-top: 4rem; // Add space from top to prevent cutoff
           
           .photo-label {
             font-size: 16px; 
             padding: 10px 16px;
             top: -20px; 
-            left: 44%; 
+            left: 48%; 
           }
           
           .result-photo {
-            width: 400px; 
+            width: 400px; // Large photo size for desktop
             max-width: 400px;
-            aspect-ratio: 3.5 / 5; 
           }
         }
         
         .desktop-legend {
-          font-size: 0.7rem; 
-          gap: 0.2rem; 
-          margin-right: 2rem; 
-          flex-direction: row; 
-          flex-wrap: nowrap;
-          white-space: nowrap; 
-          overflow: hidden; 
+          // Make legend display on one line for screens > 1117px - CENTERED
+          flex-direction: row !important; // Change from column to row
+          gap: 0.5rem !important; // Space between legend items
+          justify-content: center !important; // CENTER the legend horizontally
+          align-items: center !important; // Align items vertically
+          margin-top: -4rem !important; // Strong negative margin to pull legend WAY up closer to content
+          margin-bottom: 1rem !important; // Reduced space below legend to bring buttons closer
+          margin-left: 0 !important; // Remove left margin
+          margin-right: 0 !important; // Remove right margin
+          flex-wrap: nowrap !important; // Keep on one line
+          white-space: nowrap !important; // Prevent text wrapping
+          font-size: 0.85rem !important; // Slightly smaller for subtle look
           
-          width: calc(100% + 4rem);
-          margin-left: -2rem;
-          position: relative;
-          justify-content: center; 
-          text-align: center; 
+          span {
+            display: inline !important; // Ensure spans stay inline
+            margin: 0 !important; // Remove any margins
+            padding: 0 0.25rem !important; // Small padding for spacing
+            color: #999 !important; // Light grey color
+            font-weight: 400 !important; // Normal weight for lighter appearance
+          }
+        }
+        
+        .result-content-container {
+          padding: 0; // Remove all padding to maximize width
+          margin: 0; // Remove any margin
+          max-width: none; // Remove width restrictions to allow full expansion
+          width: 100%; // Use full available width
+          overflow: visible; // Ensure content is not clipped
+          
+          // Make the trait content area much wider to match personality code section
+          .profile-trait-section {
+            max-width: none; // Remove any width restrictions
+            width: 100%; // Use full available width
+            padding: 0; // Remove all padding
+            margin: 0; // Remove margin that might restrict width
+            overflow: visible; // Ensure content is not clipped
+            
+            p {
+              max-width: none; // Allow paragraphs to use full width
+              font-size: 0.9rem; // Keep original font size
+              width: 100%; // Use full width
+              margin-right: 0; // Remove right margin
+              padding-right: 0; // Remove right padding
+            }
+          }
+          
+          // Make tabs container wider and prevent cutoff
+          .nav.nav-tabs {
+            max-width: none;
+            width: 100%;
+            overflow: visible; // Prevent tab cutoff
+            flex-wrap: nowrap; // Keep tabs on one line for screens > 1000px
+            
+            .nav-item {
+              flex-shrink: 0; // Prevent tab shrinking
+              
+              .nav-link {
+                padding: 0.4rem 0.6rem; // Original padding - good balance
+                font-size: 0.7rem; // Original font size
+                white-space: nowrap; // Prevent text wrapping
+              }
+            }
+          }
+          
+          .tab-content {
+            max-width: none;
+            width: 100%;
+            padding: 0; // Remove any padding that might restrict width
+            overflow: visible; // Ensure content is not clipped
+          }
+        }
+      }
+      
+      // Center and position download button above legend for screens >= 1118px
+      @media (min-width: 1118px) {
+        .bottom-action-buttons {
+          display: flex !important; // Override d-none d-md-flex
+          justify-content: center !important; // Center the buttons to match the legend
+          align-items: center !important;
+          margin: 0 0 0.5rem 0 !important; // Reduced top margin to bring buttons closer to legend
+          width: 100% !important;
+          
+          .download-button {
+            margin: 0 !important; // Remove any default margins
+            padding: 0.75rem 1.5rem !important; // Good button padding
+            font-size: 0.9rem !important; // Readable font size
+            text-align: center !important;
+          }
+        }
+      }
+      
+      // Additional override for very large screens
+      @media (min-width: 1400px) {
+        .result-page-desktop-layout {
+          max-width: 99.5vw; // Use even more viewport width on very large screens
+          gap: 2.5rem; // Can afford slightly larger gap on very large screens
+        }
+        
+        .result-content-container {
+          .nav.nav-tabs {
+            gap: 1rem; // Slightly larger gap on very large screens
+            
+            .nav-item {
+              .nav-link {
+                padding: 0.35rem 0.6rem; // Slightly more padding on very large screens but still compact
+                font-size: 0.75rem; // Slightly larger font on very large screens
+                line-height: 1.2; // Maintain tight line height
+              }
+            }
+          }
         }
       }
     }
@@ -371,6 +722,14 @@
 
   @media (min-width: 768px) {
     .page-profile-traits {
+      max-width: 100%; // Ensure traits container doesn't exceed viewport
+      overflow: visible; // Allow content to be visible
+      
+      .nav.nav-tabs {
+        max-width: 100%;
+        overflow: visible;
+      }
+      
       .nav-item {
         width: auto;
         font-size: 0.75rem; 
@@ -381,27 +740,149 @@
           white-space: nowrap;
         }
         
-        @media (min-width: 992px) {
+        @media (min-width: 992px) and (max-width: 1199px) {
           font-size: 0.65rem;
+          margin-right: 0.75rem; // Add white space between tabs
           
           .nav-link {
-            padding: 0.4rem 0.6rem;
+            padding: 0.4rem 0.5rem; // Reduced padding to fit better
             font-size: 0.65rem;
           }
         }
         
-        @media (min-width: 1200px) {
-          font-size: 0.6rem;
+        // Specific handling for the problematic 1118px-1197px range
+        @media (min-width: 1118px) and (max-width: 1197px) {
+          font-size: 0.6rem; // Smaller font
+          margin-right: 0.75rem; // Add white space between tabs
           
           .nav-link {
-            padding: 0.3rem 0.5rem;
+            padding: 0.3rem 0.4rem; // Minimal padding
             font-size: 0.6rem;
           }
+        }
+        
+        @media (min-width: 1200px) {
+          font-size: 0.7rem; // Slightly larger for readability
+          margin-right: 1rem; // Add more white space between tabs on larger screens
+          
+          .nav-link {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.7rem;
+          }
+        }
+        
+        // Remove margin from last item
+        &:last-child {
+          @media (min-width: 992px) {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+
+    // Ensure trait content sections have proper spacing and don't get cut off
+    .profile-trait-section {
+      padding-left: 0;
+      padding-right: 1rem; // Add right padding to prevent cutoff
+      max-width: 100%;
+      overflow: visible;
+      
+      p {
+        font-size: 0.9rem; 
+        max-width: 100%;
+        word-wrap: break-word; // Ensure long words don't cause overflow
+      }
+      
+      @media (min-width: 992px) {
+        padding-right: 1.5rem; // More padding on larger screens
+        
+        p {
+          font-size: 0.9rem;
+        }
+      }
+      
+      // Specific handling for the problematic 1118px-1197px range
+      @media (min-width: 1118px) and (max-width: 1197px) {
+        padding-right: 2.5rem; // Maximum padding to prevent cutoff in this range
+        
+        p {
+          font-size: 0.85rem; // Slightly smaller text to fit better
+        }
+      }
+      
+      @media (min-width: 1200px) {
+        padding-right: 2rem; // Even more padding on very large screens
+        
+        p {
+          font-size: 1rem; // Slightly larger text for better readability
         }
       }
     }
   }
 
+  // New separated structure for trait tabs
+  .page-profile-trait-tabs {
+    width: 100%;
+    margin-top: 0; // Remove top margin - tabs go to the very top
+    margin-bottom: 2rem; // More space below tabs
+    margin-left: 0;
+    margin-right: 0;
+    
+    @media (max-width: 767px) {
+      display: none; // Hide on mobile
+    }
+    
+    // Fix the tabs position so the underline stays in place
+    @media (min-width: 992px) {
+      position: sticky;
+      top: 0;
+      background-color: white; // Ensure it covers content when scrolling
+      z-index: 100;
+      padding-bottom: 0.5rem; // Add padding to prevent content from touching
+      padding-top: 0; // No top padding - tabs at very top
+      
+      .nav.nav-tabs {
+        gap: 0.75rem; // Add gap between flex items
+        width: 100%; // Full width
+        
+        @media (min-width: 1200px) {
+          gap: 1rem; // More spacing on larger screens
+        }
+      }
+      
+      .nav-item {
+        margin-right: 0; // Remove margin since we're using gap
+        
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  
+  // New separated structure for trait content
+  .page-profile-trait-content {
+    width: 100%;
+    margin-top: 2.5rem; // More space from tabs
+    
+    // Style the "You scored..." heading
+    .trait-title {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      text-transform: capitalize;
+      
+      @media (min-width: 992px) {
+        font-size: 1.75rem;
+      }
+      
+      @media (min-width: 1200px) {
+        font-size: 2rem;
+      }
+    }
+  }
+  
+  // Legacy support - keep this for backward compatibility
   .page-profile-traits {
     .nav.nav-tabs {
       .nav-link {
@@ -477,6 +958,50 @@
           margin-bottom: 1rem !important;
         }
       }
+    }
+  }
+}
+
+// Style the horizontal line below trait content sections to be really light grey
+.profile-trait-section {
+  hr {
+    border-top: 1px solid #f5f5f5 !important; // Really light grey color
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    margin: 1rem 0 !important;
+  }
+  
+  // Also target any hr elements with border-t class that are generated by JavaScript
+  hr.border-t {
+    border-top-color: #bbb8b8dd !important; // Really light grey color
+  }
+}
+
+// Global override for any hr elements in trait content areas
+.tab-content hr,
+.tab-pane hr,
+#desktop-trait-content hr,
+#mobile-trait-content hr {
+  border-top: 1px solid #f5f5f5 !important; // Really light grey color
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+// Override Tailwind's border-gray-300 class that's used in JavaScript
+.border-gray-300 {
+  border-color: #f5f5f5 !important; // Really light grey color
+}
+
+// Additional overrides to ensure tab spacing works properly
+.nav.nav-tabs {
+  .nav-item {
+    margin-right: 0 !important; // Force remove any default margins
+    margin-left: 0 !important; // Force remove any default margins
+    
+    &:not(:last-child) {
+      margin-right: 0 !important; // Ensure no margin on items except last
     }
   }
 }
