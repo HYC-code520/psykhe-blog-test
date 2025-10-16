@@ -1,0 +1,575 @@
+// Individual blog post page styles
+.blog-post-wrapper {
+  @extend .psykhe-font-b2b;
+  
+  h1, h2, h3 {
+    font-family: 'Roboto', Arial, sans-serif !important;
+  }
+
+  background: white;
+  min-height: 100vh;
+  
+  .psykhe-landing {
+    background: white;
+  }
+
+  .blog-post-container {
+    width: 100%;
+    margin: 0;
+    background: white;
+    min-height: 100vh;
+  }
+
+  .blog-post-container .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+
+    @include media-breakpoint-down(sm) {
+      padding: 0 1rem;
+    }
+  }
+
+  // Brand/Navigation - same as other pages
+  .brand {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: left;
+
+    a {
+      font-size: 2rem;
+      background-image: url(/media/brand/logoword-dark-ai.png);
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-position: 0 5px;
+      color: rgba(0, 0, 0, 0);
+
+      &:active,
+      &:focus,
+      &:hover,
+      &:visited {
+        color: rgba(0, 0, 0, 0);
+      }
+
+      padding: 0;
+      display: inline-block;
+      width: 185px;
+
+      margin-left: 1rem;
+      margin-top: 1rem;
+
+      @include media-breakpoint-up(md) {
+        width: 240px;
+        top: -15px !important;
+        background-position: top center;
+      }
+    }
+  }
+
+
+  // Blog Post Article
+  .blog-post {
+    margin-top: 4rem;
+    
+    .post-header {
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 2rem;
+      text-align: center;
+
+      .post-meta {
+        margin-bottom: 1.5rem;
+
+        .post-breadcrumb {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          font-weight: 500;
+
+          .blog-link {
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+
+            &:hover {
+              color: #1d4ed8;
+              transform: scale(1.1);
+            }
+          }
+
+          .separator {
+            color: #999;
+            margin: 0 0.5rem;
+          }
+
+          .post-category {
+            color: #666;
+          }
+        }
+      }
+
+      .post-title {
+        font-size: 36px;
+        font-weight: 600;
+        color: #333;
+        line-height: 1.2;
+        margin-bottom: 2rem;
+        letter-spacing: -0.02em;
+
+        @include media-breakpoint-down(sm) {
+          font-size: 28px;
+        }
+      }
+
+      .post-author {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+
+        .author-avatar {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          object-fit: cover;
+          flex-shrink: 0;
+        }
+
+        .author-info {
+          text-align: center;
+          
+          .author-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+
+            .linkedin-link {
+              color: #0077b5;
+              text-decoration: none;
+              display: inline-flex;
+              align-items: center;
+              transition: all 0.2s ease;
+
+              &:hover {
+                color: #005885;
+                transform: translateY(-1px);
+              }
+
+              svg {
+                width: 16px;
+                height: 16px;
+              }
+            }
+          }
+
+          .author-bio {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+          }
+        }
+      }
+    }
+
+    .post-featured-image {
+      margin-bottom: 3rem;
+
+      .image-placeholder {
+        width: 100%;
+        height: 400px;
+        background: #e9ecef;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999;
+        font-size: 16px;
+        border-radius: 8px;
+
+        @include media-breakpoint-down(sm) {
+          height: 250px;
+        }
+      }
+    }
+
+    .post-content {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 4rem; /* Increased bottom margin since tags are removed */
+
+      @include media-breakpoint-down(sm) {
+        font-size: 16px;
+      }
+
+      p {
+        margin-bottom: 1.5rem;
+      }
+
+      h2 {
+        font-size: 28px;
+        font-weight: 600;
+        color: #333;
+        margin: 2.5rem 0 1.5rem;
+        line-height: 1.3;
+
+        @include media-breakpoint-down(sm) {
+          font-size: 24px;
+        }
+      }
+
+      h3 {
+        font-size: 22px;
+        font-weight: 600;
+        color: #333;
+        margin: 2rem 0 1rem;
+        line-height: 1.3;
+
+        @include media-breakpoint-down(sm) {
+          font-size: 20px;
+        }
+      }
+
+      ul, ol {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+
+        li {
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      strong {
+        font-weight: 600;
+        color: #333;
+      }
+
+      a {
+        color: #3773f2;
+        text-decoration: none;
+
+        &:hover {
+          color: #1d4ed8;
+          transform: scale(1.05);
+        }
+      }
+    }
+
+  }
+
+  // Related Posts
+  .related-posts {
+    margin: 2rem 0 4rem 0; /* Adjusted margins since newsletter is removed */
+    padding: 3rem 0;
+    border-top: 1px solid #f0f0f0;
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+
+      @include media-breakpoint-down(sm) {
+        grid-template-columns: 1fr;
+      }
+
+      .related-post-card {
+        background: white;
+        transition: transform 0.2s ease;
+        cursor: pointer;
+
+        &:hover {
+          transform: translateY(-2px);
+
+          .related-post-title a {
+            color: #1d4ed8;
+            text-decoration: none;
+            
+            &:hover {
+              transform: scale(1.05);
+            }
+          }
+        }
+
+        .related-post-image {
+          .image-placeholder {
+            width: 100%;
+            height: 150px;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+          }
+        }
+
+        .related-post-content {
+          .related-post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+
+            .related-post-category {
+              font-size: 11px;
+              color: #666;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+              background: #fafafa;
+              padding: 3px 8px;
+              border-radius: 10px;
+            }
+
+            .related-post-date {
+              font-family: 'Inter', 'Roboto', Arial, sans-serif;
+              font-size: 12px;
+              color: #999;
+            }
+          }
+
+          .related-post-title {
+            margin-bottom: 0.75rem;
+
+            a {
+              font-size: 18px;
+              font-weight: 500;
+              color: #333;
+              text-decoration: none;
+              line-height: 1.3;
+              display: block;
+              transition: all 0.2s ease;
+            }
+          }
+
+          .related-post-excerpt {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+          }
+        }
+      }
+    }
+  }
+
+
+  // More Posts Section - Card Grid Style (4 in a row)
+  .more-posts-section {
+    background: white;
+    padding: 2rem 0 4rem 0; /* Reduced top padding since newsletter is removed */
+
+    .container {
+      max-width: 1450px;
+    }
+
+    .more-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+
+      &:hover .more-post-card:not(:hover) {
+        opacity: 0.4;
+      }
+
+      @include media-breakpoint-down(lg) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @include media-breakpoint-down(md) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include media-breakpoint-down(sm) {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .more-post-card {
+        background: white;
+        transition: all 0.2s ease;
+
+        .more-post-card-link {
+          display: block;
+          text-decoration: none;
+          color: inherit;
+          cursor: pointer;
+        }
+
+        &:hover {
+          transform: translateY(-2px);
+          opacity: 1 !important;
+          
+          .more-post-title {
+            color: #1d4ed8;
+            
+            &:hover {
+              transform: scale(1.05);
+            }
+          }
+        }
+
+        .more-post-image {
+          width: 100%;
+          height: 200px;
+          background: #e9ecef;
+          margin-bottom: 1rem;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #999;
+          font-size: 14px;
+
+          img {
+            display: none; // Hide images for now
+          }
+
+          span {
+            font-size: 14px;
+            color: #999;
+          }
+        }
+
+        .more-post-content {
+          .more-post-meta {
+            margin-bottom: 0.75rem;
+
+            .more-post-date {
+              font-family: 'Inter', 'Roboto', Arial, sans-serif;
+              font-size: 13px;
+              color: #999;
+            }
+          }
+
+          .more-post-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.4;
+            margin: 0 0 0.75rem 0;
+          }
+
+          .more-post-excerpt {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@include media-breakpoint-down(sm) {
+  .blog-post-wrapper {
+    .blog-post-container {
+      margin: 0;
+      
+      .container {
+        text-align: center;
+        padding: 0 1.5rem;
+      }
+    }
+    
+    .blog-post {
+      .post-header {
+        text-align: center;
+        
+        .post-meta {
+          justify-content: center;
+          
+          .post-breadcrumb {
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+            
+            .blog-link {
+              font-size: inherit;
+              font-weight: inherit;
+            }
+            
+            .separator {
+              font-size: inherit;
+              font-weight: inherit;
+            }
+            
+            .post-category {
+              font-size: inherit;
+              font-weight: inherit;
+            }
+          }
+        }
+        
+        .post-title {
+          font-size: 32px;
+          text-align: center;
+          line-height: 1.2;
+          
+          @include media-breakpoint-down(xs) {
+            font-size: 28px;
+          }
+        }
+        
+        .post-author {
+          justify-content: center;
+          text-align: center;
+          
+          .author-info {
+            text-align: center;
+          }
+        }
+      }
+      
+      .post-featured-image {
+        text-align: center;
+      }
+      
+      .post-content {
+        text-align: left;
+      }
+      
+    }
+    
+    .related-posts {
+      margin: 2rem 0;
+      padding: 2rem 0;
+      text-align: center;
+      
+      h2 {
+        text-align: center;
+      }
+    }
+    
+    
+    .more-posts-section {
+      text-align: center;
+      
+      .container {
+        text-align: center;
+      }
+    }
+  }
+}

@@ -1,0 +1,908 @@
+// Blog styles inspired by Cimulate AI clean design
+.newsroom-wrapper {
+  @extend .psykhe-font-b2b;
+  
+  h1, h2, h3 {
+    font-family: 'Roboto', Arial, sans-serif !important;
+  }
+
+  background: white;
+  min-height: 100vh;
+  
+  .psykhe-landing {
+    background: white;
+  }
+
+  .newsroom-container {
+    width: 100%;
+    margin: 0;
+    background: white;
+    min-height: 100vh;
+  }
+
+  .newsroom-container .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+
+    @include media-breakpoint-down(sm) {
+      padding: 0 1rem;
+    }
+  }
+
+  // Brand/Navigation - same as other pages
+  .brand {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: left;
+
+    a {
+      font-size: 2rem;
+      background-image: url(/media/brand/logoword-dark-ai.png);
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-position: 0 5px;
+      color: rgba(0, 0, 0, 0);
+
+      &:active,
+      &:focus,
+      &:hover,
+      &:visited {
+        color: rgba(0, 0, 0, 0);
+      }
+
+      padding: 0;
+      display: inline-block;
+      width: 185px;
+
+      margin-left: 1rem;
+      margin-top: 1rem;
+
+      @include media-breakpoint-up(md) {
+        width: 240px;
+        top: -15px !important;
+        background-position: top center;
+      }
+    }
+  }
+
+  // Header Section - Cimulate AI Style
+  .blog-header {
+    padding: 4rem 0 3rem;
+    text-align: center;
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+
+      .blog-label {
+        font-family: 'Inter', 'Roboto', Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      margin-bottom: 1rem;
+        display: block;
+      }
+
+      h1 {
+        font-size: 56px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+
+        @include media-breakpoint-down(md) {
+          font-size: 44px;
+        }
+
+        @include media-breakpoint-down(sm) {
+          font-size: 36px;
+        }
+      }
+    }
+  }
+
+  // Blog Posts Grid - Card Layout
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 4rem;
+
+    @include media-breakpoint-down(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-breakpoint-down(sm) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .blog-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid #e5e7eb;
+
+      &:hover {
+        transform: translateY(-4px);
+      }
+
+      .blog-card-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .blog-card-image {
+        width: 100%;
+        height: 260px;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .image-placeholder {
+          width: 100%;
+          height: 100%;
+          background: #e5e7eb;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #9ca3af;
+          font-size: 14px;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+      }
+
+      .blog-card-content {
+        flex: 1;
+
+        .category-tag {
+            font-family: 'Inter', 'Roboto', Arial, sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+            text-transform: uppercase;
+          letter-spacing: 1px;
+          margin-bottom: 0.75rem;
+          display: inline-block;
+          color: #000;
+        }
+
+        .blog-title {
+          font-size: 24px;
+          font-weight: 700;
+          color: #1a1a1a;
+          line-height: 1.3;
+          margin-bottom: 0.75rem;
+          transition: color 0.2s ease;
+
+            @include media-breakpoint-down(sm) {
+            font-size: 20px;
+          }
+        }
+
+        .blog-meta {
+          .blog-date {
+            font-family: 'Inter', 'Roboto', Arial, sans-serif;
+          font-size: 14px;
+            color: #6b7280;
+            font-weight: 400;
+          }
+        }
+      }
+
+      .read-more {
+        margin-top: 1rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid #f3f4f6;
+
+        span {
+          display: inline-block;
+          padding: 8px 16px;
+          background: linear-gradient(to right, #2b2f8e, #38439d 15%, #6486cf 50%, #7faee7 75%, #a7cbad);
+          color: white;
+          font-family: 'Inter', 'Roboto', Arial, sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          border-radius: 0;
+      transition: all 0.2s ease;
+        }
+      }
+
+      &:hover {
+        .blog-title {
+          background: linear-gradient(89.21deg, #ca43d7 0.54%, #3773f2 49.86%, #c0f771 95.21%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .read-more span {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+
+  // Book a Demo CTA
+  .blog-cta {
+    text-align: center;
+    margin: 4rem 0;
+    padding: 2rem 0;
+
+    .cta-button {
+      display: inline-block;
+      padding: 14px 32px;
+      background: #000;
+      color: white;
+      font-family: 'Inter', 'Roboto', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-radius: 0;
+      text-decoration: none;
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@include media-breakpoint-down(sm) {
+  .newsroom-wrapper {
+    .newsroom-container {
+      margin: 0;
+      width: 100%;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      padding: 0 1rem;
+      width: 100%;
+      max-width: 100%;
+    }
+    
+    .featured-grid {
+      margin-bottom: 2rem;
+    }
+    
+    .articles-list {
+      .article-row {
+        padding: 0;
+        
+        .article-row-link {
+          padding: 1rem 0;
+        }
+      }
+    }
+    
+    .newsroom-header {
+      .container {
+        padding: 0 1rem;
+      }
+    }
+  }
+}
+
+// Individual Blog Post Styles
+.blog-post {
+  .post-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .post-breadcrumb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: #888;
+
+    a {
+      color: #888;
+      text-decoration: none;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+
+  .post-title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 32px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .post-author {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    .author-info {
+      text-align: center;
+      
+      .author-name {
+        font-weight: 600;
+        margin-bottom: 4px;
+        justify-content: center;
+      }
+
+      .author-role {
+        font-size: 14px;
+        color: #888;
+      }
+    }
+  }
+
+  .post-content {
+    line-height: 1.7;
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
+
+    h2 {
+      font-size: 32px;
+      font-weight: 600;
+      margin: 48px 0 24px 0;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 36px 0 18px 0;
+    }
+
+    p {
+      margin-bottom: 24px;
+    }
+
+    ul, ol {
+      margin: 24px 0;
+      padding-left: 0;
+
+      li {
+        margin-bottom: 8px;
+        position: relative;
+        padding-left: 2rem;
+        list-style: none !important;
+      }
+    }
+
+    // Unordered list styling (bullet points)
+    ul {
+      li {
+        &:before {
+          content: '•' !important;
+          position: absolute !important;
+          left: 0 !important;
+          top: 0 !important;
+          font-size: 20px !important;
+          font-weight: bold !important;
+          color: #6b7280 !important;
+          display: block !important;
+        }
+      }
+    }
+
+    // Ordered list styling (numbers)
+    ol {
+      counter-reset: list-counter;
+      
+      li {
+        counter-increment: list-counter;
+        
+        &:before {
+          content: counter(list-counter) '.' !important;
+          position: absolute !important;
+          left: 0 !important;
+          top: 0 !important;
+          font-size: 18px !important;
+          font-weight: 600 !important;
+          color: #374151 !important;
+          display: block !important;
+        }
+      }
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+  }
+}
+
+// Individual Blog Post Page - Cimulate AI Style
+.blog-post-article {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+
+  .post-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+
+    .post-breadcrumb {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 1.5rem;
+      font-size: 14px;
+
+      a {
+        color: #000;
+        text-decoration: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: #6b7280;
+        }
+      }
+
+      span {
+        color: #6b7280;
+      }
+
+      .category-tag {
+        background: linear-gradient(89.21deg, #ca43d7 0.54%, #3773f2 49.86%, #c0f771 95.21%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    }
+
+    .post-title {
+      font-size: 64px;
+      font-weight: 800;
+      color: #0a0a0a;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      letter-spacing: -0.03em;
+      max-width: 100%;
+
+      @include media-breakpoint-down(md) {
+        font-size: 48px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        font-size: 36px;
+      }
+    }
+
+    .post-featured-image {
+      width: 100%;
+      max-width: 650px;
+      aspect-ratio: 4 / 3;
+      margin: 0 auto 2rem;
+      border-radius: 12px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .image-placeholder {
+        width: 100%;
+        height: 100%;
+        background: #e5e7eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #9ca3af;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        border-radius: 8px;
+      }
+    }
+
+    .post-author {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+
+      .author-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .author-info {
+        text-align: left;
+
+        .author-name-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 4px;
+        }
+
+        .author-name {
+          font-size: 16px;
+          font-weight: 600;
+          color: #1a1a1a;
+        }
+
+        .author-role {
+          font-size: 14px;
+          color: #6b7280;
+        }
+
+        .linkedin-link {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 20px;
+          height: 20px;
+          color: #0077b5;
+          text-decoration: none;
+          transition: all 0.2s ease;
+
+          &:hover {
+            color: #005885;
+            transform: scale(1.1);
+          }
+
+          svg {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .post-content {
+    line-height: 1.8;
+    font-size: 17px;
+    color: #374151;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 0 1rem;
+
+    @include media-breakpoint-down(md) {
+      padding: 0 2rem;
+      font-size: 16px;
+    }
+
+    @include media-breakpoint-down(sm) {
+      padding: 0 1.5rem;
+      font-size: 15px;
+    }
+
+    h1 {
+      color: #1a1a1a;
+      font-weight: 700;
+      margin: 3rem 0 1.5rem 0;
+      line-height: 1.2;
+      font-size: 55px;
+      letter-spacing: -0.02em;
+
+      @include media-breakpoint-down(md) {
+        font-size: 42px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        font-size: 36px;
+      }
+    }
+
+    h2 {
+      color: #2d2d2d;
+      font-weight: 600;
+      margin: 2.5rem 0 1rem 0;
+      line-height: 1.3;
+      font-size: 24px;
+      letter-spacing: -0.01em;
+
+      @include media-breakpoint-down(md) {
+        font-size: 22px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        font-size: 20px;
+      }
+    }
+
+    h3, h4, h5, h6 {
+      color: #4a4a4a;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem 0;
+      line-height: 1.4;
+      font-size: 19px;
+
+      @include media-breakpoint-down(md) {
+        font-size: 18px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        font-size: 17px;
+      }
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 16px;
+      line-height: 1.75;
+      color: #5a5a5a;
+      font-weight: 400;
+
+      @include media-breakpoint-down(md) {
+        font-size: 15px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        font-size: 15px;
+        line-height: 1.7;
+      }
+    }
+
+    ul, ol {
+      margin: 2rem 0;
+      padding-left: 0;
+      font-size: 16px;
+      color: #5a5a5a;
+
+      li {
+        margin-bottom: 0.8rem;
+        line-height: 1.75;
+        position: relative;
+        padding-left: 2rem;
+        list-style: none !important;
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      @include media-breakpoint-down(md) {
+        font-size: 15px;
+        
+        li {
+          font-size: 15px;
+        }
+      }
+
+      @include media-breakpoint-down(sm) {
+        font-size: 15px;
+        
+        li {
+          font-size: 15px;
+        }
+      }
+    }
+
+    // Unordered list styling (bullet points)
+    ul {
+      li {
+        &:before {
+          content: '•' !important;
+          position: absolute !important;
+          left: 0 !important;
+          top: 0 !important;
+          font-size: 20px !important;
+          font-weight: bold !important;
+          color: #6b7280 !important;
+          display: block !important;
+        }
+      }
+    }
+
+    // Ordered list styling (numbers)
+    ol {
+      counter-reset: list-counter;
+      
+      li {
+        counter-increment: list-counter;
+        
+        &:before {
+          content: counter(list-counter) '.' !important;
+          position: absolute !important;
+          left: 0 !important;
+          top: 0 !important;
+          font-size: 18px !important;
+          font-weight: 600 !important;
+          color: #374151 !important;
+          display: block !important;
+        }
+      }
+    }
+
+    blockquote {
+      border-left: 4px solid #e5e7eb;
+      padding-left: 2rem;
+      margin: 3rem 0;
+      font-style: italic;
+      color: #6b7280;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    pre {
+      background: #1f2937;
+      color: #f9fafb;
+      padding: 1.5rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 2rem 0;
+
+      code {
+        background: none;
+        padding: 0;
+        border-radius: 0;
+        font-size: 0.9em;
+      }
+    }
+
+    a {
+      color: #3b82f6;
+      text-decoration: underline;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: #1d4ed8;
+        transform: scale(1.05);
+        text-decoration: none;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+
+    em {
+      font-style: italic;
+      font-size: 18px;
+    }
+
+    strong {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    @include media-breakpoint-down(md) {
+      padding: 0 2rem;
+
+      h1, h2, h3, h4, h5, h6 {
+        font-size: 32px;
+      }
+
+      p, ul, ol, blockquote, em, strong {
+        font-size: 16px;
+      }
+
+      ul, ol {
+        font-size: 16px;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      h1, h2, h3, h4, h5, h6 {
+        font-size: 28px;
+      }
+
+      p, ul, ol, blockquote, em, strong {
+        font-size: 16px;
+      }
+
+      ul, ol {
+        font-size: 16px;
+      }
+    }
+  }
+
+  // Book a Demo CTA in blog posts
+  .blog-cta {
+    text-align: center;
+    margin: 4rem auto 2rem;
+    padding: 2rem 0 0;
+    border-top: 1px solid #e5e7eb;
+    max-width: 650px;
+
+    .cta-button {
+      display: inline-block;
+      padding: 14px 32px;
+      background: #000;
+      color: white;
+      font-family: 'Inter', 'Roboto', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-radius: 0;
+      text-decoration: none;
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+}
+
+// Responsive adjustments for blog posts
+@include media-breakpoint-down(sm) {
+  .blog-post {
+    .post-title {
+      font-size: 32px;
+    }
+
+    .post-content {
+      font-size: 16px;
+
+      h2 {
+        font-size: 24px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+    }
+  }
+}

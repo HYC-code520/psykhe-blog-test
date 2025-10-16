@@ -4,22 +4,32 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "tinacms build && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "biome lint --write .",
     "lint:fix": "biome check --write .",
-    "prepare": "lefthook install"
+    "prepare": "lefthook install",
+    "tina:build": "tinacms build",
+    "tina:dev": "tinacms dev -c \"npm run dev\""
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.7",
     "@tailwindcss/vite": "^4.1.12",
-    "astro": "^5.13.3"
+    "@tinacms/auth": "^1.1.0",
+    "@tinacms/cli": "^1.11.0",
+    "@tinacms/datalayer": "^1.4.1",
+    "astro": "^5.13.3",
+    "tinacms": "^2.9.0",
+    "tinacms-authjs": "^12.0.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.4",
     "@biomejs/biome": "2.2.2",
     "@tailwindcss/typography": "^0.5.16",
     "lefthook": "^1.12.3",
     "sass": "^1.91.0",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.9.3"
   }
 }

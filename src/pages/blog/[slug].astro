@@ -1,0 +1,155 @@
+---
+import { getCollection } from "astro:content";
+import Footer from "../../components/Footer.astro";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+    const blogEntries = await getCollection("blog");
+    return blogEntries.map((entry) => ({
+        params: { slug: entry.slug },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={`${entry.data.title} | PSYKHE`}>
+  <div class="newsroom-wrapper">
+    <div class="psykhe-landing">
+      <div class="newsroom-container">
+        
+        <!-- Brand/Navigation -->
+        <div class="brand">
+          <a href="/">PSYKHE AI</a>
+        </div>
+
+        <!-- Blog Post -->
+        <div class="container">
+          <article class="blog-post-article">
+            <div class="post-header">
+              <div class="post-breadcrumb">
+                <a href="/blog/">BLOG</a>
+                <span>/</span>
+                <span class="category-tag">{entry.data.category.toUpperCase()}</span>
+              </div>
+              
+              <h1 class="post-title">{entry.data.title}</h1>
+              
+              <div class="post-featured-image">
+                <div class="image-placeholder">
+                  <span>Feature Image</span>
+                </div>
+              </div>
+              
+              <div class="post-author">
+                <div class="author-avatar">
+                  <img src="/media/blog/authors/Anabel-author-photo.jpeg" alt={entry.data.author} />
+                </div>
+                <div class="author-info">
+                  <div class="author-name-row">
+                    <span class="author-name">{entry.data.author}</span>
+                    <a href="https://www.linkedin.com/in/anabel-maldonado/" class="linkedin-link" target="_blank" rel="noopener noreferrer">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="currentColor"/>
+                      </svg>
+                    </a>
+                  </div>
+                  <div class="author-role">{entry.data.authorRole}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="post-content">
+              <Content />
+            </div>
+
+            <!-- Book a Demo CTA -->
+            <div class="blog-cta">
+              <a href="/#contact" class="cta-button">Book a Demo</a>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </div>
+
+    <Footer />
+  </div>
+</Layout>
+
+<style lang="scss">
+@import '../../styles/app.scss';
+
+.newsroom-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.psykhe-landing {
+  flex: 1;
+}
+
+/* Override BLOG breadcrumb hover - no gradient! */
+:global(.post-breadcrumb a:hover) {
+  color: #6b7280 !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+  text-fill-color: unset !important;
+}
+
+/* Global styles for MDX content - not scoped */
+:global(.post-content ul) {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 2rem 0 !important;
+}
+
+:global(.post-content ul li) {
+  position: relative !important;
+  padding-left: 2rem !important;
+  margin-bottom: 0.8rem !important;
+  list-style: none !important;
+}
+
+:global(.post-content ul li:before) {
+  content: '•' !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  font-size: 20px !important;
+  font-weight: bold !important;
+  color: #6b7280 !important;
+  display: block !important;
+}
+
+:global(.post-content ol) {
+  list-style: none !important;
+  counter-reset: list-counter !important;
+  padding-left: 0 !important;
+  margin: 2rem 0 !important;
+}
+
+:global(.post-content ol li) {
+  position: relative !important;
+  padding-left: 2rem !important;
+  margin-bottom: 0.8rem !important;
+  list-style: none !important;
+  counter-increment: list-counter !important;
+}
+
+:global(.post-content ol li:before) {
+  content: counter(list-counter) '.' !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+  display: block !important;
+}
+</style>
