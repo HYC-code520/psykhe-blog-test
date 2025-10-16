@@ -1,0 +1,26 @@
+---
+title: "Your Engaging Blog Post Title Here"
+excerpt: "A compelling 1-2 sentence description that makes people want to read more. This appears on the blog listing page."
+publishDate: 2024-10-16  # Use today's date (YYYY-MM-DD format)
+category: "Psychology"    # Choose: Psychology, Research, Technology, or Insights
+author: "Anabel Maldonado"
+authorRole: "Founder & CEO @ PSYKHE AI"
+featuredImage: "/media/blog/your-image.jpg"  # Optional - add your image path or remove this line
+featured: true           # Set to true for important posts, false for regular posts
+---
+
+Write your blog post content here using simple markdown formatting.
+
+## Use Headers Like This for Main Sections
+
+Write your paragraphs normally.
+
+### Smaller Headers Work Great Too
+
+- Use bullet points for key insights
+- Make lists easy to scan
+- Include actionable takeaways
+
+**Bold text** for important points that need emphasis.
+
+*Italic text* for subtle emphasis or quotes.
